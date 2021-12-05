@@ -10,4 +10,6 @@ return array(
 	'username' => 'root',
 	'password' => 'psmysql22112021%',
 	'charset' => 'utf8',
+    'enableProfiling' => true,
+    'enableParamLogging' => true,
 );

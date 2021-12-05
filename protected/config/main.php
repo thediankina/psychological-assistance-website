@@ -10,7 +10,7 @@ return array(
 	'name'=>'My Web Application',
 
 	// preloading 'log' component
-	'preload'=>array('log'),
+	'preload'=>array('log', 'debug'),
 
 	// autoloading model and component classes
 	'import'=>array(
@@ -49,6 +49,7 @@ return array(
 			),
 		),
 		*/
+        'debug' => array('class' => 'ext.yii2-debug.Yii2Debug'),
 
 		// database settings are configured in database.php
 		'db'=>require(dirname(__FILE__).'/database.php'),
