@@ -8,16 +8,14 @@ $this->pageTitle=Yii::app()->name . ' - Заявки';
 $this->breadcrumbs=array(
     'Заявки',
 );
-
-/** $this->menu=array(
-array('label'=>'Управление заявками', 'url'=>array('admin')),
-); */
 ?>
 
-<h1>Список заявок</h1>
+<h1 class="title">Личный кабинет</h1>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
     'dataProvider'=>$dataProvider,
+    'enablePagination'=>false,
+    'summaryText' => 'Всего найдено ' . $dataProvider->itemCount . ' записей',
     'columns'=>array(
         'city_name.name',
         array(

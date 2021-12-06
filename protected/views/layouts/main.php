@@ -1,4 +1,9 @@
-<?php /* @var $this Controller */ ?>
+<?php
+/**
+ * @var $this Controller
+ * @var $content
+ */
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,45 +20,35 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
+
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
 <body>
 
-<div class="container" id="page">
+<div id="mainmenu">
+    <?php $menuLabels = array(
+        'menu' => 'Меню',
+        'username' => Yii::app()->user->name,
+        'account' => 'Моя учетная запись',
+        'logout' => 'Выйти',
+    ); ?>
+    <?php $this->widget('zii.widgets.CMenu', array(
+        'items' => array(
+            array('label' => $menuLabels['menu'], 'url' => array('/site/index')),
+            array('label' => $menuLabels['username'], 'url' => array('/site/contact'), 'visible' => Yii::app()->user->isGuest, 'class' => 'right-side-menu'),
+            array('label' => $menuLabels['account'], 'url' => array('/site/contact'), 'visible' => Yii::app()->user->isGuest, 'class' => 'right-side-menu'),
+            array('label' => $menuLabels['logout'] , 'url' => array('/site/logout'), 'visible' => Yii::app()->user->isGuest, 'class' => 'right-side-menu')
+        ),
+    )); ?>
+</div><!-- mainmenu -->
 
-	<div id="header">
-		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
-	</div><!-- header -->
+<?php echo $content; ?>
 
-	<div id="mainmenu">
-		<?php $this->widget('zii.widgets.CMenu',array(
-			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-				array('label'=>'Contact', 'url'=>array('/site/contact')),
-				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-			),
-		)); ?>
-	</div><!-- mainmenu -->
-	<?php if(isset($this->breadcrumbs)):?>
-		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
-			'links'=>$this->breadcrumbs,
-		)); ?><!-- breadcrumbs -->
-	<?php endif?>
-
-	<?php echo $content; ?>
-
-	<div class="clear"></div>
-
-	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
-		All Rights Reserved.<br/>
-		<?php echo Yii::powered(); ?>
-	</div><!-- footer -->
-
-</div><!-- page -->
+<div class="clear"></div>
 
 </body>
 </html>

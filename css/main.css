@@ -2,24 +2,17 @@ body
 {
 	margin: 0;
 	padding: 0;
-	color: #555;
+	color: #000000;
 	font: normal 10pt Arial,Helvetica,sans-serif;
-	background: #EFEFEF;
+	background-color: #FFFFFF;
 }
 
 #page
 {
-	margin-top: 5px;
-	margin-bottom: 5px;
-	background: white;
-	border: 1px solid #C9E0ED;
 }
 
 #header
 {
-	margin: 0;
-	padding: 0;
-	border-top: 3px solid #C9E0ED;
 }
 
 #content
@@ -34,11 +27,6 @@ body
 
 #footer
 {
-	padding: 10px;
-	margin: 10px 20px;
-	font-size: 0.8em;
-	text-align: center;
-	border-top: 1px solid #C9E0ED;
 }
 
 #logo
@@ -49,13 +37,15 @@ body
 
 #mainmenu
 {
-	background:white url(bg.gif) repeat-x left top;
+	background: #52A4BE;
+	border: 1px #000000 solid;
 }
 
 #mainmenu ul
 {
-	padding:6px 20px 5px 20px;
+	padding:10px 20px 10px 20px;
 	margin:0px;
+	text-align: right;
 }
 
 #mainmenu ul li
@@ -67,7 +57,9 @@ body
 {
 	color:#ffffff;
 	background-color:transparent;
-	font-size:12px;
+	font-family: 'Roboto', sans-serif;
+	font-style: normal;
+	font-size: 1.1em;
 	font-weight:bold;
 	text-decoration:none;
 	padding:5px 8px;
@@ -75,8 +67,7 @@ body
 
 #mainmenu ul li a:hover, #mainmenu ul li.active a
 {
-	color: #6399cd;
-	background-color:#EFF4FA;
+	color: #438397;
 	text-decoration:none;
 }
 
@@ -226,4 +217,58 @@ div.search-form
 .operations li a:hover
 {
 	background: #80CFFF;
+}
+
+.title
+{
+	font-family: 'Roboto', sans-serif;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 1.8em;
+	margin-top: 30px;
+}
+
+.grid-view table.items
+{
+	border-collapse: collapse !important;
+	border: 1px #000000 solid !important;
+}
+
+.grid-view table.items th, .grid-view table.items td
+{
+	font-size: 1em !important;
+	text-align: center;
+}
+
+.grid-view table.items th
+{
+	background: #52A4BE !important;
+	border: 1px #000000 solid !important;
+}
+
+.grid-view table.items td
+{
+	background-color: #FFFFFF;
+	border-right: 1px #000000 solid !important;
+	border-left: 1px #000000 solid !important;
+	border-top: 1px #C4C4C4 solid !important;
+	border-bottom: 1px #C4C4C4 solid !important;
+	padding: 0.4em !important;
+}
+
+.grid-view table.items tr.selected
+{
+}
+
+.grid-view table.items tr:hover.selected
+{
+}
+
+.grid-view table.items tbody tr:hover
+{
+}
+
+.grid-view .button-column
+{
+	width: 40px !important;
 }
