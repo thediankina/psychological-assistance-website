@@ -1,9 +1,9 @@
 <?php
 /**
- * @var $this RequestController
+ * @var $this OfficeController
  * @var $dataProvider CActiveDataProvider
  */
-$this->pageTitle = 'Все заявки';
+$this->pageTitle = 'Личный кабинет';
 ?>
 
 <h1 class="title"><?php echo $this->pageTitle; ?></h1>
