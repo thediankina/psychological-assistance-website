@@ -1,74 +1,62 @@
 body
 {
-	margin: 0;
-	padding: 0;
-	color: #000000;
-	font: normal 10pt Arial,Helvetica,sans-serif;
 	background-color: #FFFFFF;
-}
-
-#page
-{
-}
-
-#header
-{
+	padding: 0;
+	margin: 0;
 }
 
 #content
 {
-    padding: 20px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: normal;
+	font-size: 0.8em;
+	padding: 0 20px;
 }
 
-#sidebar
+#menu
 {
-	padding: 20px 20px 20px 0;
-}
-
-#footer
-{
-}
-
-#logo
-{
-	padding: 10px 20px;
-	font-size: 200%;
-}
-
-#mainmenu
-{
-	background: #52A4BE;
+	background-color: #52A4BE;
 	border: 1px #000000 solid;
 }
 
-#mainmenu ul
+#menu ul
 {
-	padding:10px 20px 10px 20px;
-	margin:0px;
-	text-align: right;
+	display: flex;
+	justify-content: space-between;
+	padding: 0 20px;
+	margin: 0;
 }
 
-#mainmenu ul li
+#menu ul li
 {
-	display: inline;
+	list-style-type: none;
 }
 
-#mainmenu ul li a
+#menu-items
 {
-	color:#ffffff;
-	background-color:transparent;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	align-items: center;
+}
+
+#menu-items li
+{
+	padding-left: 20px;
+}
+
+#menu ul li a
+{
 	font-family: 'Roboto', sans-serif;
-	font-style: normal;
-	font-size: 1.1em;
-	font-weight:bold;
-	text-decoration:none;
-	padding:5px 8px;
+	font-weight: bold;
+	font-size: 1em;
+	color: #FFFFFF;
+	text-decoration: none;
 }
 
-#mainmenu ul li a:hover, #mainmenu ul li.active a
+#menu ul li a:hover
 {
 	color: #438397;
-	text-decoration:none;
+	text-decoration: none;
 }
 
 div.flash-error, div.flash-notice, div.flash-success
@@ -225,35 +213,35 @@ div.search-form
 	font-style: normal;
 	font-weight: bold;
 	font-size: 1.8em;
-	margin-top: 30px;
+	margin-top: 50px;
 }
 
 .grid-view table.items
 {
-	border-collapse: collapse !important;
-	border: 1px #000000 solid !important;
+	border-collapse: collapse;
+	border: 1px #000000 solid;
 }
 
 .grid-view table.items th, .grid-view table.items td
 {
-	font-size: 1em !important;
+	font-size: 1em;
 	text-align: center;
 }
 
 .grid-view table.items th
 {
-	background: #52A4BE !important;
-	border: 1px #000000 solid !important;
+	background: #52A4BE;
+	border: 1px #000000 solid;
 }
 
 .grid-view table.items td
 {
 	background-color: #FFFFFF;
-	border-right: 1px #000000 solid !important;
-	border-left: 1px #000000 solid !important;
-	border-top: 1px #C4C4C4 solid !important;
-	border-bottom: 1px #C4C4C4 solid !important;
-	padding: 0.4em !important;
+	border-right: 1px #000000 solid;
+	border-left: 1px #000000 solid;
+	border-top: 1px #C4C4C4 solid;
+	border-bottom: 1px #C4C4C4 solid;
+	padding: 0.4em;
 }
 
 .grid-view table.items tr.selected
@@ -270,5 +258,5 @@ div.search-form
 
 .grid-view .button-column
 {
-	width: 40px !important;
+	width: 40px;
 }

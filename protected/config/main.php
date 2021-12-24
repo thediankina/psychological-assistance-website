@@ -40,17 +40,11 @@ return array(
 			'allowAutoLogin'=>true,
 		),
 
-		// uncomment the following to enable URLs in path-format
-		/*
 		'urlManager'=>array(
 			'urlFormat'=>'path',
-			'rules'=>array(
-				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
-				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-			),
+            'showScriptName'=>false,
 		),
-		*/
+
         'debug' => array('class' => 'ext.yii2-debug.Yii2Debug'),
 
 		// database settings are configured in database.php
