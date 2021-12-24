@@ -32,10 +32,19 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/main.css')
             </li>
             <div id="menu-items">
                 <li>
+                    <?php if (!Yii::app()->user->isGuest): ?>
+                        <a href="#"><?php echo CHtml::encode(Yii::app()->user->name); ?></a>
+                    <?php endif; ?>
+                </li>
+                <li>
                     <a href="#">Меню</a>
                 </li>
                 <li>
-                    <a href="#">Выйти</a>
+                    <?php if (Yii::app()->user->isGuest): ?>
+                        <a href="/main/login">Войти</a>
+                    <?php else: ?>
+                        <a href="/main/logout">Выйти</a>
+                    <?php endif; ?>
                 </li>
             </div>
         </ul>

@@ -1,19 +1,19 @@
 <?php
 /**
  * @var $this OfficeController
- * @var $dataProvider CActiveDataProvider
+ * @var $dataProvider Request
  */
+
 $this->pageTitle = 'Личный кабинет';
 ?>
 
-<h1 class="title"><?php echo $this->pageTitle; ?></h1>
+<h1><?php echo $this->pageTitle; ?></h1>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
     'dataProvider' => $dataProvider,
     'enablePagination' => false,
-    'summaryText' => 'Всего найдено ' . $dataProvider->itemCount . ' записей',
     'columns' => array(
-        'city_name.name',
+        'city.name',
         array(
             'name' => 'category.category_name',
             'value' => function ($model) {
@@ -22,7 +22,12 @@ $this->pageTitle = 'Личный кабинет';
         ),
         'category.priority',
         'status',
-        'subject',
+        array(
+            'name' => 'Назначено',
+            'value' => function ($model) {
+                return $model->user->username;
+            }
+        ),
         array(
             'class' => 'CButtonColumn',
             'template' => '{update}',

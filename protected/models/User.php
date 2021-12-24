@@ -1,23 +1,23 @@
 <?php
 
 /**
- * This is the model class for table "db_city".
+ * This is the model class for table "db_user".
  *
- * The followings are the available columns in table 'db_city':
+ * The followings are the available columns in table 'db_user':
  * @property integer $id
- * @property integer $indexDep
- * @property string $address
- * @property string $phoneDep
- * @property string $name
+ * @property string $username
+ * @property string $password
+ * @property string $email
+ * @property string $profile
  */
-class City extends CActiveRecord
+class User extends CActiveRecord
 {
     /**
      * @return string the associated database table name
      */
     public function tableName()
     {
-        return 'db_city';
+        return 'db_user';
     }
 
     /**
@@ -25,12 +25,16 @@ class City extends CActiveRecord
      */
     public function rules()
     {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
         return array(
-            array('indexDep, address, name', 'required'),
-            array('indexDep', 'numerical', 'integerOnly'=>true),
-            array('address', 'length', 'max'=>100),
-            array('phoneDep, name', 'length', 'max'=>128),
-            array('id, name', 'safe', 'on'=>'search'),
+            array('username, password', 'required'),
+            array('username, password', 'length', 'max' => 255),
+            array('email', 'length', 'max' => 100),
+            array('profile', 'safe'),
+            // The following rule is used by search().
+            // @todo Please remove those attributes that should not be searched.
+            array('id, username, password, email, profile', 'safe', 'on' => 'search'),
         );
     }
 
@@ -42,7 +46,6 @@ class City extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'request' => array(self::HAS_MANY, 'Request', 'id_city'),
         );
     }
 
@@ -52,11 +55,11 @@ class City extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => 'ID',
-            'indexDep' => 'Index Dep',
-            'address' => 'Address',
-            'phoneDep' => 'Phone Dep',
-            'name' => 'Город',
+            'id' => 'ИД',
+            'username' => 'Пользователь',
+            'password' => 'Пароль',
+            'email' => 'Электронная почта',
+            'profile' => 'Профиль',
         );
     }
 
@@ -74,16 +77,16 @@ class City extends CActiveRecord
      */
     public function search()
     {
-        $criteria=new CDbCriteria;
+        $criteria = new CDbCriteria;
 
-        $criteria->compare('id',$this->id);
-        $criteria->compare('indexDep',$this->indexDep);
-        $criteria->compare('address',$this->address,true);
-        $criteria->compare('phoneDep',$this->phoneDep,true);
-        $criteria->compare('name',$this->name,true);
+        $criteria->compare('id', $this->id);
+        $criteria->compare('username', $this->username, true);
+        $criteria->compare('password', $this->password, true);
+        $criteria->compare('email', $this->email, true);
+        $criteria->compare('profile', $this->profile, true);
 
         return new CActiveDataProvider($this, array(
-            'criteria'=>$criteria,
+            'criteria' => $criteria,
         ));
     }
 
@@ -91,7 +94,7 @@ class City extends CActiveRecord
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
      * @param string $className active record class name.
-     * @return City the static model class
+     * @return User the static model class
      */
     public static function model($className=__CLASS__)
     {
