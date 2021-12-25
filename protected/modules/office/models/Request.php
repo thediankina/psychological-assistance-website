@@ -57,16 +57,16 @@ class Request extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => 'ИД',
+            'id' => 'ID',
             'name' => 'Имя/Псевдоним',
-            'id_category' => 'ИД категории',
+            'id_category' => 'ID категории',
             'body' => 'Описание',
-            'id_city' => 'ИД города',
+            'id_city' => 'ID города',
             'email' => 'Почта',
             'phone' => 'Телефон',
             'comment' => 'Комментарий',
             'status' => 'Статус',
-            'id_user' => 'ИД пользователя',
+            'id_user' => 'Назначено',
         );
     }
 
@@ -99,6 +99,17 @@ class Request extends CActiveRecord
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
+            'pagination' => array('pageSize' => 50),
+            'sort' => array(
+                'attributes' => array(
+                    'id',
+                    'city.name',
+                    'category.category_name',
+                    'category.priority',
+                    'status',
+                    'user.username'
+                )
+            ),
         ));
     }
 

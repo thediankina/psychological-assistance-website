@@ -13,10 +13,10 @@ class MainController extends Controller
             $model->attributes = $_POST['LoginForm'];
 
             if ($model->validate() && $model->login()) {
-                $this->redirect('/office/office/index');
+                $this->redirect('/office/office');
             }
         }
-        $this->render('/login/index', array('model' => $model));
+        $this->render('/login', array('model' => $model));
     }
 
     /**
@@ -25,6 +25,6 @@ class MainController extends Controller
     public function actionLogout()
     {
         Yii::app()->user->logout();
-        $this->redirect('/request/index');
+        $this->redirect('/request');
     }
 }

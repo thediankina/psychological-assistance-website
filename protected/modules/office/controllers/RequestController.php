@@ -119,9 +119,12 @@ class RequestController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider=new CActiveDataProvider('Request');
-        $this->render('index',array(
-            'dataProvider'=>$dataProvider,
+        $model = new Request();
+        $dataProvider = $model->search();
+
+        $this->render('index', array(
+            'model' => $model,
+            'dataProvider' => $dataProvider,
         ));
     }
 

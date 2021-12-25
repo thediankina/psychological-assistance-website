@@ -5,6 +5,7 @@
  */
 
 Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/main.css');
+Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/pager.css');
 ?>
 <!DOCTYPE html>
 <html>
