@@ -259,3 +259,43 @@ div.search-form
 {
 	width: 40px;
 }
+
+/** tabs */
+.tabs>input[type="radio"] {
+	display: none;
+}
+
+.tabs>div {
+	display: none;
+	border: 1px #C4C4C4 solid;
+	padding: 0 15px;
+}
+
+#tab-button-requests:checked~#requests,
+#tab-button-articles:checked~#articles {
+	display: block;
+}
+
+.tabs>label {
+	display: inline-block;
+	text-align: center;
+	vertical-align: middle;
+	user-select: none;
+	background-color: #52A4BE;
+	border: 1px #C4C4C4 solid;
+	color: #FFFFFF;
+	padding: 0 20px;
+	font-weight: bold;
+	font-size: 1.2em;
+	line-height: 2.2;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+	cursor: pointer;
+	position: relative;
+	top: 1px;
+}
+
+.tabs>input[type="radio"]:checked+label {
+	color: #52A4BE;
+	background-color: #FFFFFF;
+	border-bottom: 1px solid #FFFFFF;
+}

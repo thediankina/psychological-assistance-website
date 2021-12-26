@@ -59,7 +59,7 @@ class Article extends CActiveRecord
             'title' => 'Название',
             'content' => 'Содержание',
             'id_author' => 'ID автора',
-            'dates_temp' => 'Дата создания',
+            'dates_temp' => 'Дата',
             'status' => 'Статус',
         );
     }
