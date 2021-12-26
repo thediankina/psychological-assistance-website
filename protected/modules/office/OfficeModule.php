@@ -1,5 +1,9 @@
 <?php
 
+namespace application\modules\office;
+
+use CWebModule;
+
 class OfficeModule extends CWebModule
 {
     public function init()

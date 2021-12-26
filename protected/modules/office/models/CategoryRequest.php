@@ -1,9 +1,15 @@
 <?php
 
+namespace application\modules\office\models;
+
+use CActiveDataProvider;
+use CActiveRecord;
+use CDbCriteria;
+
 /**
- * This is the model class for table "db_category_req".
+ * Модель категории заявки
  *
- * The followings are the available columns in table 'db_category_req':
+ * Атрибуты
  * @property integer $id
  * @property string $priority
  * @property string $category_name

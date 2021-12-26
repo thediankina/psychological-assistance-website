@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Условный контроллер авторизации
+ * @package application\controllers
+ */
 class MainController extends Controller
 {
     /**
@@ -20,7 +24,7 @@ class MainController extends Controller
     }
 
     /**
-     * Выход перенаправляет на список заявок
+     * Условный выход перенаправляет на список заявок
      */
     public function actionLogout()
     {

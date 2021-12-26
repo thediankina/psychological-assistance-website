@@ -8,7 +8,7 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/main.css')
 Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/pager.css');
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="language" content="ru">

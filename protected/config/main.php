@@ -28,7 +28,7 @@ return array(
 		),
 
         'office'=>array(
-            'class'=>'application.modules.office.OfficeModule'
+            'class'=> \application\modules\office\OfficeModule::class
         ),
 	),
 

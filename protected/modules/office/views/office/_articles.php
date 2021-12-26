@@ -10,12 +10,23 @@ $this->widget('zii.widgets.grid.CGridView', array(
     'summaryText' => 'Всего найдено: ' . $dataProvider->itemCount,
     'columns' => array(
         'id',
-        'title',
-        'dates_temp',
+        array(
+            'name' => 'title',
+            'type' => 'html',
+            'value' => function($row) {
+                return CHtml::link($row->title, array('/article/view', 'id' =>$row->id));
+            }
+        ),
+        array(
+            'name' => 'dates_temp',
+        ),
         'status',
         array(
             'class' => 'CButtonColumn',
             'template' => '{update}',
+            'updateButtonUrl' => function($model) {
+                return $this->createUrl('/article/view', array('id' => $model->id));
+            }
         ),
     ),
     'pager' => array('class' => 'OfficePager', 'header' => ''),

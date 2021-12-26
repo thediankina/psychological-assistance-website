@@ -27,7 +27,10 @@ $this->widget('zii.widgets.grid.CGridView', array(
         ),
         array(
             'class' => 'CButtonColumn',
-            'template' => '{update}',
+            'template' => '{view}',
+            'viewButtonUrl' => function($model) {
+                return $this->createUrl('/office/request/view', array('id' => $model->id));
+            }
         ),
     ),
     'pager' => array('class' => 'OfficePager', 'header' => ''),

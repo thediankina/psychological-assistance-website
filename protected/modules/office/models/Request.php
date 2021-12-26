@@ -1,7 +1,15 @@
 <?php
 
+namespace application\modules\office\models;
+
+use CActiveDataProvider;
+use CActiveRecord;
+use CDbCriteria;
+use City;
+use User;
+
 /**
- * Модель "Заявка" в личном кабинете
+ * Модель заявки
  *
  * Атрибуты
  * @property integer $id
@@ -54,9 +62,9 @@ class Request extends CActiveRecord
     public function relations()
     {
         return array(
-            'category' => array(self::HAS_ONE, 'CategoryRequest', array('id' => 'id_category')),
-            'city' => array(self::HAS_ONE, 'City', array('id' => 'id_city')),
-            'user' => array(self::HAS_ONE, 'User', array('id' => 'id_user'))
+            'category' => array(self::HAS_ONE, CategoryRequest::class, array('id' => 'id_category')),
+            'city' => array(self::HAS_ONE, City::class, array('id' => 'id_city')),
+            'user' => array(self::HAS_ONE, User::class, array('id' => 'id_user'))
         );
     }
 

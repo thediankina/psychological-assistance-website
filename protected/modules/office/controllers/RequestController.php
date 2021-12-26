@@ -1,5 +1,11 @@
 <?php
 
+use application\modules\office\models\Request;
+
+/**
+ * Контроллер заявок
+ * @package application\modules\office
+ */
 class RequestController extends Controller
 {
     /**
@@ -41,14 +47,16 @@ class RequestController extends Controller
     }*/
 
     /**
-     * Отображение информации заявки
+     * Просмотр заявки
      * @param integer $id
      * @throws CHttpException
      */
     public function actionView($id)
     {
-        $this->render('view',array(
-            'model'=>$this->loadModel($id),
+        $model = $this->loadModel($id);
+
+        $this->render('view', array(
+            'model' => $model
         ));
     }
 
@@ -67,35 +75,6 @@ class RequestController extends Controller
         }
 
         $this->render('create',array(
-            'model'=>$model,
-        ));
-    }
-
-    /**
-     * Обновление данных заявки
-     * @param integer $id
-     * @throws CHttpException
-     */
-    public function actionUpdate($id)
-    {
-        $model=$this->loadModel($id);
-
-        if(isset($_POST['Request']))
-        {
-            $model->attributes=$_POST['Request'];
-            if ($model->status === 'В работе') {
-                $model->subject = Yii::app()->user->getName();
-            }
-            else {
-                $model->subject = '';
-            }
-            if($model->save() && $model->status === 'В работе')
-                $this->redirect(array('view','id'=>$model->id));
-            else
-                $this->redirect(array('index'));
-        }
-
-        $this->render('update',array(
             'model'=>$model,
         ));
     }

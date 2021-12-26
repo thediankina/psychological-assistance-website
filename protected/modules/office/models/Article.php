@@ -1,7 +1,14 @@
 <?php
 
+namespace application\modules\office\models;
+
+use CActiveDataProvider;
+use CActiveRecord;
+use CDbCriteria;
+use User;
+
 /**
- * Модель "Статья" в личном кабинете
+ * Модель статьи
  *
  * Атрибуты
  * @property integer $id
@@ -45,7 +52,7 @@ class Article extends CActiveRecord
     public function relations()
     {
         return array(
-            'author' => array(self::BELONGS_TO, 'User', 'id_author'),
+            'author' => array(self::BELONGS_TO, User::class, 'id_author'),
         );
     }
 
