@@ -6,9 +6,10 @@
 
 $this->widget('zii.widgets.grid.CGridView', array(
     'dataProvider' => $dataProvider,
-    'enablePagination' => false,
-    'summaryText' => 'Всего найдено ' . $dataProvider->itemCount . ' записей',
+    'enablePagination' => true,
+    'summaryText' => 'Всего найдено: ' . $dataProvider->itemCount,
     'columns' => array(
+        'id',
         'city.name',
         array(
             'name' => 'category.category_name',
@@ -19,7 +20,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
         'category.priority',
         'status',
         array(
-            'name' => 'Назначено',
+            'name' => 'id_user',
             'value' => function ($model) {
                 return $model->user->username;
             }

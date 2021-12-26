@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Standard SiteController
+ */
 class SiteController extends Controller
 {
 	/**

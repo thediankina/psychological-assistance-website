@@ -37,7 +37,7 @@ return array(
 
 		'user'=>array(
 			// enable cookie-based authentication
-			'allowAutoLogin'=>true,
+			//'allowAutoLogin'=>true,
 		),
 
 		'urlManager'=>array(

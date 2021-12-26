@@ -13,7 +13,7 @@ $this->pageTitle = 'Все заявки';
 <?php $this->widget('zii.widgets.grid.CGridView', array(
     'dataProvider' => $dataProvider,
     'enablePagination' => true,
-    'summaryText' => 'Всего найдено ' . $dataProvider->itemCount . ' записей',
+    'summaryText' => 'Всего найдено: ' . $dataProvider->itemCount,
     'columns' => array(
         array('name' => 'id'),
         array('name' => 'city.name'),

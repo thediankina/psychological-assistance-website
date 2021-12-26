@@ -4,12 +4,17 @@ class OfficeController extends Controller
 {
     public function actionIndex()
     {
-        $model = new Request();
-        $model->id_user = Yii::app()->user->id;
-        $dataProvider = $model->search();
+        $requestModel = new Request();
+        $requestModel->id_user = Yii::app()->user->id;
+        $requestDataProvider = $requestModel->search();
+
+        $articleModel = new Article();
+        $articleModel->id_author = Yii::app()->user->id;
+        $articleDataProvider = $articleModel->search();
 
         $this->render('index', array(
-            'dataProvider' => $dataProvider,
+            'Request' => $requestDataProvider,
+            'Article' => $articleDataProvider
         ));
     }
 }

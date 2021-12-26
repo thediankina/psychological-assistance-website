@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "db_request".
+ * Модель "Заявка" в личном кабинете
  *
- * The followings are the available columns in table 'db_request':
+ * Атрибуты
  * @property integer $id
  * @property string $name
  * @property integer $id_category
@@ -14,11 +14,16 @@
  * @property string $comment
  * @property string $status
  * @property integer $id_user
+ *
+ * Связи
+ * @property CategoryRequest $category
+ * @property City $city
+ * @property User $user
  */
 class Request extends CActiveRecord
 {
     /**
-     * @return string the associated database table name
+     * @return string
      */
     public function tableName()
     {
@@ -26,7 +31,7 @@ class Request extends CActiveRecord
     }
 
     /**
-     * @return array validation rules for model attributes.
+     * @return array
      */
     public function rules()
     {
@@ -35,12 +40,16 @@ class Request extends CActiveRecord
             array('id_category, phone, id_user', 'numerical', 'integerOnly' => true),
             array('email, status', 'length', 'max' => 20),
             array('comment', 'length', 'max' => 100),
-            array('id, name, id_category, body, id_city, email, phone, comment, status, id_user', 'safe', 'on' => 'search'),
+            array(
+                'id, name, id_category, body, id_city, email, phone, comment, status, id_user',
+                'safe',
+                'on' => 'search'
+            ),
         );
     }
 
     /**
-     * @return array relational rules.
+     * @return array
      */
     public function relations()
     {
@@ -52,7 +61,7 @@ class Request extends CActiveRecord
     }
 
     /**
-     * @return array customized attribute labels (name=>label)
+     * @return array
      */
     public function attributeLabels()
     {
@@ -71,16 +80,7 @@ class Request extends CActiveRecord
     }
 
     /**
-     * Retrieves a list of models based on the current search/filter conditions.
-     *
-     * Typical usecase:
-     * - Initialize the model fields with values from filter form.
-     * - Execute this method to get CActiveDataProvider instance which will filter
-     * models according to data in model fields.
-     * - Pass data provider to CGridView, CListView or any similar widget.
-     *
-     * @return CActiveDataProvider the data provider that can return the models
-     * based on the search/filter conditions.
+     * @return CActiveDataProvider
      */
     public function search()
     {
@@ -114,12 +114,10 @@ class Request extends CActiveRecord
     }
 
     /**
-     * Returns the static model of the specified AR class.
-     * Please note that you should have this exact method in all your CActiveRecord descendants!
-     * @param string $className active record class name.
-     * @return Request the static model class
+     * @param string $className
+     * @return Request
      */
-    public static function model($className=__CLASS__)
+    public static function model($className = __CLASS__)
     {
         return parent::model($className);
     }
