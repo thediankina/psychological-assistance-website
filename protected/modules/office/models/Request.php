@@ -79,7 +79,7 @@ class Request extends CActiveRecord
             'id_category' => 'ID категории',
             'body' => 'Описание',
             'id_city' => 'ID города',
-            'email' => 'Почта',
+            'email' => 'Электронная почта',
             'phone' => 'Телефон',
             'comment' => 'Комментарий',
             'status' => 'Статус',

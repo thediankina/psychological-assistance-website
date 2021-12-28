@@ -60,6 +60,11 @@ class RequestController extends Controller
         ));
     }
 
+    public function actionAgree()
+    {
+        $this->render('office/office/index');
+    }
+
     /**
      * Создание заявки (отключено)
      */

@@ -10,7 +10,7 @@ body
 	font-family: 'Roboto', sans-serif;
 	font-weight: normal;
 	font-size: 0.8em;
-	padding: 0 20px;
+	padding: 20px;
 }
 
 a {
@@ -19,7 +19,43 @@ a {
 
 h1 {
 	font-size: 1.8em;
-	padding: 20px 0;
+}
+
+menu
+{
+	padding: 0;
+}
+
+button
+{
+	border: 1px #000000 solid;
+	font-size: 1.15em;
+	height: 30px;
+	width: 100px;
+}
+
+.back-button
+{
+	background-color: #FFFFFF;
+}
+
+.back-button:hover
+{
+	cursor: pointer;
+	background-color: #C4C4C4;
+}
+
+.agree-button
+{
+	color: #FFFFFF;
+	font-weight: bold;
+	background-color: #52A4BE;
+}
+
+.agree-button:hover
+{
+	cursor: pointer;
+	background-color: #438397;
 }
 
 #menu
@@ -63,6 +99,7 @@ h1 {
 
 #menu ul li a:hover
 {
+	cursor: pointer;
 	color: #438397;
 	text-decoration: none;
 }
@@ -120,12 +157,6 @@ div.view
 	padding: 10px;
 	margin: 10px 0;
 	border: 1px solid #C9E0ED;
-}
-
-div.breadcrumbs
-{
-	font-size: 0.9em;
-	padding: 5px 20px;
 }
 
 div.breadcrumbs span
@@ -224,10 +255,11 @@ div.search-form
 	margin-top: 50px;
 }
 
+/** gridview */
 .grid-view table.items
 {
 	border-collapse: collapse;
-	border: 1px #000000 solid;
+	border: 1px #000000 double;
 }
 
 .grid-view table.items th, .grid-view table.items td
@@ -252,21 +284,35 @@ div.search-form
 	padding: 0.4em;
 }
 
-.grid-view table.items tr.selected
-{
-}
-
-.grid-view table.items tr:hover.selected
-{
-}
-
-.grid-view table.items tbody tr:hover
-{
-}
-
 .grid-view .button-column
 {
 	width: 40px;
+}
+
+/** detailview */
+table.detail-view
+{
+	border-collapse: collapse;
+	border: 1px #000000 double;
+	width: 70%;
+}
+
+table.detail-view th, table.detail-view td
+{
+	font-size: 1.1em;
+	font-weight: normal;
+	text-align: left;
+	background-color: #FFFFFF;
+	border-right: 1px #000000 solid;
+	border-left: 1px #000000 solid;
+	border-top: 1px #C4C4C4 solid;
+	border-bottom: 1px #C4C4C4 solid;
+	padding: 0.4em;
+}
+
+table.detail-view th
+{
+	width: 20%;
 }
 
 /** tabs */
