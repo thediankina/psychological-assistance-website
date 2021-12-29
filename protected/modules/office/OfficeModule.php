@@ -6,6 +6,8 @@ use CWebModule;
 
 class OfficeModule extends CWebModule
 {
+    public $controllerNamespace = 'application\modules\office\controllers';
+
     public function init()
     {
         $this->setImport(array(

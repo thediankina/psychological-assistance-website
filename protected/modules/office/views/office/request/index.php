@@ -4,6 +4,8 @@
  * @var $dataProvider CActiveDataProvider
  */
 
+use application\modules\office\controllers\OfficeController;
+
 $this->widget('zii.widgets.grid.CGridView', array(
     'dataProvider' => $dataProvider,
     'enablePagination' => true,
@@ -29,9 +31,9 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'class' => 'CButtonColumn',
             'template' => '{view}',
             'viewButtonUrl' => function($model) {
-                return $this->createUrl('/office/request/view', array('id' => $model->id));
+                return $this->createUrl('/request/view/' . $model->id);
             }
         ),
     ),
-    'pager' => array('class' => 'OfficePager', 'header' => ''),
+    'pager' => array('class' => OfficePager::class, 'header' => ''),
 ));

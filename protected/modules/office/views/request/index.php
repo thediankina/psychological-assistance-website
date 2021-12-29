@@ -5,6 +5,7 @@
  * @var $dataProvider CActiveDataProvider
  */
 
+use application\modules\office\controllers\RequestController;
 use application\modules\office\models\Request;
 
 $this->pageTitle = 'Все заявки';
@@ -37,9 +38,9 @@ $this->pageTitle = 'Все заявки';
             'class' => 'CButtonColumn',
             'template' => '{view}',
             'viewButtonUrl' => function($model) {
-                return $this->createUrl('/office/request/view', array('id' => $model->id));
+                return $this->createUrl('/request/view/' . $model->id);
             }
         ),
     ),
-    'pager' => array('class' => 'OfficePager', 'header' => ''),
+    'pager' => array('class' => OfficePager::class, 'header' => ''),
 )); ?>

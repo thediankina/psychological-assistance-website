@@ -5,7 +5,6 @@ use application\modules\office\models\Request;
 
 /**
  * Контроллер статей
- * @package application\controllers
  */
 class ArticleController extends Controller
 {
@@ -21,7 +20,6 @@ class ArticleController extends Controller
     }
 
     /**
-     * Возвращает модель данных, основываясь на первичном ключе, полученном из GET запроса
      * @param integer $id
      * @return Request
      * @throws CHttpException

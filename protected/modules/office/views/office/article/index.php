@@ -14,7 +14,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'name' => 'title',
             'type' => 'html',
             'value' => function($row) {
-                return CHtml::link($row->title, array('/article/view', 'id' =>$row->id));
+                return CHtml::link($row->title, array('/article/view/' . $row->id));
             }
         ),
         array(
@@ -25,9 +25,9 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'class' => 'CButtonColumn',
             'template' => '{update}',
             'updateButtonUrl' => function($model) {
-                return $this->createUrl('/article/view', array('id' => $model->id));
+                return $this->createUrl('/article/view/' . $model->id);
             }
         ),
     ),
-    'pager' => array('class' => 'OfficePager', 'header' => ''),
+    'pager' => array('class' => OfficePager::class, 'header' => ''),
 ));

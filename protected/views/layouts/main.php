@@ -7,6 +7,7 @@
 Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/main.css');
 Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/pager.css');
 ?>
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -17,7 +18,7 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/pager.css'
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
-	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+	<title><?= CHtml::encode($this->pageTitle); ?></title>
 </head>
 
 <body>
@@ -34,7 +35,7 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/pager.css'
             <div id="menu-items">
                 <li>
                     <?php if (!Yii::app()->user->isGuest): ?>
-                        <a href="#"><?php echo CHtml::encode(Yii::app()->user->name); ?></a>
+                        <a href="#"><?= CHtml::encode(Yii::app()->user->name); ?></a>
                     <?php endif; ?>
                 </li>
                 <li>
@@ -42,9 +43,9 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/pager.css'
                 </li>
                 <li>
                     <?php if (Yii::app()->user->isGuest): ?>
-                        <a href="/main/login">Войти</a>
+                        <a href="<?= $this->createUrl(Yii::app()->user->loginUrl); ?>">Войти</a>
                     <?php else: ?>
-                        <a href="/main/logout">Выйти</a>
+                        <a href="<?= $this->createUrl('/logout'); ?>">Выйти</a>
                     <?php endif; ?>
                 </li>
             </div>

@@ -1,11 +1,14 @@
 <?php
 
+namespace application\modules\office\controllers;
+
 use application\modules\office\models\Article;
 use application\modules\office\models\Request;
+use Controller;
+use Yii;
 
 /**
  * Контроллер личного кабинета
- * @package application\modules\office
  */
 class OfficeController extends Controller
 {

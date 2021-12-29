@@ -4,6 +4,8 @@
  * @var $Request CActiveDataProvider
  * @var $Article CActiveDataProvider
  */
+// Можно заменить на CTabView Widget
+use application\modules\office\controllers\OfficeController;
 
 $this->pageTitle = 'Личный кабинет';
 ?>
@@ -16,6 +18,6 @@ $this->pageTitle = 'Личный кабинет';
     <input type="radio" name="tab-button" id="tab-button-articles" value="">
     <label for="tab-button-articles">Мои статьи</label>
 
-    <div id="requests"><?php $this->renderPartial('_requests', array('dataProvider' => $Request)); ?></div>
-    <div id="articles"><?php $this->renderPartial('_articles', array('dataProvider' => $Article)); ?></div>
+    <div id="requests"><?php $this->renderPartial('request/index', array('dataProvider' => $Request)); ?></div>
+    <div id="articles"><?php $this->renderPartial('article/index', array('dataProvider' => $Article)); ?></div>
 </div>

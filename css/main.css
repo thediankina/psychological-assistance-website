@@ -29,7 +29,7 @@ menu
 button
 {
 	border: 1px #000000 solid;
-	font-size: 1.15em;
+	font-size: 1.1em;
 	height: 30px;
 	width: 100px;
 }
@@ -45,14 +45,14 @@ button
 	background-color: #C4C4C4;
 }
 
-.agree-button
+.primary-button
 {
 	color: #FFFFFF;
 	font-weight: bold;
 	background-color: #52A4BE;
 }
 
-.agree-button:hover
+.primary-button:hover
 {
 	cursor: pointer;
 	background-color: #438397;
@@ -322,7 +322,7 @@ table.detail-view th
 
 .tabs>div {
 	display: none;
-	border: 1px #C4C4C4 solid;
+	border: 1px #000000 solid;
 	padding: 0 15px;
 }
 
@@ -337,7 +337,7 @@ table.detail-view th
 	vertical-align: middle;
 	user-select: none;
 	background-color: #52A4BE;
-	border: 1px #C4C4C4 solid;
+	border: 1px #000000 solid;
 	color: #FFFFFF;
 	padding: 0 20px;
 	font-weight: bold;

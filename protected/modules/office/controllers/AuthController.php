@@ -1,10 +1,15 @@
 <?php
 
+namespace application\modules\office\controllers;
+
+use Controller;
+use LoginForm;
+use Yii;
+
 /**
  * Условный контроллер авторизации
- * @package application\controllers
  */
-class MainController extends Controller
+class AuthController extends Controller
 {
     /**
      * Условная авторизация для проверки доступа
@@ -17,10 +22,10 @@ class MainController extends Controller
             $model->attributes = $_POST['LoginForm'];
 
             if ($model->validate() && $model->login()) {
-                $this->redirect('/office/office');
+                $this->redirect('/office');
             }
         }
-        $this->render('/login/index', array('model' => $model));
+        $this->render('login', array('model' => $model));
     }
 
     /**
@@ -29,6 +34,6 @@ class MainController extends Controller
     public function actionLogout()
     {
         Yii::app()->user->logout();
-        $this->redirect('/office/request');
+        $this->redirect('/requests');
     }
 }
