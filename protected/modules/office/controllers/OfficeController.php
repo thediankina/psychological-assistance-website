@@ -18,15 +18,15 @@ class OfficeController extends Controller
         $id = Yii::app()->user->id;
 
         $requestModel->id_user = $id;
-        $requestDataProvider = $requestModel->search();
+        $requestData = $requestModel->search();
 
         $articleModel = new Article();
         $articleModel->id_author = $id;
-        $articleDataProvider = $articleModel->search();
+        $articleData = $articleModel->search();
 
         $this->render('index', array(
-            'Request' => $requestDataProvider,
-            'Article' => $articleDataProvider
+            'requests' => $requestData,
+            'articles' => $articleData
         ));
     }
 }

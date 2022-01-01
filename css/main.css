@@ -256,6 +256,11 @@ div.search-form
 }
 
 /** gridview */
+.grid-view
+{
+	padding: 2px;
+}
+
 .grid-view table.items
 {
 	border-collapse: collapse;
@@ -353,4 +358,56 @@ table.detail-view th
 	color: #52A4BE;
 	background-color: #FFFFFF;
 	border-bottom: 1px solid #FFFFFF;
+}
+
+/** yii tabs */
+.yiiTab
+{
+	padding: 15px 0;
+}
+
+.yiiTab ul.tabs
+{
+	padding: 5px 0;
+	border-bottom: none;
+	font: bold 1.2em 'Roboto', sans-serif;
+}
+
+.yiiTab ul.tabs a
+{
+	padding: 5px 1.1em;
+	margin: 0;
+	border: 1px #000000 solid;
+	border-bottom: none;
+	background: #FFFFFF;
+	text-decoration: none;
+}
+
+.yiiTab ul.tabs a:link
+{
+	color: #52A4BE;
+}
+
+.yiiTab ul.tabs a:visited
+{
+	color: #52A4BE;
+}
+
+.yiiTab ul.tabs a:hover
+{
+	color: #FFFFFF;
+	background: #52A4BE;
+	border-color: #000000;
+}
+
+.yiiTab ul.tabs a.active
+{
+	color: #52A4BE;
+	background: #FFFFFF;
+	border-bottom: 1px solid #FFFFFF;
+}
+
+.yiiTab div.view
+{
+	border: 1px solid #000000;
 }
