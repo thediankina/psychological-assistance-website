@@ -5,6 +5,7 @@ namespace application\modules\office\controllers;
 use application\modules\office\models\Request;
 use CHttpException;
 use Controller;
+use Yii;
 
 /**
  * Контроллер заявок для авторизованного пользователя
@@ -12,12 +13,12 @@ use Controller;
 class RequestController extends Controller
 {
     /**
-     * @var string домашний URL списка заявок
+     * @var string домашний URL
      */
     public $home_url = '/requests';
 
     /**
-     * Вывод списка заявок
+     * Список заявок
      */
     public function actionIndex()
     {
@@ -31,7 +32,6 @@ class RequestController extends Controller
     }
 
     /**
-     * Просмотр заявки
      * @param integer $id
      * @throws CHttpException
      */
@@ -42,6 +42,43 @@ class RequestController extends Controller
         $this->render('view', array(
             'model' => $model,
         ));
+    }
+
+    /**
+     * @param $id
+     * @throws CHttpException
+     */
+    public function actionAccept($id)
+    {
+        $model = $this->loadModel($id);
+        $model->status = "В работе";
+        $model->id_user = Yii::app()->user->id;
+
+        if ($model->validate() && $model->save()) {
+            $this->redirect($this->home_url);
+        }
+    }
+
+    /**
+     * @param $id
+     * @throws CHttpException
+     */
+    public function actionReject($id)
+    {
+        $model = $this->loadModel($id);
+        $model->status = "Отклонена";
+
+        if ($model->validate() && $model->save()) {
+            $this->redirect($this->home_url);
+        }
+    }
+
+    /**
+     * @todo Реализовать завершение заявки
+     * @param $id
+     */
+    public function actionFinish($id)
+    {
     }
 
     /**

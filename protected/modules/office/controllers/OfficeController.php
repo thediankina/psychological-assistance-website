@@ -12,21 +12,24 @@ use Yii;
  */
 class OfficeController extends Controller
 {
+    /**
+     * @var string домашний URL
+     */
+    public $home_url = '/office';
+
     public function actionIndex()
     {
-        $requestModel = new Request();
+        $request = new Request();
         $id = Yii::app()->user->id;
 
-        $requestModel->id_user = $id;
-        $requestData = $requestModel->search();
+        $request->id_user = $id;
 
-        $articleModel = new Article();
-        $articleModel->id_author = $id;
-        $articleData = $articleModel->search();
+        $article = new Article();
+        $article->id_author = $id;
 
         $this->render('index', array(
-            'requests' => $requestData,
-            'articles' => $articleData
+            'request' => $request,
+            'article' => $article,
         ));
     }
 }

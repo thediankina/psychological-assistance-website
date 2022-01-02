@@ -15,11 +15,16 @@ $this->pageTitle = 'Просмотр заявки #' . $model->id;
 <?php $back_url = parse_url(Yii::app()->request->urlReferrer, PHP_URL_PATH); ?>
 <menu>
     <?= CHtml::htmlButton('Вернуться', array('submit' => array($back_url), 'class' => 'back-button')); ?>
-    <?php if ($back_url === $this->home_url): ?>
-    <?= CHtml::htmlButton('Принять', array('submit' => array('request/accept'), 'class' => 'primary-button')); ?>
-    <?php else: ?>
-    <?= CHtml::htmlButton('Отклонить', array('submit' => array('request/reject'), 'class' => 'primary-button')); ?>
-    <?= CHtml::htmlButton('Завершить', array('submit' => array('request/finish'), 'class' => 'primary-button')); ?>
+    <?php if ($model->id_user != Yii::app()->user->id): ?>
+        <?php if (empty($model->id_user)): ?>
+            <?= CHtml::htmlButton('Принять',
+                array('submit' => array('request/accept', 'id' => $model->id), 'class' => 'primary-button')); ?>
+        <?php endif; ?>
+    <?php elseif ($model->status == "В работе"): ?>
+        <?= CHtml::htmlButton('Отклонить',
+            array('submit' => array('request/reject', 'id' => $model->id), 'class' => 'primary-button')); ?>
+        <?= CHtml::htmlButton('Завершить',
+            array('submit' => array('request/finish', 'id' => $model->id), 'class' => 'primary-button')); ?>
     <?php endif; ?>
 </menu>
 

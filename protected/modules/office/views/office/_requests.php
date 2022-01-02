@@ -1,15 +1,17 @@
 <?php
 /**
  * @var $this OfficeController
- * @var $data CActiveDataProvider
+ * @var $data Request
  */
 
 use application\modules\office\controllers\OfficeController;
+use application\modules\office\models\Request;
 
+$dataProvider = $data->search();
 $this->widget('zii.widgets.grid.CGridView', array(
-    'dataProvider' => $data,
+    'dataProvider' => $dataProvider,
     'enablePagination' => true,
-    'summaryText' => 'Всего найдено: ' . $data->itemCount,
+    'summaryText' => 'Всего найдено: ' . $dataProvider->itemCount,
     'columns' => array(
         'id',
         'city.name',

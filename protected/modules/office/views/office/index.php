@@ -1,11 +1,13 @@
 <?php
 /**
  * @var $this OfficeController
- * @var $requests CActiveDataProvider
- * @var $articles CActiveDataProvider
+ * @var $request Request
+ * @var $article Article
  */
 
 use application\modules\office\controllers\OfficeController;
+use application\modules\office\models\Article;
+use application\modules\office\models\Request;
 
 $this->pageTitle = 'Личный кабинет';
 ?>
@@ -15,14 +17,14 @@ $this->pageTitle = 'Личный кабинет';
 <?php $this->widget('CTabView', array(
     'tabs' => array(
         'requests' => array(
-            'title' => 'Заявки, над которыми я работаю',
+            'title' => 'Заявки',
             'view' => '_requests',
-            'data' => $requests,
+            'data' => $request,
         ),
         'articles' => array(
-            'title' => 'Мои статьи',
+            'title' => 'Статьи',
             'view' => '_articles',
-            'data' => $articles,
+            'data' => $article,
         ),
     ),
 )); ?>

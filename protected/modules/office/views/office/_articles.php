@@ -1,22 +1,24 @@
 <?php
 /**
  * @var $this OfficeController
- * @var $data CActiveDataProvider
+ * @var $data Article
  */
 
 use application\modules\office\controllers\OfficeController;
+use application\modules\office\models\Article;
 
+$dataProvider = $data->search();
 $this->widget('zii.widgets.grid.CGridView', array(
-    'dataProvider' => $data,
+    'dataProvider' => $dataProvider,
     'enablePagination' => true,
-    'summaryText' => 'Всего найдено: ' . $data->itemCount,
+    'summaryText' => 'Всего найдено: ' . $dataProvider->itemCount,
     'columns' => array(
         'id',
         array(
             'name' => 'title',
             'type' => 'html',
-            'value' => function($row) {
-                return CHtml::link($row->title, array('/article/view/' . $row->id));
+            'value' => function($model) {
+                return CHtml::link($model->title, array('/article/view/' . $model->id));
             }
         ),
         array(
