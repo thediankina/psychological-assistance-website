@@ -1,8 +1,8 @@
 body
 {
-	background-color: #FFFFFF;
-	padding: 0;
 	margin: 0;
+	padding: 0;
+	background-color: #FFFFFF;
 }
 
 #content
@@ -251,7 +251,7 @@ div.search-form
 
 .portlet-content li
 {
-	padding: 2px 0 4px 0px;
+	padding: 2px 0 4px 0;
 }
 
 .operations
@@ -303,30 +303,48 @@ div.search-form
 
 .grid-view table.items
 {
-	border-collapse: collapse;
-	border: 1px #000000 double;
+	border-collapse: separate;
+	border-spacing: 0;
+	border-right: none;
+	border-bottom: none;
+	border-top: none;
+	border-left: 1px #000000 solid;
 }
 
 .grid-view table.items th, .grid-view table.items td
 {
 	font-size: 1em;
+	border: none;
 	text-align: center;
 }
 
 .grid-view table.items th
 {
 	background: #52A4BE;
-	border: 1px #000000 solid;
+	border-right: 1px #000000 solid;
+	border-top: 1px #000000 solid;
+}
+
+.grid-view table.items th a
+{
+	color: #FFFFFF;
 }
 
 .grid-view table.items td
 {
 	background-color: #FFFFFF;
 	border-right: 1px #000000 solid;
-	border-left: 1px #000000 solid;
-	border-top: 1px #C4C4C4 solid;
 	border-bottom: 1px #C4C4C4 solid;
 	padding: 0.4em;
+}
+
+.grid-view table.items tr
+{
+}
+
+.grid-view table.items tr:last-child
+{
+	border-bottom-color: #FFFFFF;
 }
 
 .grid-view .button-column
@@ -435,8 +453,7 @@ table.detail-view th
 
 .yiiTab ul.tabs a:hover
 {
-	color: #FFFFFF;
-	background: #52A4BE;
+	background: #FFFFFF;
 	border-color: #000000;
 }
 
