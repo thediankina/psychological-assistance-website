@@ -21,6 +21,7 @@ h1 {
 	font-size: 1.8em;
 }
 
+/** functional */
 menu
 {
 	padding: 0;
@@ -58,50 +59,89 @@ button
 	background-color: #438397;
 }
 
-#menu
+/** main menu */
+header
 {
-	background-color: #52A4BE;
-	border: 1px #000000 solid;
-}
-
-#menu ul
-{
+	padding: 2px 20px;
 	display: flex;
 	justify-content: space-between;
-	padding: 0 20px;
-	margin: 0;
+	background-color: #52A4BE;
+	border-bottom: 1px #000000 solid;
 }
 
-#menu ul li
+#header-logo
 {
-	list-style-type: none;
 }
 
-#menu-items
+#header-menu
 {
 	display: flex;
 	align-items: center;
 }
 
-#menu-items li
+#header-menu a
 {
-	padding-left: 20px;
-}
-
-#menu ul li a
-{
-	font-family: 'Roboto', sans-serif;
-	font-weight: bold;
-	font-size: 1em;
 	color: #FFFFFF;
+	padding-left: 20px;
+	font: bold 1em 'Roboto', sans-serif;
+	list-style-type: none;
 	text-decoration: none;
 }
 
-#menu ul li a:hover
+#header-menu a:hover
 {
-	cursor: pointer;
 	color: #438397;
+	cursor: pointer;
+}
+
+/** sidebar */
+#sidebar
+{
+	top: 0;
+	bottom: 0;
+	width: 20%;
+	position: absolute;
+	border-right: 1px #000000 solid;
+	background-color: #FFFFFF;
+}
+
+#sidebar ul
+{
+	margin: 0;
+	padding: 0;
+}
+
+#sidebar ul li
+{
+	text-align: left;
+	line-height: 2.2em;
+	border-bottom: 1px #C4C4C4 solid;
+	list-style-type: none;
+}
+
+#sidebar ul li a
+{
+	padding: 0 10px;
+	color: #000000;
+	font: normal 1em 'Roboto', sans-serif;
 	text-decoration: none;
+	transition: 0.5s;
+}
+
+#sidebar ul li a:hover
+{
+	color: #52A4BE;
+	cursor: pointer;
+}
+
+#overlay
+{
+	right: 0;
+	bottom: 0;
+	width: 80%;
+	height: 100%;
+	position: fixed;
+	background-color: rgba(0,0,0,0.5);
 }
 
 div.flash-error, div.flash-notice, div.flash-success
@@ -304,7 +344,7 @@ table.detail-view
 
 table.detail-view th, table.detail-view td
 {
-	font-size: 1.1em;
+	font-size: 1.15em;
 	font-weight: normal;
 	text-align: left;
 	background-color: #FFFFFF;
@@ -385,12 +425,12 @@ table.detail-view th
 
 .yiiTab ul.tabs a:link
 {
-	color: #52A4BE;
+	color: #438397;
 }
 
 .yiiTab ul.tabs a:visited
 {
-	color: #52A4BE;
+	color: #438397;
 }
 
 .yiiTab ul.tabs a:hover
@@ -402,7 +442,7 @@ table.detail-view th
 
 .yiiTab ul.tabs a.active
 {
-	color: #52A4BE;
+	color: #438397;
 	background: #FFFFFF;
 	border-bottom: 1px solid #FFFFFF;
 }
