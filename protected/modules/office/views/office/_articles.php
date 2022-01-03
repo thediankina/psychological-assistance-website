@@ -29,7 +29,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'class' => 'CButtonColumn',
             'template' => '{update}',
             'updateButtonUrl' => function($model) {
-                return $this->createUrl('/article/view/' . $model->id);
+                return $this->createUrl('/article/edit/' . $model->id);
             }
         ),
     ),

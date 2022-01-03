@@ -1,22 +1,34 @@
 <?php
 
+namespace application\modules\office\controllers;
+
 use application\modules\office\models\Article;
 use application\modules\office\models\Request;
+use CHttpException;
+use Controller;
 
 /**
- * Контроллер статей для неавторизованного пользователя
+ * Контроллер статей
  */
 class ArticleController extends Controller
 {
     /**
-     * Просмотр статьи
+     * @todo need to review
      * @param $id
      * @throws CHttpException
      */
-    public function actionView($id)
+    public function actionEdit($id)
     {
         $model = $this->loadModel($id);
-        $this->render('view', array('model' => $model));
+
+        if (isset($_POST['ArticleForm'])) {
+            $model->attributes = $_POST['ArticleForm'];
+            if ($model->validate() && $model->save()) {
+                $this->redirect('/article/view/'. $id);
+            }
+        }
+
+        $this->render('edit', array('model' => $model));
     }
 
     /**

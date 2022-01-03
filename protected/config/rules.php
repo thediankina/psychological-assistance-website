@@ -11,4 +11,5 @@ return array(
 
     'request/view/<id:\d+>'=>'office/request/view/<id:\d+>',
     'article/view/<id:\d+>'=>'article/view/<id:\d+>',
+    'article/edit/<id:\d+>'=>'office/article/edit/<id:\d+>',
 );
