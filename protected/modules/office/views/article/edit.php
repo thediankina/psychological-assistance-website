@@ -14,11 +14,22 @@ $this->pageTitle = 'Редактирование статьи #' . $model->id;
 
 <h1><?php echo $this->pageTitle; ?></h1>
 
+<?= CHtml::beginForm(); ?>
+
+<?php $back_url = parse_url(Yii::app()->request->urlReferrer, PHP_URL_PATH); ?>
+<menu>
+    <?= CHtml::htmlButton('Вернуться', array('submit' => array($back_url), 'class' => 'back-button')); ?>
+    <?= CHtml::htmlButton('Сохранить', array('type' => 'submit', 'class' => 'primary-button')); ?>
+</menu>
+
+<?= CHtml::activeTelField($model, 'title', array('class' => 'article-title')); ?>
+
 <?php $this->widget('CKEditorWidget', array(
     'model' => $model,
     'attribute' => 'content',
-    // config in extensions\yii-ckeditor\assets\config.js
     'config' => array(
         'language' => 'ru',
     ),
-));
+)); ?>
+
+<?= CHtml::endForm(); ?>

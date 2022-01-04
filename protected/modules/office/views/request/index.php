@@ -38,7 +38,7 @@ $this->pageTitle = 'Все заявки';
             'class' => 'CButtonColumn',
             'template' => '{view}',
             'viewButtonUrl' => function($model) {
-                return $this->createUrl('/request/view/' . $model->id);
+                return $this->createUrl('/request/view', array('id' => $model->id));
             }
         ),
     ),

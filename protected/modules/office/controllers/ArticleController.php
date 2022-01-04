@@ -13,18 +13,17 @@ use Controller;
 class ArticleController extends Controller
 {
     /**
-     * @todo need to review
-     * @param $id
+     * @param integer $id
      * @throws CHttpException
      */
     public function actionEdit($id)
     {
         $model = $this->loadModel($id);
 
-        if (isset($_POST['ArticleForm'])) {
-            $model->attributes = $_POST['ArticleForm'];
+        if (isset($_POST['application_modules_office_models_Article'])) {
+            $model->attributes = $_POST['application_modules_office_models_Article'];
             if ($model->validate() && $model->save()) {
-                $this->redirect('/article/view/'. $id);
+                $this->redirect($this->createUrl('/article/view', array('id' => $model->id)));
             }
         }
 

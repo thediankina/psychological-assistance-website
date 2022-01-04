@@ -5,6 +5,7 @@ namespace application\modules\office\models;
 use CActiveDataProvider;
 use CActiveRecord;
 use CDbCriteria;
+use CDbExpression;
 use User;
 
 /**
@@ -109,5 +110,12 @@ class Article extends CActiveRecord
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
+    }
+
+    public function beforeSave()
+    {
+        $this->dates_temp = new CDbExpression('NOW()');
+
+        return parent::beforeSave();
     }
 }

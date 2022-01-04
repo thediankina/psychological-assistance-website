@@ -1,5 +1,6 @@
 <?php
 /**
+ * Просмотр статьи для неавторизированного пользователя
  * @var $this ArticleController
  * @var $model Article
  */

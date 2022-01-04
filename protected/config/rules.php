@@ -8,8 +8,7 @@ return array(
     'request/accept' => 'office/request/accept',
     'request/reject' => 'office/request/reject',
     'request/finish' => 'office/request/finish',
-
-    'request/view/<id:\d+>'=>'office/request/view/<id:\d+>',
-    'article/view/<id:\d+>'=>'article/view/<id:\d+>',
-    'article/edit/<id:\d+>'=>'office/article/edit/<id:\d+>',
+    'request/view'=>'office/request/view',
+    'article/view'=>'article/view',
+    'article/edit'=>'office/article/edit',
 );
