@@ -21,10 +21,15 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 return CHtml::link($model->title, $this->createUrl('/article/view', array('id' => $model->id)));
             }
         ),
+        'category.category_name',
+        'status.status',
         array(
             'name' => 'dates_temp',
         ),
-        'status',
+        array(
+            'header' => 'Автор',
+            'name' => 'author.lastName',
+        ),
         array(
             'class' => 'CButtonColumn',
             'template' => '{update}',

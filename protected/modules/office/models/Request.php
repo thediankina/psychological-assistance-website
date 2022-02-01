@@ -6,7 +6,6 @@ use CActiveDataProvider;
 use CActiveRecord;
 use CDbCriteria;
 use City;
-use User;
 
 /**
  * Модель заявки
@@ -15,21 +14,26 @@ use User;
  * @property integer $id
  * @property string $name
  * @property integer $id_category
- * @property string $body
- * @property integer $id_city
+ * @property string $info
  * @property string $email
- * @property integer $phone
- * @property string $comment
+ * @property string $phone
  * @property string $status
- * @property integer $id_user
+ * @property integer $old
+ * @property integer $id_city
  *
  * Связи
- * @property CategoryRequest $category
  * @property City $city
- * @property User $user
+ * @property Category $category
+ * @property RequestHistory[] $history
  */
 class Request extends CActiveRecord
 {
+    /**
+     * ID пользователя для поиска исполняемых им заявок
+     * @var integer
+     */
+    public $executor_id;
+
     /**
      * @return string
      */
@@ -44,27 +48,37 @@ class Request extends CActiveRecord
     public function rules()
     {
         return array(
-            array('name, id_category, body, id_city, status', 'required'),
-            array('id_category, phone, id_user', 'numerical', 'integerOnly' => true),
-            array('email, status', 'length', 'max' => 20),
-            array('comment', 'length', 'max' => 100),
-            array(
-                'id, name, id_category, body, id_city, email, phone, comment, status, id_user',
-                'safe',
-                'on' => 'search'
-            ),
+            array('name, id_category, info, status, id_city', 'required'),
+            array('id_category, old, id_city', 'numerical', 'integerOnly' => true),
+            array('name', 'length', 'max' => 50),
+            array('info', 'length', 'max' => 2000),
+            array('email', 'length', 'max' => 20),
+            array('phone', 'length', 'max' => 11),
+            array('status', 'length', 'max' => 26),
+            array('id, name, id_category, info, email, phone, status, old, id_city', 'safe', 'on' => 'search'),
         );
     }
 
     /**
-     * @return array
+     * @return array[]
      */
     public function relations()
     {
         return array(
-            'category' => array(self::HAS_ONE, CategoryRequest::class, array('id' => 'id_category')),
-            'city' => array(self::HAS_ONE, City::class, array('id' => 'id_city')),
-            'user' => array(self::HAS_ONE, User::class, array('id' => 'id_user'))
+            'category' => array(
+                self::BELONGS_TO,
+                Category::class,
+                array('id_category' => 'id'),
+                'select' => 'category_name, priority',
+            ),
+            'executor' => array(
+                self::HAS_ONE,
+                RequestHistory::class,
+                array('IDrequest' => 'id'),
+                'with' => array('user'),
+            ),
+            'city' => array(self::BELONGS_TO, City::class, array('id_city' => 'id')),
+            'history' => array(self::HAS_MANY, RequestHistory::class, array('id' => 'IDrequest')),
         );
     }
 
@@ -77,13 +91,12 @@ class Request extends CActiveRecord
             'id' => 'ID',
             'name' => 'Имя/Псевдоним',
             'id_category' => 'ID категории',
-            'body' => 'Описание',
-            'id_city' => 'ID города',
+            'info' => 'Описание',
             'email' => 'Электронная почта',
             'phone' => 'Телефон',
-            'comment' => 'Комментарий',
             'status' => 'Статус',
-            'id_user' => 'Назначено',
+            'old' => 'Возраст',
+            'id_city' => 'ID города',
         );
     }
 
@@ -94,16 +107,20 @@ class Request extends CActiveRecord
     {
         $criteria = new CDbCriteria;
 
-        $criteria->with = array('category', 'city', 'user');
+        $criteria->with = array('category', 'executor', 'city');
         $criteria->compare('id', $this->id);
-        $criteria->compare('name', $this->name);
+        $criteria->compare('name', $this->name, true);
         $criteria->compare('category.id', $this->id_category);
-        $criteria->compare('city.id', $this->id_city);
-        $criteria->compare('body', $this->body, true);
+        $criteria->compare('info', $this->info, true);
         $criteria->compare('email', $this->email, true);
-        $criteria->compare('phone', $this->phone);
+        $criteria->compare('phone', $this->phone, true);
         $criteria->compare('status', $this->status, true);
-        $criteria->compare('user.id', $this->id_user, true);
+        $criteria->compare('old', $this->old);
+        $criteria->compare('city.id',$this->id_city);
+
+        if ($this->executor_id) {
+            $criteria->addCondition('`executor`.IDuser =' . $this->executor_id . ' AND `t`.status != "Отклонена"');
+        }
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -111,11 +128,10 @@ class Request extends CActiveRecord
             'sort' => array(
                 'attributes' => array(
                     'id',
-                    'city.name',
                     'category.category_name',
                     'category.priority',
                     'status',
-                    'user.username'
+                    'city.name',
                 )
             ),
         ));

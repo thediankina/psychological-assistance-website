@@ -59,6 +59,14 @@ button
 	background-color: #438397;
 }
 
+.submit-button
+{
+	border: 1px #000000 solid;
+	font-size: 1.1em;
+	height: 30px;
+	width: 100px;
+}
+
 /** main menu */
 header
 {
@@ -144,18 +152,20 @@ header
 	background-color: rgba(0,0,0,0.5);
 }
 
+/** flashes */
 div.flash-error, div.flash-notice, div.flash-success
 {
 	padding:.8em;
 	margin-bottom:1em;
-	border:2px solid #ddd;
+	border: 1px solid #52A4BE;
+	font-size: 1.1em;
 }
 
 div.flash-error
 {
-	background:#FBE3E4;
-	color:#8a1f11;
-	border-color:#FBC2C4;
+	background: #E7F8FD;
+	color: #438397;
+	border-color: #438397;
 }
 
 div.flash-notice
@@ -167,9 +177,9 @@ div.flash-notice
 
 div.flash-success
 {
-	background:#E6EFC2;
-	color:#264409;
-	border-color:#C6D880;
+	background: #E7F8FD;
+	color: #438397;
+	border-color: #438397;
 }
 
 div.flash-error a
@@ -185,6 +195,16 @@ div.flash-notice a
 div.flash-success a
 {
 	color:#264409;
+}
+
+/** error summary */
+.errorSummary
+{
+	padding: 0 1em;
+	border: 1px solid #FFFFFF;
+	font-size: 1.1em;
+	color: #FFFFFF;
+	background-color: #52A4BE;
 }
 
 div.form .rememberMe label
@@ -378,6 +398,10 @@ table.detail-view th
 	width: 20%;
 }
 
+table.detail-view .null {
+	color: #52A4BE;
+}
+
 /** tabs */
 .tabs>input[type="radio"] {
 	display: none;
@@ -470,10 +494,44 @@ table.detail-view th
 }
 
 /** article editor */
-.article-title
+.article-field
 {
 	width: 70%;
 	height: fit-content;
 	margin-bottom: 10px;
 	border: 1px #D1D1D1 solid;
+}
+
+/** comment */
+.comment
+{
+	padding: 1em;
+	margin: 0.6em 0;
+	border: 1px solid #000000;
+	color: #000000;
+}
+.comment-author
+{
+	font-size: 1.25em;
+	font-weight: bold;
+	color: #438397;
+}
+.comment-content, .comment-position, .comment-time
+{
+	font-size: 1.05em;
+}
+
+#application_modules_forum_models_Comment_content
+{
+	width: 100%;
+	box-sizing: border-box;
+}
+div.comment-row
+{
+	margin: 0.6em 0;
+}
+
+div.comment-row.comment-buttons
+{
+	text-align: center;
 }

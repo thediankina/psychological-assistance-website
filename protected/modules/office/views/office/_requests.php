@@ -14,20 +14,12 @@ $this->widget('zii.widgets.grid.CGridView', array(
     'summaryText' => 'Всего найдено: ' . $dataProvider->itemCount,
     'columns' => array(
         'id',
-        'city.name',
-        array(
-            'name' => 'category.category_name',
-            'value' => function ($model) {
-                return $model->category->category_name;
-            }
-        ),
+        'category.category_name',
         'category.priority',
         'status',
         array(
-            'name' => 'id_user',
-            'value' => function ($model) {
-                return $model->user->username;
-            }
+            'header' => 'Исполнитель',
+            'name' => 'executor.user.lastName',
         ),
         array(
             'class' => 'CButtonColumn',

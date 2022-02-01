@@ -13,19 +13,17 @@ use Yii;
 class OfficeController extends Controller
 {
     /**
-     * @var string домашний URL
+     * @var string
      */
     public $home_url = '/office';
 
     public function actionIndex()
     {
         $request = new Request();
-        $id = Yii::app()->user->id;
-
-        $request->id_user = $id;
+        $request->executor_id = Yii::app()->user->id;
 
         $article = new Article();
-        $article->id_author = $id;
+        $article->id_author = Yii::app()->user->id;
 
         $this->render('index', array(
             'request' => $request,

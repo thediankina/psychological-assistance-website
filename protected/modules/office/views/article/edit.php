@@ -4,6 +4,7 @@
  * @var $model Article
  */
 
+use application\modules\office\models\Category;
 use application\modules\office\controllers\ArticleController;
 use application\modules\office\models\Article;
 
@@ -22,7 +23,10 @@ $this->pageTitle = 'Редактирование статьи #' . $model->id;
     <?= CHtml::htmlButton('Сохранить', array('type' => 'submit', 'class' => 'primary-button')); ?>
 </menu>
 
-<?= CHtml::activeTelField($model, 'title', array('class' => 'article-title')); ?>
+<?= CHtml::activedropDownList($model, 'id_category_article',
+    CHtml::listData(Category::model()->findAll(), 'id', 'category_name'), array('class' => 'article-field')); ?>
+
+<?= CHtml::activeTelField($model, 'title', array('class' => 'article-field')); ?>
 
 <?php $this->widget('CKEditorWidget', array(
     'model' => $model,

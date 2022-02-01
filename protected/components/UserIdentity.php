@@ -25,7 +25,7 @@ class UserIdentity extends CUserIdentity
     public function authenticate()
     {
         $user = User::model()->findByAttributes(array(
-            'username' => $this->username,
+            'lastName' => $this->username,
         ));
 
         if ($user === null) {

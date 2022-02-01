@@ -18,21 +18,14 @@ $this->pageTitle = 'Все заявки';
     'enablePagination' => true,
     'summaryText' => 'Всего найдено: ' . $dataProvider->itemCount,
     'columns' => array(
-        array('name' => 'id'),
-        array('name' => 'city.name'),
+        'id',
+        'city.name',
+        'category.category_name',
+        'category.priority',
+        'status',
         array(
-            'name' => 'category.category_name',
-            'value' => function ($model) {
-                return $model->category->category_name;
-            }
-        ),
-        array('name' => 'category.priority'),
-        array('name' => 'status'),
-        array(
-            'name' => 'id_user',
-            'value' => function ($model) {
-                return isset($model->user->username) ? $model->user->username : '';
-            }
+            'header' => 'Исполнитель',
+            'name' => 'executor.user.lastName',
         ),
         array(
             'class' => 'CButtonColumn',

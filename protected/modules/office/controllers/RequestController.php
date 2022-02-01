@@ -3,6 +3,7 @@
 namespace application\modules\office\controllers;
 
 use application\modules\office\models\Request;
+use application\modules\office\models\RequestHistory;
 use CHttpException;
 use Controller;
 use Yii;
@@ -52,10 +53,19 @@ class RequestController extends Controller
     {
         $model = $this->loadModel($id);
         $model->status = "В работе";
-        $model->id_user = Yii::app()->user->id;
 
-        if ($model->validate() && $model->save()) {
+        $record = new RequestHistory();
+        $record->IDuser = Yii::app()->user->id;
+        $record->IDrequest = $model->id;
+        $record->comment = "Принято";
+        $record->dateOfComment = date('Y-m-d');
+
+        if ($record->validate() && $record->save() &&
+            $model->validate() && $model->save()) {
             $this->redirect($this->home_url);
+        }
+        else {
+            throw new CHttpException(404, 'Возникла проблема при обработке заявки');
         }
     }
 
@@ -68,8 +78,18 @@ class RequestController extends Controller
         $model = $this->loadModel($id);
         $model->status = "Отклонена";
 
-        if ($model->validate() && $model->save()) {
+        $record = new RequestHistory();
+        $record->IDuser = Yii::app()->user->id;
+        $record->IDrequest = $model->id;
+        $record->comment = "Отклонено";
+        $record->dateOfComment = date('Y-m-d');
+
+        if ($record->validate() && $record->save() &&
+            $model->validate() && $model->save()) {
             $this->redirect($this->home_url);
+        }
+        else {
+            throw new CHttpException(404, 'Возникла проблема при обработке заявки');
         }
     }
 

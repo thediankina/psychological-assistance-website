@@ -23,6 +23,10 @@ return array(
         'office' => array(
             'class' => application\modules\office\OfficeModule::class,
         ),
+
+        'forum' => array(
+            'class' => application\modules\forum\ForumModule::class,
+        ),
     ),
 
     'components' => array(
