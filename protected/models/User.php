@@ -57,17 +57,18 @@ class User extends CActiveRecord
     }
 
     /**
-     * @return array[]
+     * @return array
      */
     public function relations()
     {
         return array(
             'articles' => array(self::HAS_MANY, Article::class, 'id_author'),
-            'comment' => array(self::HAS_ONE, 'Comment', 'id'),
-            'topic' => array(self::HAS_ONE, 'Topic', 'id'),
+            'comment' => array(self::HAS_ONE, Comment::class, 'id'),
+            'topic' => array(self::HAS_ONE, Topic::class, 'id'),
             'histories' => array(self::HAS_MANY, RequestHistory::class, 'IDuser'),
-            'city' => array(self::BELONGS_TO, City::class, 'id_city'),
+            'city' => array(self::BELONGS_TO, City::class, array('id_city' => 'id')),
             'position' => array(self::BELONGS_TO, Position::class, array('id_position' => 'id')),
+            'volunteer' => array(self::HAS_ONE, Volunteer::class, 'id'),
         );
     }
 
@@ -108,6 +109,7 @@ class User extends CActiveRecord
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
+            'pagination' => array('pageSize' => 50),
         ));
     }
 

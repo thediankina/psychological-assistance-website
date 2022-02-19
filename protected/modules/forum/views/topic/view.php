@@ -15,9 +15,8 @@ $this->pageTitle = $model->title;
 
 <h1><?php echo $this->pageTitle; ?></h1>
 
-<?php $back_url = parse_url(Yii::app()->request->urlReferrer, PHP_URL_PATH) . "?id=" . $model->id_forum; ?>
 <menu>
-    <?= CHtml::htmlButton('Вернуться', array('submit' => array($back_url), 'class' => 'back-button')); ?>
+    <?= CHtml::htmlButton('Вернуться', array('submit' => array("/forum/view?id=" . $model->id_forum), 'class' => 'back-button')); ?>
 </menu>
 <div id="comments">
     <?php $this->renderPartial('_comments', array(

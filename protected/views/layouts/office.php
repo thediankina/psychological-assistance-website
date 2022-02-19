@@ -15,7 +15,8 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/main.js'
                 array('label'=>'Все заявки', 'url'=>array('/requests')),
                 array('label'=>'Личный кабинет', 'url'=>array('/office')),
                 array('label'=>'Форум', 'url'=>array('/forum')),
-                array('label'=>'Контакты', 'url'=>array('/contacts')),
+                array('label'=>'Волонтеры', 'url'=>array('/volunteers')),
+                array('label'=>'Мой профиль', 'url'=>array('/user/profile', 'id'=>Yii::app()->user->id)),
             ),
         )); ?>
     </div><!-- sidebar -->
