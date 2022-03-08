@@ -71,6 +71,7 @@ class Volunteer extends CActiveRecord
     {
         $criteria = new CDbCriteria;
 
+        $criteria->with = array('group');
         $criteria->compare('id', $this->id);
         $criteria->compare('id_group', $this->id_group);
         $criteria->compare('utility', $this->utility, true);

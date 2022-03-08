@@ -17,12 +17,29 @@ class UserController extends Controller
     }
 
     /**
+     * Сохранение изменений у существующего пользователя
      * @param $id
      * @throws CHttpException
      */
     public function actionSave($id)
     {
         $model = $this->loadModel($id);
+        if (isset($_POST['User'])) {
+            $model->attributes = $_POST['User'];
+
+            $volunteer = Volunteer::model()->findByPk($model->id);
+            $volunteer->attributes = $_POST['User'];
+
+            if ($model->validate() & $model->save())
+            {
+                if ($volunteer->validate()) {
+                    $volunteer->save();
+                }
+
+                Yii::app()->user->setFlash('changeProfile','Изменения сохранены');
+                $this->redirect('/user/profile?id=' . $model->id);
+            }
+        }
         $this->render('profile', array('model' => $model));
     }
 
