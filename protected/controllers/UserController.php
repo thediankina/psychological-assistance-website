@@ -5,6 +5,24 @@
  */
 class UserController extends Controller
 {
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array(
+                'deny',
+                'actions' => array('save', 'profile'),
+                'users' => array('?'),
+            ),
+        );
+    }
+
     /**
      * Просмотр профиля/анкеты пользователя
      * @param $id

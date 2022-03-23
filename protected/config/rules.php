@@ -13,4 +13,5 @@ return array(
     'article/edit' => 'office/article/edit',
     'forum' => 'forum/forum/index',
     'forum/view' => 'forum/forum/view',
+    'admin/users' => 'admin/user/index',
 );

@@ -27,6 +27,10 @@ return array(
         'forum' => array(
             'class' => application\modules\forum\ForumModule::class,
         ),
+
+        'admin' => array(
+            'class' => application\modules\admin\AdminModule::class,
+        ),
     ),
 
     'components' => array(

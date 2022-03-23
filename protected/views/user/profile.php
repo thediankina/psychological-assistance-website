@@ -20,10 +20,8 @@ if (Yii::app()->user->hasFlash('changeProfile')): ?>
     'enableAjaxValidation' => false,
 )); ?>
 
-<?php $back_url = parse_url(Yii::app()->request->urlReferrer, PHP_URL_PATH); ?>
-
 <menu>
-    <?= CHtml::htmlButton('Вернуться', array('submit' => array($back_url), 'class' => 'back-button')); ?>
+    <?= CHtml::htmlButton('Вернуться', array('submit' => array('/admin/users'), 'class' => 'back-button')); ?>
     <?= CHtml::htmlButton('Сохранить',
         array('submit' => array('user/save', 'id' => $model->id), 'class' => 'primary-button')); ?>
 </menu>
