@@ -14,6 +14,8 @@ use application\modules\office\models\Request;
  *
  * Связи
  * @property Request[] $requests
+ * @property User[] $users
+ * @property Volunteer[] $volunteers
  */
 class City extends CActiveRecord
 {
@@ -45,7 +47,9 @@ class City extends CActiveRecord
     public function relations()
     {
         return array(
-            'requests' => array(self::HAS_MANY, Request::class, array('id_city' => 'id')),
+            'requests' => array(self::HAS_MANY, Request::class, 'id_city'),
+            'users' => array(self::HAS_MANY, User::class, 'id_city'),
+            'volunteers' => array(self::HAS_MANY, Volunteer::class, 'id_city'),
         );
     }
 

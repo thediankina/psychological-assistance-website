@@ -11,3 +11,5 @@ $this->pageTitle = 'Просмотр статьи #' . $model->id;
 ?>
 
 <h1><?php echo $this->pageTitle; ?></h1>
+
+<?= $model->content; ?>

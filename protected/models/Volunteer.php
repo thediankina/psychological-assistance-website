@@ -6,10 +6,11 @@
  * Атрибуты
  * @property integer $id
  * @property integer $id_group
+ * @property integer $old
  * @property string $utility
- * @property integer $activity
+ * @property integer $isActive
+ * @property string $site
  * @property integer $id_city
- *
  * Связи
  * @property VolunteerGroup $group
  * @property City $city
@@ -31,10 +32,11 @@ class Volunteer extends CActiveRecord
     public function rules()
     {
         return array(
-            array('id_group, id_city', 'required'),
-            array('id_group, activity, id_city', 'numerical', 'integerOnly' => true),
+            array('id, id_group, old, site, id_city', 'required'),
+            array('id, id_group, old, isActive, id_city', 'numerical', 'integerOnly' => true),
             array('utility', 'length', 'max' => 200),
-            array('id, id_group, utility, activity, id_city', 'safe', 'on' => 'search'),
+            array('site', 'length', 'max'=>20),
+            array('id, id_group, old, utility, isActive, site, id_city', 'safe', 'on'=>'search'),
         );
     }
 
@@ -59,7 +61,7 @@ class Volunteer extends CActiveRecord
             'id' => 'ID',
             'id_group' => 'Группа',
             'utility' => 'Другое',
-            'activity' => 'Деятельность',
+            'isActive' => 'Статус',
             'id_city' => 'Город',
         );
     }
@@ -74,8 +76,10 @@ class Volunteer extends CActiveRecord
         $criteria->with = array('group');
         $criteria->compare('id', $this->id);
         $criteria->compare('id_group', $this->id_group);
+        $criteria->compare('old',$this->old);
         $criteria->compare('utility', $this->utility, true);
-        $criteria->compare('activity', $this->activity);
+        $criteria->compare('isActive',$this->isActive);
+        $criteria->compare('site',$this->site,true);
         $criteria->compare('id_city', $this->id_city);
 
         return new CActiveDataProvider($this, array(

@@ -3,6 +3,7 @@
 use application\modules\forum\models\Comment;
 use application\modules\forum\models\Topic;
 use application\modules\office\models\Article;
+use application\modules\office\models\Category;
 use application\modules\office\models\RequestHistory;
 
 /**
@@ -10,6 +11,7 @@ use application\modules\office\models\RequestHistory;
  *
  * Атрибуты
  * @property integer $id
+ * @property integer $isActive
  * @property string $firstName
  * @property string $middleName
  * @property string $lastName
@@ -18,10 +20,13 @@ use application\modules\office\models\RequestHistory;
  * @property integer $id_city
  * @property integer $id_position
  * @property string $password
+ * @property string $salt
  *
  * Связи
  * @property Article[] $articles
+ * @property Category[] $categories
  * @property Comment[] $comments
+ * @property Organization[] $organizations
  * @property Topic[] $topics
  * @property RequestHistory[] $histories
  * @property City $city
@@ -62,14 +67,14 @@ class User extends CActiveRecord
     public function rules()
     {
         return array(
-            array('firstName, lastName, mail, id_city, id_position', 'required'),
-            array('id_city, id_position, id_group, activity', 'numerical', 'integerOnly' => true),
+            array('firstName, middleName, lastName, phone, mail, id_city, id_position, password, salt', 'required'),
+            array('isActive, id_city, id_position, id_group, activity', 'numerical', 'integerOnly' => true),
             array('firstName, middleName, lastName, mail', 'length', 'max' => 45),
             array('phone', 'length', 'max' => 11),
-            array('password', 'length', 'max' => 32),
+            array('password, salt', 'length', 'max' => 32),
             array('utility', 'length', 'max' => 200),
             array(
-                'id, firstName, middleName, lastName, phone, mail, id_city, id_position, password, id_group, utility, activity',
+                'id, isActive, firstName, middleName, lastName, phone, mail, id_city, id_position, password, salt, id_group, utility, activity',
                 'safe',
                 'on' => 'search'
             ),
@@ -83,8 +88,10 @@ class User extends CActiveRecord
     {
         return array(
             'articles' => array(self::HAS_MANY, Article::class, 'id_author'),
-            'comment' => array(self::HAS_ONE, Comment::class, 'id'),
-            'topic' => array(self::HAS_ONE, Topic::class, 'id'),
+            'categories' => array(self::HAS_MANY, Category::class, 'id_author'),
+            'comment' => array(self::HAS_ONE, Comment::class, 'id'),    // has one?
+            'organizations' => array(self::HAS_MANY, Organization::class, 'id_author'),
+            'topic' => array(self::HAS_ONE, Topic::class, 'id'),        // has one?
             'histories' => array(self::HAS_MANY, RequestHistory::class, 'IDuser'),
             'city' => array(self::BELONGS_TO, City::class, array('id_city' => 'id')),
             'position' => array(self::BELONGS_TO, Position::class, array('id_position' => 'id')),
@@ -99,6 +106,7 @@ class User extends CActiveRecord
     {
         return array(
             'id' => 'ID',
+            'isActive' => 'Статус',
             'firstName' => 'Имя',
             'middleName' => 'Отчество',
             'lastName' => 'Фамилия',
@@ -107,9 +115,10 @@ class User extends CActiveRecord
             'id_city' => 'Город',
             'id_position' => 'Специализация',
             'password' => 'Пароль',
+            'salt' => '',
             'id_group' => 'Волонтерская группа',
             'utility' => 'Другое',
-            'activity' => 'Статус',
+            'activity' => 'Статус',     // ?
         );
     }
 
@@ -122,6 +131,7 @@ class User extends CActiveRecord
 
         $criteria->with = array('volunteer');
         $criteria->compare('id', $this->id);
+        $criteria->compare('isActive',$this->isActive);
         $criteria->compare('firstName', $this->firstName, true);
         $criteria->compare('middleName', $this->middleName, true);
         $criteria->compare('lastName', $this->lastName, true);

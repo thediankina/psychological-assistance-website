@@ -9,6 +9,20 @@ use application\modules\office\models\Request;
 class ArticleController extends Controller
 {
     /**
+     * Список опубликованных статей
+     */
+    public function actionIndex()
+    {
+        $model = new Article();
+        $dataProvider = $model->search();
+
+        $this->render('index', array(
+            'model' => $model,
+            'dataProvider' => $dataProvider,
+        ));
+    }
+
+    /**
      * Просмотр статьи
      * @param $id
      * @throws CHttpException

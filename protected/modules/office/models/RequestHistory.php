@@ -67,10 +67,10 @@ class RequestHistory extends CActiveRecord
     {
         return array(
             'id' => 'ID',
-            'IDuser' => 'Iduser',
-            'IDrequest' => 'Idrequest',
-            'comment' => 'Comment',
-            'dateOfComment' => 'Date Of Comment',
+            'IDuser' => 'ID пользователя',
+            'IDrequest' => 'ID заявки',
+            'comment' => 'Комментарий',
+            'dateOfComment' => 'Дата изменений',
         );
     }
 

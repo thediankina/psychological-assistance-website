@@ -2,10 +2,12 @@
 /**
  * @var $this RequestController
  * @var $model Request
+ * @var $history RequestHistory
  */
 
 use application\modules\office\controllers\RequestController;
 use application\modules\office\models\Request;
+use application\modules\office\models\RequestHistory;
 
 $this->pageTitle = 'Просмотр заявки #' . $model->id;
 ?>
@@ -19,7 +21,7 @@ $this->pageTitle = 'Просмотр заявки #' . $model->id;
         <?= CHtml::htmlButton('Принять',
             array('submit' => array('request/accept', 'id' => $model->id), 'class' => 'primary-button')); ?>
     <?php else: ?>
-        <?php if ($model->executor->user->id == Yii::app()->user->id): ?>
+        <?php if ($history && $history->comment == "Принято"): ?>
             <?= CHtml::htmlButton('Отклонить',
                 array('submit' => array('request/reject', 'id' => $model->id), 'class' => 'primary-button')); ?>
             <?= CHtml::htmlButton('Завершить',

@@ -39,9 +39,15 @@ class RequestController extends Controller
     public function actionView($id)
     {
         $model = $this->loadModel($id);
+        $history = RequestHistory::model()->findByAttributes(array(
+            'IDuser' => Yii::app()->user->id,
+            'IDrequest' => $model->id
+        ),
+            array('order' => 'id DESC', 'limit' => 1));
 
         $this->render('view', array(
             'model' => $model,
+            'history' => $history
         ));
     }
 

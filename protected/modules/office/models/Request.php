@@ -22,8 +22,8 @@ use City;
  * @property integer $id_city
  *
  * Связи
- * @property City $city
  * @property Category $category
+ * @property City $city
  * @property RequestHistory[] $history
  */
 class Request extends CActiveRecord

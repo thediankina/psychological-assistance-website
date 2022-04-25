@@ -30,10 +30,10 @@ if (Yii::app()->user->hasFlash('changeProfile')): ?>
     <tbody>
         <tr>
             <th>
-                <?= $form->label($model, 'activity'); ?>
+                <?= $form->label($model, 'isActive'); ?>
             </th>
             <td>
-                <?= $form->dropDownList($model, 'activity', array(1 => 'Активен', 0 => 'Отключен'), array('class' => 'profile-form-field')); ?>
+                <?= $form->dropDownList($model, 'isActive', array(1 => 'Активен', 0 => 'Отключен'), array('class' => 'profile-form-field')); ?>
             </td>
         </tr>
         <tr>
@@ -101,8 +101,9 @@ if (Yii::app()->user->hasFlash('changeProfile')): ?>
             <td>
                 <?= $form->dropDownList($model, 'id_group',
                     CHtml::listData(VolunteerGroup::model()->findAll(), 'id', 'group_name'), array(
-                        'options' => array($model->volunteer->id_group => array('selected' => true)),
-                        'class' => 'profile-form-field'
+                        'options' => ($model->id_position == 6) ? array($model->volunteer->id_group => array('selected' => true)): '',
+                        'class' => 'profile-form-field',
+                        'empty' => ''
                     )); ?>
             </td>
         </tr>

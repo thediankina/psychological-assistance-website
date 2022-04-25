@@ -18,6 +18,7 @@ use User;
  * @property string $public_date
  *
  * Связи
+ * @property Topic $topic
  * @property User $author
  */
 class Comment extends CActiveRecord
@@ -57,6 +58,7 @@ class Comment extends CActiveRecord
     public function relations()
     {
         return array(
+            'topic' => array(self::BELONGS_TO, Topic::class, 'id_topic'),
             'author' => array(self::BELONGS_TO, User::class, array('id_author' => 'id'), 'with' => array('position', 'city')),
         );
     }
@@ -71,7 +73,7 @@ class Comment extends CActiveRecord
             'id_topic' => 'Обсуждение',
             'content' => 'Содержание',
             'id_author' => 'ID автора',
-            'public_date' => 'Дата',
+            'public_date' => 'Дата публикации',
         );
     }
 

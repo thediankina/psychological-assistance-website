@@ -6,6 +6,7 @@ use CActiveDataProvider;
 use CActiveRecord;
 use CDbCriteria;
 use CDbExpression;
+use Moderation;
 use User;
 
 /**
@@ -19,11 +20,13 @@ use User;
  * @property string $dates_temp
  * @property integer $id_status
  * @property integer $id_category_article
+ * @property string $type
  *
  * Связи
- * @property User $author
  * @property Category $category
  * @property ArticleStatus $status
+ * @property User $author
+ * @property Moderation[] $moderations
  */
 class Article extends CActiveRecord
 {
@@ -41,12 +44,14 @@ class Article extends CActiveRecord
     public function rules()
     {
         return array(
-            array('title, content, id_author, id_status, id_category_article', 'required'),
+            array('title, content, id_author, id_status, id_category_article, type', 'required'),
             array('id_author, id_status, id_category_article', 'numerical', 'integerOnly' => true),
+            array('content', 'length', 'max' => 50000),
             array('title', 'length', 'max' => 100),
+            array('type', 'length', 'max' => 13),
             array('dates_temp', 'safe'),
             array(
-                'id, title, content, id_author, dates_temp, id_status, id_category_article',
+                'id, title, content, id_author, dates_temp, id_status, id_category_article, type',
                 'safe',
                 'on' => 'search'
             ),
@@ -59,9 +64,10 @@ class Article extends CActiveRecord
     public function relations()
     {
         return array(
-            'author' => array(self::BELONGS_TO, User::class, array('id_author' => 'id')),
             'category' => array(self::BELONGS_TO, Category::class, array('id_category_article' => 'id')),
             'status' => array(self::BELONGS_TO, ArticleStatus::class, array('id_status' => 'id')),
+            'author' => array(self::BELONGS_TO, User::class, array('id_author' => 'id')),
+            'moderations' => array(self::HAS_MANY, Moderation::class, 'id_article'),
         );
     }
 
@@ -78,6 +84,7 @@ class Article extends CActiveRecord
             'dates_temp' => 'Дата',
             'id_status' => 'ID статуса',
             'id_category_article' => 'ID категории',
+            'type' => 'Тип',
         );
     }
 
@@ -96,6 +103,7 @@ class Article extends CActiveRecord
         $criteria->compare('dates_temp',$this->dates_temp,true);
         $criteria->compare('status.status',$this->id_status);
         $criteria->compare('category.id',$this->id_category_article);
+        $criteria->compare('type',$this->type,true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
