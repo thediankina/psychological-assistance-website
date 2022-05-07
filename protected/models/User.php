@@ -35,11 +35,30 @@ use application\modules\office\models\RequestHistory;
  */
 class User extends CActiveRecord
 {
+    const STATUS_ENABLED = 1;
+    const STATUS_DISABLED = 0;
+
+    const VOLUNTEER_POSITION = 6;
+
+    // @todo Перенести в форму UserForm
+
     /**
-     * Дополнительные возможности волонтера
-     * @var string
+     * Статус активности волонтера
+     * @var integer
      */
-    public $utility;
+    public $activity;
+
+    /**
+     * Возраст волонтера
+     * @var integer
+     */
+    public $old;
+
+    /**
+     * Ссылка, которую указывает волонтер
+     * @var integer
+     */
+    public $site;
 
     /**
      * Группа, к которой относится волонтер
@@ -48,10 +67,10 @@ class User extends CActiveRecord
     public $id_group;
 
     /**
-     * Статус активности волонтера
-     * @var integer
+     * Дополнительные возможности волонтера
+     * @var string
      */
-    public $activity;
+    public $utility;
 
     /**
      * @return string
@@ -67,7 +86,7 @@ class User extends CActiveRecord
     public function rules()
     {
         return array(
-            array('firstName, middleName, lastName, phone, mail, id_city, id_position, password, salt', 'required'),
+            array('firstName, middleName, lastName, phone, mail, id_city, id_position, password', 'required'),
             array('isActive, id_city, id_position, id_group, activity', 'numerical', 'integerOnly' => true),
             array('firstName, middleName, lastName, mail', 'length', 'max' => 45),
             array('phone', 'length', 'max' => 11),
@@ -119,6 +138,8 @@ class User extends CActiveRecord
             'id_group' => 'Волонтерская группа',
             'utility' => 'Другое',
             'activity' => 'Статус',     // ?
+            'site' => 'Социальная сеть',
+            'old' => 'Возраст',
         );
     }
 
@@ -149,6 +170,14 @@ class User extends CActiveRecord
             'criteria' => $criteria,
             'pagination' => array('pageSize' => 50),
         ));
+    }
+
+    /**
+     * Верификация волонтера
+     * @return bool
+     */
+    public function isVolunteer() {
+        return $this->id_position == self::VOLUNTEER_POSITION;
     }
 
     /**

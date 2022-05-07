@@ -60,8 +60,10 @@ class Volunteer extends CActiveRecord
         return array(
             'id' => 'ID',
             'id_group' => 'Группа',
+            'old' => 'Возраст',
             'utility' => 'Другое',
             'isActive' => 'Статус',
+            'site' => 'Социальная сеть',
             'id_city' => 'Город',
         );
     }

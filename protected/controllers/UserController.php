@@ -24,7 +24,7 @@ class UserController extends Controller
     }
 
     /**
-     * Просмотр профиля/анкеты пользователя
+     * Просмотр/редактирование профиля пользователя
      * @param $id
      * @throws CHttpException
      */
@@ -45,17 +45,23 @@ class UserController extends Controller
         if (isset($_POST['User'])) {
             $model->attributes = $_POST['User'];
 
-            $volunteer = Volunteer::model()->findByPk($model->id);
-            $volunteer->attributes = $_POST['User'];
+            if ($volunteer = Volunteer::model()->findByPk($model->id)) {
+                $volunteer->attributes = $_POST['User'];
+            }
 
             if ($model->validate() & $model->save())
             {
-                if ($volunteer->validate()) {
-                    $volunteer->save();
+                if ($volunteer) {
+                    if ($volunteer->validate()) {
+                        $volunteer->save();
+                    }
                 }
 
-                Yii::app()->user->setFlash('changeProfile','Изменения сохранены');
+                Yii::app()->user->setFlash('changeProfile', 'Изменения сохранены');
                 $this->redirect('/user/profile?id=' . $model->id);
+            } else {
+                Yii::app()->user->setFlash('changeProfile', 'При выполнении этого действия произошла ошибка');
+                Yii::log('Получено сообщение об ошибке: ' . var_export($model->getErrors(), true), CLogger::LEVEL_WARNING);
             }
         }
         $this->render('profile', array('model' => $model));
