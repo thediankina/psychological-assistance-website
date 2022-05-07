@@ -36,7 +36,12 @@ $this->pageTitle = 'Просмотр заявки #' . $model->id;
         'status',
         array(
             'label' => 'Исполнитель',
+            'type' => 'html',
             'name' => 'executor.user.lastName',
+            'value' => function ($model) {
+                return $model->status == "В работе" | $model->status == "Отклонена" ? CHtml::link($model->executor->user->lastName,
+                    $this->createUrl('/user/profile', array('id' => $model->executor->user->id))) : null;
+            }
         ),
         'name',
         'city.name',

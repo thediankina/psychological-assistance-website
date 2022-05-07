@@ -15,8 +15,9 @@ if (Yii::app()->user->hasFlash('success')): ?>
 <div class="comment" id="c<?= $comment->id; ?>">
 
     <div class="comment-author">
-        <?= implode('&nbsp;',
-            array($comment->author->lastName, $comment->author->firstName, $comment->author->middleName)); ?>
+        <?= CHtml::link(implode('&nbsp;',
+            array($comment->author->lastName, $comment->author->firstName, $comment->author->middleName)),
+            $this->createUrl('/user/profile', array('id' => $comment->author->id))); ?>
     </div>
 
     <div class="comment-position">

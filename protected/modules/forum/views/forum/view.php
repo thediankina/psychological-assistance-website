@@ -34,9 +34,10 @@ $this->pageTitle = $forum->title;
         ),
         array(
             'header' => 'Автор',
+            'type' => 'html',
             'name' => 'id_author',
             'value' => function ($model) {
-                return $model->author->lastName;
+                return CHtml::link($model->author->lastName, $this->createUrl('/user/profile', array('id' => $model->author->id)));
             }
         ),
         'public_date',

@@ -25,7 +25,12 @@ $this->pageTitle = 'Все заявки';
         'status',
         array(
             'header' => 'Исполнитель',
+            'type' => 'html',
             'name' => 'executor.user.lastName',
+            'value' => function ($model) {
+                return $model->status == "В работе" | $model->status == "Отклонена" ? CHtml::link($model->executor->user->lastName,
+                    $this->createUrl('/user/profile', array('id' => $model->executor->user->id))) : null;
+            }
         ),
         array(
             'class' => 'CButtonColumn',

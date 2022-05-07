@@ -2,9 +2,15 @@
 /**
  * Просмотр профиля
  * @var $model User
+ * @todo Поменять кнопку "Вернуться" (попробовать открыть профиль в новом окне)
  */
+?>
 
-$this->widget('zii.widgets.CDetailView', array(
+<menu>
+    <?= CHtml::htmlButton('Вернуться', array('submit' => array('/forum'), 'class' => 'back-button')); ?>
+</menu>
+
+<?php $this->widget('zii.widgets.CDetailView', array(
     'data' => $model,
     'attributes' => array(
         array(
@@ -28,8 +34,18 @@ $this->widget('zii.widgets.CDetailView', array(
                 return City::model()->findByPk($model->id_city)->name;
             }
         ),
-        'phone',
-        'mail',
+        array(
+            'name' => 'phone',
+            'value' => function ($model) {
+                return $model->phone ?: null;
+            }
+        ),
+        array(
+            'name' => 'mail',
+            'value' => function ($model) {
+                return $model->mail ?: null;
+            }
+        ),
         array(
             'name' => 'old',
             'value' => function ($model) {
