@@ -15,5 +15,8 @@ return array(
     'article/edit' => 'office/article/edit',
     'forum' => 'forum/forum/index',
     'forum/view' => 'forum/forum/view',
+    'admin' => 'admin/moderation/index',
     'admin/users' => 'admin/user/index',
+    'admin/articles' => 'admin/article/index',
+    'admin/volunteers' => 'admin/volunteer/index',
 );

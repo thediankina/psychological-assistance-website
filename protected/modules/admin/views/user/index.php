@@ -12,6 +12,10 @@ $this->pageTitle = 'Панель администратора';
 
 <h1><?php echo $this->pageTitle; ?></h1>
 
+<menu>
+    <?= CHtml::htmlButton('Вернуться', array('submit' => array("/admin"), 'class' => 'back-button')); ?>
+</menu>
+
 <?php $this->widget('zii.widgets.grid.CGridView', array(
     'dataProvider' => $dataProvider,
     'enablePagination' => true,

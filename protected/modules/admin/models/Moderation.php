@@ -1,6 +1,11 @@
 <?php
 
+namespace application\modules\admin\models;
+
 use application\modules\office\models\Article;
+use CActiveDataProvider;
+use CActiveRecord;
+use CDbCriteria;
 
 /**
  * Модель модерации статьи
@@ -17,6 +22,27 @@ use application\modules\office\models\Article;
  */
 class Moderation extends CActiveRecord
 {
+    const ADMIN_PANEL_CATEGORIES = array(
+        array(
+            'id' => 1,
+            'name' => "Запросы на регистрацию",
+            'link' => '/admin/users',
+            'description' => "Рассмотреть запросы специалистов на регистрацию в системе",
+        ),
+        array(
+            'id' => 2,
+            'name' => "Модерация статей",
+            'link' => '/admin/articles',
+            'description' => "Рассмотреть статьи, поданные на публикацию",
+        ),
+        array(
+            'id' => 3,
+            'name' => "Список волонтеров",
+            'link' => '/admin/volunteers',
+            'description' => "Рассмотреть профили волонтеров, зарегистрированных в системе",
+        ),
+    );
+
     /**
      * @return string
      */

@@ -8,7 +8,7 @@
  * @property integer $id_group
  * @property integer $old
  * @property string $utility
- * @property integer $isActive
+ * @property integer $isActive      // ignore
  * @property string $site
  * @property integer $id_city
  * Связи
@@ -33,10 +33,10 @@ class Volunteer extends CActiveRecord
     {
         return array(
             array('id, id_group, old, site, id_city', 'required'),
-            array('id, id_group, old, isActive, id_city', 'numerical', 'integerOnly' => true),
+            array('id, id_group, old, id_city', 'numerical', 'integerOnly' => true),
             array('utility', 'length', 'max' => 200),
-            array('site', 'length', 'max'=>20),
-            array('id, id_group, old, utility, isActive, site, id_city', 'safe', 'on'=>'search'),
+            array('site', 'length', 'max' => 20),
+            array('id, id_group, old, utility, site, id_city', 'safe', 'on' => 'search'),
         );
     }
 
@@ -62,7 +62,6 @@ class Volunteer extends CActiveRecord
             'id_group' => 'Группа',
             'old' => 'Возраст',
             'utility' => 'Другое',
-            'isActive' => 'Статус',
             'site' => 'Социальная сеть',
             'id_city' => 'Город',
         );
