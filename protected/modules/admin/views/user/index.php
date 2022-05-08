@@ -7,7 +7,7 @@
 
 use application\modules\admin\controllers\UserController;
 
-$this->pageTitle = 'Панель администратора';
+$this->pageTitle = 'Запросы на регистрацию';
 ?>
 
 <h1><?php echo $this->pageTitle; ?></h1>

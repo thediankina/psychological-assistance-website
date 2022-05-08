@@ -2,11 +2,11 @@
 
 namespace application\modules\office\models;
 
+use application\modules\admin\models\Moderation;
 use CActiveDataProvider;
 use CActiveRecord;
 use CDbCriteria;
 use CDbExpression;
-use Moderation;
 use User;
 
 /**
@@ -30,6 +30,11 @@ use User;
  */
 class Article extends CActiveRecord
 {
+    const PUBLISHED_STATUS = 1; // Опубликовано
+    const DRAFT_STATUS = 2; // Черновик
+    const VERIFICATION_STATUS = 3;  // На проверке
+    const MODIFY_STATUS = 4;    // Отправлено на доработку
+
     /**
      * @return string
      */

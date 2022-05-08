@@ -23,10 +23,9 @@ $this->pageTitle = ($model->id) ? 'Редактирование статьи #' 
 
 <?= CHtml::beginForm(); ?>
 
-<?php $back_url = parse_url(Yii::app()->request->urlReferrer, PHP_URL_PATH); ?>
 <menu>
-    <?= CHtml::htmlButton('Вернуться', array('submit' => array($back_url), 'class' => 'back-button')); ?>
-    <?= ($model->id) ? CHtml::htmlButton('Сохранить', array('type' => 'submit', 'class' => 'primary-button')) : ''; ?>
+    <?= CHtml::htmlButton('Вернуться', array('submit' => array('/articles'), 'class' => 'back-button')); ?>
+    <?= CHtml::htmlButton('Черновик', array('submit' => array('article/draft', 'id' => $model->id ?: 0), 'class' => 'primary-button')); ?>
     <?= CHtml::htmlButton('Отправить', array('type' => 'submit', 'class' => 'primary-button')); ?>
 </menu>
 

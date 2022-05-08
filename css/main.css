@@ -31,8 +31,8 @@ button
 {
 	border: 1px #000000 solid;
 	font-size: 1.1em;
-	height: 30px;
-	width: 100px;
+	padding: 6px 15px;
+	display: inline-block;
 }
 
 .back-button
@@ -498,6 +498,21 @@ table.detail-view .null {
 .yiiTab div.view
 {
 	border: 1px solid #000000;
+}
+
+/** article */
+#article-title {
+	color: #438397;
+	font: bold 1.4em 'Roboto', sans-serif;
+}
+
+#article-date {
+	color: #438397;
+	font: bold 1em 'Roboto', sans-serif;
+}
+
+#article-content {
+	font: normal 1.2em 'Roboto', sans-serif;
 }
 
 /** article editor */

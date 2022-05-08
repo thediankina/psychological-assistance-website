@@ -61,7 +61,7 @@ class UserController extends Controller
                 $this->redirect('/user/profile?id=' . $model->id);
             } else {
                 Yii::app()->user->setFlash('changeProfile', 'При выполнении этого действия произошла ошибка');
-                Yii::log('Получено сообщение об ошибке: ' . var_export($model->getErrors(), true), CLogger::LEVEL_WARNING);
+                Yii::log('Неудачное сохранение пользователя: ' . var_export($model->getErrors(), true), CLogger::LEVEL_WARNING);
             }
         }
         $this->render('profile', array('model' => $model));

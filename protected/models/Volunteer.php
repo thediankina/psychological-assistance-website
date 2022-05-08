@@ -79,7 +79,7 @@ class Volunteer extends CActiveRecord
         $criteria->compare('id_group', $this->id_group);
         $criteria->compare('old',$this->old);
         $criteria->compare('utility', $this->utility, true);
-        $criteria->compare('isActive',$this->isActive);
+        //$criteria->compare('isActive',$this->isActive);
         $criteria->compare('site',$this->site,true);
         $criteria->compare('id_city', $this->id_city);
 
