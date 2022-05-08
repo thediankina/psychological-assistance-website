@@ -2,6 +2,7 @@
 /**
  * @var $this Controller
  * @var $content
+ * @todo Изменить условие видимости меню согласно должности волонтера!
  */
 
 Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/main.css');
@@ -34,8 +35,12 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/pager.css'
         <?php if (Yii::app()->user->isGuest): ?>
             <a href="<?= $this->createUrl(Yii::app()->user->loginUrl); ?>">Войти</a>
         <?php else: ?>
-            <a href="#"><?= CHtml::encode(Yii::app()->user->name); ?></a>
-            <a onclick="openMenu()">Меню</a>
+            <a href="#"><?= CHtml::link(CHtml::encode(Yii::app()->user->name),
+                    $this->createUrl('/user/profile', array('id' => Yii::app()->user->id))); ?>
+            </a>
+            <?php if (Yii::app()->user->name != "volunteer"): ?>
+                <a onclick="openMenu()">Меню</a>
+            <?php endif; ?>
             <a href="<?= $this->createUrl('/logout'); ?>">Выйти</a>
         <?php endif; ?>
     </div>

@@ -39,6 +39,10 @@ $this->pageTitle = 'Статьи';
         array(
             'header' => 'Автор',
             'name' => 'author.lastName',
+            'type' => 'html',
+            'value' => function ($model) {
+                return CHtml::link($model->author->lastName, $this->createUrl('/user/profile', array('id' => $model->author->id)));
+            }
         ),
         array(
             'class' => 'CButtonColumn',

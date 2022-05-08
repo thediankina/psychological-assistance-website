@@ -14,6 +14,7 @@ class ArticleController extends Controller
     public function actionIndex()
     {
         $model = new Article();
+        $model->id_status = "Опубликовано";
         $dataProvider = $model->search();
 
         $this->render('index', array(

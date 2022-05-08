@@ -93,17 +93,17 @@ class Article extends CActiveRecord
      */
     public function search()
     {
-        $criteria=new CDbCriteria;
+        $criteria = new CDbCriteria;
 
         $criteria->with = array('author', 'status');
-        $criteria->compare('id',$this->id);
-        $criteria->compare('title',$this->title,true);
-        $criteria->compare('content',$this->content,true);
+        $criteria->compare('id', $this->id);
+        $criteria->compare('title', $this->title, true);
+        $criteria->compare('content', $this->content, true);
         $criteria->compare('author.id', $this->id_author);
-        $criteria->compare('dates_temp',$this->dates_temp,true);
-        $criteria->compare('status.status',$this->id_status);
-        $criteria->compare('category.id',$this->id_category_article);
-        $criteria->compare('type',$this->type,true);
+        $criteria->compare('dates_temp', $this->dates_temp, true);
+        $criteria->compare('status.status', $this->id_status);
+        $criteria->compare('category.id', $this->id_category_article);
+        $criteria->compare('type', $this->type, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

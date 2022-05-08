@@ -10,7 +10,9 @@ $form = $this->beginWidget('CActiveForm', array(
 )); ?>
 
 <menu>
-    <?= CHtml::htmlButton('Вернуться', array('submit' => array('/admin/users'), 'class' => 'back-button')); ?>
+    <?php if (Yii::app()->user->name != "volunteer") {
+        CHtml::htmlButton('Вернуться', array('submit' => array('/admin/users'), 'class' => 'back-button'));
+    } ?>
     <?= CHtml::htmlButton('Сохранить',
         array('submit' => array('user/save', 'id' => $model->id), 'class' => 'primary-button')); ?>
 </menu>
