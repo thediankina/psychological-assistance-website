@@ -28,7 +28,7 @@ $this->pageTitle = 'Все заявки';
             'type' => 'html',
             'name' => 'executor.user.lastName',
             'value' => function ($model) {
-                return $model->status == "В работе" | $model->status == "Отклонена" ? CHtml::link($model->executor->user->lastName,
+                return $model->status == Request::STATUS_IN_WORK | $model->status == Request::STATUS_REJECTED ? CHtml::link($model->executor->user->lastName,
                     $this->createUrl('/user/profile', array('id' => $model->executor->user->id))) : null;
             }
         ),

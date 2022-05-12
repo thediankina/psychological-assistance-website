@@ -6,6 +6,7 @@ use CActiveDataProvider;
 use CActiveRecord;
 use CDbCriteria;
 use User;
+use Yii;
 
 /**
  * Модель истории действий над заявкой
@@ -23,6 +24,12 @@ use User;
  */
 class RequestHistory extends CActiveRecord
 {
+    /**
+     * Системные комментарии
+     */
+    const ACTION_ACCEPTED = "Принято";
+    const ACTION_REJECTED = "Отклонено";
+
     /**
      * @return string
      */
@@ -91,6 +98,22 @@ class RequestHistory extends CActiveRecord
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
+    }
+
+    /**
+     * @param $request
+     * @param $comment
+     * @return RequestHistory
+     */
+    public static function createRecord($request, $comment)
+    {
+        $record = new RequestHistory();
+        $record->IDuser = Yii::app()->user->id;
+        $record->IDrequest = $request->id;
+        $record->comment = $comment;
+        $record->dateOfComment = date('Y-m-d');
+
+        return $record;
     }
 
     /**

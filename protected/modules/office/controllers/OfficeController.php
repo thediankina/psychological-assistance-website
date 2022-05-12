@@ -19,11 +19,13 @@ class OfficeController extends Controller
 
     public function actionIndex()
     {
+        $user_id = Yii::app()->user->id;
+
         $request = new Request();
-        $request->executor_id = Yii::app()->user->id;
+        $request->executor_id = $user_id;
 
         $article = new Article();
-        $article->id_author = Yii::app()->user->id;
+        $article->id_author = $user_id;
 
         $this->render('index', array(
             'request' => $request,

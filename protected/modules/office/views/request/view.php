@@ -17,11 +17,11 @@ $this->pageTitle = 'Просмотр заявки #' . $model->id;
 <?php $back_url = parse_url(Yii::app()->request->urlReferrer, PHP_URL_PATH); ?>
 <menu>
     <?= CHtml::htmlButton('Вернуться', array('submit' => array($back_url), 'class' => 'back-button')); ?>
-    <?php if (empty($model->executor->user->id)): ?>
+    <?php if ($model->status == Request::STATUS_PLANNED): ?>
         <?= CHtml::htmlButton('Принять',
             array('submit' => array('request/accept', 'id' => $model->id), 'class' => 'primary-button')); ?>
     <?php else: ?>
-        <?php if ($history && $history->comment == "Принято"): ?>
+        <?php if ($history && $history->comment == RequestHistory::ACTION_ACCEPTED): ?>
             <?= CHtml::htmlButton('Отклонить',
                 array('submit' => array('request/reject', 'id' => $model->id), 'class' => 'primary-button')); ?>
             <?= CHtml::htmlButton('Завершить',
@@ -39,7 +39,7 @@ $this->pageTitle = 'Просмотр заявки #' . $model->id;
             'type' => 'html',
             'name' => 'executor.user.lastName',
             'value' => function ($model) {
-                return $model->status == "В работе" | $model->status == "Отклонена" ? CHtml::link($model->executor->user->lastName,
+                return $model->status == Request::STATUS_IN_WORK | $model->status == Request::STATUS_REJECTED ? CHtml::link($model->executor->user->lastName,
                     $this->createUrl('/user/profile', array('id' => $model->executor->user->id))) : null;
             }
         ),

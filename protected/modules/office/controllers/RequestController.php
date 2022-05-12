@@ -5,6 +5,7 @@ namespace application\modules\office\controllers;
 use application\modules\office\models\Request;
 use application\modules\office\models\RequestHistory;
 use CHttpException;
+use CLogger;
 use Controller;
 use Yii;
 
@@ -16,7 +17,7 @@ class RequestController extends Controller
     /**
      * @var string домашний URL
      */
-    public $home_url = '/requests';
+    public $homeUrl = '/requests';
 
     /**
      * Список заявок
@@ -41,8 +42,7 @@ class RequestController extends Controller
         $model = $this->loadModel($id);
         $history = RequestHistory::model()->findByAttributes(array(
             'IDuser' => Yii::app()->user->id,
-            'IDrequest' => $model->id
-        ),
+            'IDrequest' => $model->id),
             array('order' => 'id DESC', 'limit' => 1));
 
         $this->render('view', array(
@@ -57,18 +57,13 @@ class RequestController extends Controller
      */
     public function actionAccept($id)
     {
-        $model = $this->loadModel($id);
-        $model->status = "В работе";
+        $request = $this->loadModel($id);
+        $request->status = Request::STATUS_IN_WORK;
 
-        $record = new RequestHistory();
-        $record->IDuser = Yii::app()->user->id;
-        $record->IDrequest = $model->id;
-        $record->comment = "Принято";
-        $record->dateOfComment = date('Y-m-d');
+        $record = RequestHistory::createRecord($request, RequestHistory::ACTION_ACCEPTED);
 
-        if ($record->validate() && $record->save() &&
-            $model->validate() && $model->save()) {
-            $this->redirect($this->home_url);
+        if ($record->save() && $request->validate() && $request->save()) {
+            $this->redirect($this->homeUrl);
         }
         else {
             throw new CHttpException(404, 'Возникла проблема при обработке заявки');
@@ -81,22 +76,33 @@ class RequestController extends Controller
      */
     public function actionReject($id)
     {
-        $model = $this->loadModel($id);
-        $model->status = "Отклонена";
+        $request = $this->loadModel($id);
 
         $record = new RequestHistory();
-        $record->IDuser = Yii::app()->user->id;
-        $record->IDrequest = $model->id;
-        $record->comment = "Отклонено";
-        $record->dateOfComment = date('Y-m-d');
 
-        if ($record->validate() && $record->save() &&
-            $model->validate() && $model->save()) {
-            $this->redirect($this->home_url);
+        if (isset($_POST['application_modules_office_models_RequestHistory'])) {
+
+            $record->attributes = $_POST['application_modules_office_models_RequestHistory'];
+            $record = RequestHistory::createRecord($request, $record->comment);
+
+            if ($record->save()) {
+                Request::model()->updateByPk($id, array('status' => Request::STATUS_REJECTED));
+                $record = RequestHistory::createRecord($request, RequestHistory::ACTION_REJECTED);
+                if (!$record->save()) {
+                    throw new CHttpException(404, 'Возникла проблема при обработке заявки');
+                }
+                $this->redirect($this->homeUrl);
+            } else {
+                Yii::app()->user->setFlash('error', 'Введите причину');
+                Yii::log('Неудачное отклонение заявки: ' . var_export($request->getErrors(), true),
+                    CLogger::LEVEL_WARNING);
+            }
         }
-        else {
-            throw new CHttpException(404, 'Возникла проблема при обработке заявки');
-        }
+
+        $this->render('reject', array(
+            'request' => $request,
+            'history' => $record,
+        ));
     }
 
     /**

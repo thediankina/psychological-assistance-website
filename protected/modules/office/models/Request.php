@@ -29,6 +29,13 @@ use City;
 class Request extends CActiveRecord
 {
     /**
+     * Статусы
+     */
+    const STATUS_PLANNED = "Запланирована";
+    const STATUS_IN_WORK = "В работе";
+    const STATUS_REJECTED = "Отклонена";
+
+    /**
      * ID пользователя для поиска исполняемых им заявок
      * @var integer
      */
