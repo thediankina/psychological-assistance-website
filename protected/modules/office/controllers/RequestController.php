@@ -45,9 +45,23 @@ class RequestController extends Controller
             'IDrequest' => $model->id),
             array('order' => 'id DESC', 'limit' => 1));
 
+        $comment = new RequestHistory();
+        $comment->IDrequest = $model->id;
+
+        if (isset($_POST['application_modules_office_models_RequestHistory'])) {
+
+            $comment->attributes = $_POST['application_modules_office_models_RequestHistory'];
+            $record = RequestHistory::createRecord($model, $comment->comment);
+
+            if ($record->save()) {
+                $this->redirect($this->createUrl('request/view', array('id' => $model->id)));
+            }
+        }
+
         $this->render('view', array(
             'model' => $model,
-            'history' => $history
+            'history' => $history,
+            'comments' => $comment
         ));
     }
 

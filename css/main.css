@@ -499,6 +499,39 @@ table.detail-view .null {
 {
 	border: 1px solid #000000;
 }
+/** request */
+#request {
+	width: 100%;
+}
+
+#request-comments {
+	margin-top: 10px;
+	border: 1px double #000000;
+	width: 69.9%;
+}
+
+#request-comments-grid {
+	margin: 10px;
+}
+
+#request-comments-create {
+	margin: 10px;
+}
+
+#request-comment-from {
+	width: 100%;
+	display: inline-flex;
+	justify-content: space-between;
+}
+
+#request-comment {
+	width: 100%;
+}
+
+.request-comment-field {
+	width: 98%;
+	height: 25px;
+}
 
 /** article */
 #article-title {
@@ -524,7 +557,7 @@ table.detail-view .null {
 	border: 1px #D1D1D1 solid;
 }
 
-/** comment */
+/** topic comment */
 .comment
 {
 	padding: 1em;

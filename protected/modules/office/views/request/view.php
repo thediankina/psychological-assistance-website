@@ -3,6 +3,7 @@
  * @var $this RequestController
  * @var $model Request
  * @var $history RequestHistory
+ * @var $comments RequestHistory
  */
 
 use application\modules\office\controllers\RequestController;
@@ -30,31 +31,65 @@ $this->pageTitle = 'Просмотр заявки #' . $model->id;
     <?php endif; ?>
 </menu>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-    'data' => $model,
-    'attributes' => array(
-        'status',
-        array(
-            'label' => 'Исполнитель',
-            'type' => 'html',
-            'name' => 'executor.user.lastName',
-            'value' => function ($model) {
-                return $model->status == Request::STATUS_IN_WORK | $model->status == Request::STATUS_REJECTED ? CHtml::link($model->executor->user->lastName,
-                    $this->createUrl('/user/profile', array('id' => $model->executor->user->id))) : null;
-            }
+<div id="request">
+    <?php $this->widget('zii.widgets.CDetailView', array(
+        'data' => $model,
+        'attributes' => array(
+            'status',
+            array(
+                'label' => 'Исполнитель',
+                'type' => 'html',
+                'name' => 'executor.user.lastName',
+                'value' => function ($model) {
+                    return $model->status == Request::STATUS_IN_WORK | $model->status == Request::STATUS_REJECTED ? CHtml::link($model->executor->user->lastName,
+                        $this->createUrl('/user/profile', array('id' => $model->executor->user->id))) : null;
+                }
+            ),
+            'name',
+            'city.name',
+            'old',
+            'category.category_name',
+            'category.priority',
+            'email',
+            'phone',
+            array(
+                'name' => 'info',
+                'value' => function ($model) {
+                    return wordwrap($model->info, 200, "\n", 1);
+                }
+            ),
         ),
-        'name',
-        'city.name',
-        'old',
-        'category.category_name',
-        'category.priority',
-        'email',
-        'phone',
-        array(
-            'name' => 'info',
-            'value' => function ($model) {
-                return wordwrap($model->info, 200, "\n", 1);
-            }
-        ),
-    ),
-)); ?>
+    )); ?>
+</div>
+
+<div id="request-comments">
+    <div id="request-comments-grid">
+        <?php $this->widget('zii.widgets.grid.CGridView', array(
+            'dataProvider' => $comments->search(),
+            'enablePagination' => false,
+            'summaryText' => false,
+            'columns' => array(
+                'dateOfComment',
+                'user.lastName',
+                'comment',
+            ),
+        )); ?>
+    </div>
+    <div id="request-comments-create">
+        <?php $comment = new RequestHistory();
+        $form = $this->beginWidget(CActiveForm::class, array(
+            'id' => 'request-comment-from',
+            'enableAjaxValidation' => true,
+        )); ?>
+
+        <div id="request-comment">
+            <?= $form->textField($comment, 'comment', array('class' => 'request-comment-field')); ?>
+        </div>
+
+        <div>
+            <?= CHtml::submitButton('Отправить', array('class' => 'primary-button submit-button')); ?>
+        </div>
+
+        <?php $this->endWidget(); ?>
+    </div>
+</div>
