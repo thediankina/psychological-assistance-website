@@ -557,7 +557,52 @@ table.detail-view .null {
 	border: 1px #D1D1D1 solid;
 }
 
-/** topic comment */
+/** forum */
+.forums
+{
+	display: grid;
+	padding-top: 10px;
+	padding-right: 10px;
+	padding-left: 10px;
+	border: 1px solid #000000;
+	grid-template-columns: repeat(1, 1fr);
+}
+
+a.forum
+{
+	color: #000000;
+	padding: 25px 20px;
+	margin-bottom: 10px;
+	text-decoration: none;
+	border: 1px solid #000000;
+}
+
+.forum:hover
+{
+	cursor: pointer;
+	color: #FFFFFF;
+	background-color: #52A4BE;
+}
+
+.forum:hover .forum-title
+{
+	color: #FFFFFF;
+}
+
+.forum-title
+{
+	color: #438397;
+	font-size: 1.4em;
+	font-weight: bold;
+}
+
+.forum-description
+{
+	font-size: 1.1em;
+	margin-top: 10px;
+}
+
+/** topic */
 .comment
 {
 	padding: 1em;

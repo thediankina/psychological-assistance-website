@@ -16,12 +16,10 @@ class ForumController extends Controller
 
 	public function actionIndex()
 	{
-        $model = new Forum();
-        $dataProvider = $model->search();
+        $forums = Forum::model()->findAll();
 
         $this->render('index', array(
-            'model' => $model,
-            'dataProvider' => $dataProvider,
+            'forums' => $forums,
         ));
 	}
 
