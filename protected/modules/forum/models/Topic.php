@@ -54,7 +54,7 @@ class Topic extends CActiveRecord
     public function relations()
     {
         return array(
-            'category' => array(self::HAS_ONE, Category::class, array('id_category' => 'id')),
+            'category' => array(self::HAS_ONE, Category::class, array('id' => 'id_category')),
             'comments' => array(
                 self::HAS_MANY,
                 Comment::class,
@@ -88,10 +88,11 @@ class Topic extends CActiveRecord
     {
         $criteria = new CDbCriteria;
 
+        $criteria->with = array('category');
         $criteria->compare('id', $this->id);
         $criteria->compare('id_forum', $this->id_forum);
         $criteria->compare('title', $this->title, true);
-        $criteria->compare('id_category', $this->id_category);
+        $criteria->compare('category.id', $this->id_category);
         $criteria->compare('id_author', $this->id_author);
         $criteria->compare('public_date', $this->public_date, true);
 

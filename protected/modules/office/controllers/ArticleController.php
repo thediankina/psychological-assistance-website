@@ -35,6 +35,7 @@ class ArticleController extends Controller
     }
 
     /**
+     * Редактирование созданной статьи
      * @param integer $id
      * @throws CHttpException
      */
@@ -56,6 +57,7 @@ class ArticleController extends Controller
     }
 
     /**
+     * Сохранение статьи в список черновиков
      * @param integer $id
      * @throws CHttpException
      */

@@ -8,7 +8,7 @@ use CDbCriteria;
 use User;
 
 /**
- * Модель категории заявки
+ * Модель категории заявки/статьи
  *
  * Атрибуты
  * @property integer $id

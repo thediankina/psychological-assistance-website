@@ -15,7 +15,7 @@ $this->pageTitle = 'Статьи';
 
 <menu>
     <?= CHtml::htmlButton('Добавить',
-        array('submit' => array('article/create', 'id' => $model->id), 'class' => 'primary-button')); ?>
+        array('submit' => array('article/create'), 'class' => 'primary-button')); ?>
 </menu>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(

@@ -603,6 +603,35 @@ a.forum
 }
 
 /** topic */
+#forum-menu
+{
+	display: flex;
+	justify-content: space-between;
+}
+
+#create-topic
+{
+}
+
+.topic-category-field
+{
+	height: 31px;
+	font-size: 1.1em;
+	background-color: #FFFFFF;
+	box-shadow: none;
+	padding: 2px 5px;
+	border: 1px solid #000000;
+}
+
+.topic-title-field
+{
+	width: 40%;
+	height: 25px;
+	font-size: 1.1em;
+	padding: 2px 5px;
+	border: 1px solid #000000;
+}
+
 .comment
 {
 	padding: 1em;

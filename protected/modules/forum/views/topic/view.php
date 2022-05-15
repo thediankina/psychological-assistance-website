@@ -16,7 +16,8 @@ $this->pageTitle = $model->title;
 <h1><?php echo $this->pageTitle; ?></h1>
 
 <menu>
-    <?= CHtml::htmlButton('Вернуться', array('submit' => array("/forum/view?id=" . $model->id_forum), 'class' => 'back-button')); ?>
+    <?= CHtml::htmlButton('Вернуться',
+        array('submit' => array("/forum/view?id=" . $model->id_forum), 'class' => 'back-button')); ?>
 </menu>
 
 <div id="comments">
