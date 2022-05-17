@@ -606,11 +606,13 @@ a.forum
 #forum-menu
 {
 	display: flex;
+	align-items: center;
 	justify-content: space-between;
 }
 
 #create-topic
 {
+	display: flex;
 }
 
 .topic-category-field
@@ -620,6 +622,7 @@ a.forum
 	background-color: #FFFFFF;
 	box-shadow: none;
 	padding: 2px 5px;
+	margin: 0 3px;
 	border: 1px solid #000000;
 }
 
@@ -629,6 +632,7 @@ a.forum
 	height: 25px;
 	font-size: 1.1em;
 	padding: 2px 5px;
+	margin-right: 3px;
 	border: 1px solid #000000;
 }
 

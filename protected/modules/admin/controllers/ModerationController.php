@@ -13,7 +13,8 @@ class ModerationController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new CArrayDataProvider(Moderation::ADMIN_PANEL_CATEGORIES);
-        $this->render('index', array('dataProvider' => $dataProvider));
+        $categories = Moderation::ADMIN_PANEL_CATEGORIES;
+
+        $this->render('index', array('categories' => $categories));
     }
 }

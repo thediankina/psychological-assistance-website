@@ -20,15 +20,20 @@ $form = $this->beginWidget('CActiveForm', array(
 
 <h1><?php echo $this->pageTitle; ?></h1>
 
-<?php $back_url = $this->home_url; ?>
 <menu id="forum-menu">
-    <?= CHtml::htmlButton('Вернуться', array('submit' => array($back_url), 'class' => 'back-button')); ?>
+    <?= CHtml::htmlButton('Вернуться',
+        array('submit' => array('/forum'), 'class' => 'back-button')); ?>
     <div id="create-topic">
-        <?= $form->hiddenField($model, 'id_forum', array('value' => $forum->id)); ?>
-        <?= $form->dropDownList($model, 'id_category', CHtml::listData(Category::model()->findAll(), 'id', 'name'),
+        <?= $form->hiddenField($model, 'id_forum',
+            array('value' => $forum->id)); ?>
+        <?= $form->dropDownList($model, 'id_category',
+            CHtml::listData(Category::model()->findAll(), 'id', 'name'),
             array('class' => 'topic-category-field')); ?>
-        <?= $form->textField($model, 'title', array('class' => 'topic-title-field', 'placeholder' => 'Введите тему...')); ?>
-        <?= CHtml::htmlButton('Добавить', array('submit' => array('topic/create'), 'class' => 'primary-button')); ?>
+        <?= $form->textField($model, 'title',
+            array('class' => 'topic-title-field',
+                'placeholder' => 'Введите тему...')); ?>
+        <?= CHtml::htmlButton('Добавить',
+            array('submit' => array('topic/create'), 'class' => 'primary-button')); ?>
     </div>
 </menu>
 <?php $this->endWidget(); ?>
