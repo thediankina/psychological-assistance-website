@@ -6,12 +6,15 @@
 
 use application\modules\office\controllers\OfficeController;
 use application\modules\office\models\Article;
+?>
 
-$dataProvider = $data->search();
+<?= CHtml::htmlButton('Добавить', array('submit' => array('article/create'), 'class' => 'primary-button')); ?>
+
+<?php $dataProvider = $data->search();
 $this->widget('zii.widgets.grid.CGridView', array(
     'dataProvider' => $dataProvider,
     'enablePagination' => true,
-    'summaryText' => 'Всего найдено: ' . $dataProvider->itemCount,
+    'summaryText' => false,
     'columns' => array(
         'id',
         array(

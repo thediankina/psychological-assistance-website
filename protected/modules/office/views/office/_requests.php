@@ -11,7 +11,7 @@ $dataProvider = $data->search();
 $this->widget('zii.widgets.grid.CGridView', array(
     'dataProvider' => $dataProvider,
     'enablePagination' => true,
-    'summaryText' => 'Всего найдено: ' . $dataProvider->itemCount,
+    'summaryText' => false,
     'columns' => array(
         'id',
         'category.category_name',

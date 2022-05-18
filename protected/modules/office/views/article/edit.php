@@ -30,9 +30,11 @@ $this->pageTitle = ($model->id) ? 'Редактирование статьи #' 
 </menu>
 
 <?= CHtml::activedropDownList($model, 'id_category_article',
-    CHtml::listData(Category::model()->findAll(), 'id', 'category_name'), array('class' => 'article-field')); ?>
+    CHtml::listData(Category::model()->findAll(), 'id', 'category_name'),
+    array('class' => 'article-field')); ?>
 
-<?= CHtml::activeTelField($model, 'title', array('class' => 'article-field')); ?>
+<?= CHtml::activeTelField($model, 'title',
+    array('class' => 'article-field')); ?>
 
 <?php $this->widget('CKEditorWidget', array(
     'model' => $model,

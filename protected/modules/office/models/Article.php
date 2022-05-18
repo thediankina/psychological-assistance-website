@@ -32,7 +32,7 @@ class Article extends CActiveRecord
 {
     const PUBLISHED_STATUS = 1; // Опубликовано
     const DRAFT_STATUS = 2; // Черновик
-    const VERIFICATION_STATUS = 3;  // На проверке
+    const VERIFICATION_STATUS = 3;  // На модерации
     const MODIFY_STATUS = 4;    // Отправлено на доработку
 
     /**

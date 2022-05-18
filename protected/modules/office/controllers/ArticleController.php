@@ -15,6 +15,7 @@ class ArticleController extends Controller
 {
     /**
      * Создание статьи (из списка статей)
+     * @todo actionSend
      */
     public function actionCreate()
     {

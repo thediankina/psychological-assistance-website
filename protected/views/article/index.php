@@ -13,11 +13,6 @@ $this->pageTitle = 'Статьи';
 
 <h1><?php echo $this->pageTitle; ?></h1>
 
-<menu>
-    <?= CHtml::htmlButton('Добавить',
-        array('submit' => array('article/create'), 'class' => 'primary-button')); ?>
-</menu>
-
 <?php $this->widget('zii.widgets.grid.CGridView', array(
     'dataProvider' => $dataProvider,
     'enablePagination' => true,
