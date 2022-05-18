@@ -19,6 +19,7 @@ return array(
     'article/reject' => 'admin/article/reject',
     'forum' => 'forum/forum/index',
     'forum/view' => 'forum/forum/view',
+    'forum/topic' => 'forum/topic/view',
     'admin' => 'admin/moderation/index',
     'admin/users' => 'admin/user/index',
     'admin/articles' => 'admin/article/index',
