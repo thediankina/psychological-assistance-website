@@ -26,7 +26,7 @@ $this->pageTitle = ($model->id) ? 'Редактирование статьи #' 
 <menu>
     <?= CHtml::htmlButton('Вернуться', array('submit' => array('/articles'), 'class' => 'back-button')); ?>
     <?= CHtml::htmlButton('Черновик', array('submit' => array('article/draft', 'id' => $model->id ?: 0), 'class' => 'primary-button')); ?>
-    <?= CHtml::htmlButton('Отправить', array('type' => 'submit', 'class' => 'primary-button')); ?>
+    <?= CHtml::htmlButton('Отправить', array('submit' => array('article/send', 'id' => $model->id ?: 0), 'class' => 'primary-button')); ?>
 </menu>
 
 <?= CHtml::activedropDownList($model, 'id_category_article',

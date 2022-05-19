@@ -1,13 +1,13 @@
 <?php
 /**
- * @var $this UserController
+ * @var $this VolunteerController
  * @var $model User
  * @var $dataProvider CActiveDataProvider
  */
 
-use application\modules\admin\controllers\UserController;
+use application\modules\admin\controllers\VolunteerController;
 
-$this->pageTitle = 'Запросы на регистрацию';
+$this->pageTitle = 'Список волонтеров';
 ?>
 
 <h1><?php echo $this->pageTitle; ?></h1>
@@ -23,26 +23,31 @@ $this->pageTitle = 'Запросы на регистрацию';
     'columns' => array(
         'id',
         array(
-            'header' => 'ФИО',
+            'header' => 'Имя',
             'name' => function ($model) {
-                return  $model->lastName . ' ' . $model->firstName . ' ' . $model->middleName;
+                return  $model->firstName;
             },
         ),
         'city.name',
         array(
-            'header' => 'Контактные данные',
-            'name' => function($model) {
-                if (isset($model->phone) && isset($model->mail)) {
-                    return nl2br($model->phone . ' | ' . $model->mail);
-                } elseif (isset($model->phone)) {
-                    return $model->phone;
-                } elseif (isset($model->mail)) {
-                    return $model->mail;
-                }
-                return 'Не задано';
-            },
+            'header' => 'Телефон',
+            'name' => function ($model) {
+                return $model->phone ?: null;
+            }
         ),
-        'position.namePosition',
+        'mail:email',
+        array(
+            'header' => 'Волонтерская группа',
+            'name' => function ($model) {
+                return VolunteerGroup::model()->findByPk($model->volunteer->id_group)->group_name;
+            }
+        ),
+        array(
+            'header' => 'Статус',
+            'name' => function ($model) {
+                return $model->isActive == User::STATUS_ENABLED ? 'Активен' : 'Отключен';
+            }
+        ),
         array(
             'class' => 'CButtonColumn',
             'template' => '{view}',

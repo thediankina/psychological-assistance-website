@@ -35,6 +35,11 @@ use application\modules\office\models\RequestHistory;
  */
 class User extends CActiveRecord
 {
+    /**
+     * Статус пользователя
+     * 1 = Активен
+     * 0 = Отключен
+     */
     const STATUS_ENABLED = 1;
     const STATUS_DISABLED = 0;
 
@@ -108,9 +113,9 @@ class User extends CActiveRecord
         return array(
             'articles' => array(self::HAS_MANY, Article::class, 'id_author'),
             'categories' => array(self::HAS_MANY, Category::class, 'id_author'),
-            'comment' => array(self::HAS_ONE, Comment::class, 'id'),    // has one?
+            'comment' => array(self::HAS_MANY, Comment::class, 'id'),
             'organizations' => array(self::HAS_MANY, Organization::class, 'id_author'),
-            'topic' => array(self::HAS_ONE, Topic::class, 'id'),        // has one?
+            'topic' => array(self::HAS_MANY, Topic::class, 'id'),
             'histories' => array(self::HAS_MANY, RequestHistory::class, 'IDuser'),
             'city' => array(self::BELONGS_TO, City::class, array('id_city' => 'id')),
             'position' => array(self::BELONGS_TO, Position::class, array('id_position' => 'id')),
@@ -137,7 +142,7 @@ class User extends CActiveRecord
             'salt' => '',
             'id_group' => 'Волонтерская группа',
             'utility' => 'Другое',
-            'activity' => 'Статус',     // ?
+            'activity' => 'Статус',
             'site' => 'Социальная сеть',
             'old' => 'Возраст',
         );

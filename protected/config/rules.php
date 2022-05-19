@@ -17,6 +17,7 @@ return array(
     'article/verify' => 'admin/article/verify',
     'article/accept' => 'admin/article/accept',
     'article/reject' => 'admin/article/reject',
+    'volunteers' => 'office/volunteer/index',
     'forum' => 'forum/forum/index',
     'forum/view' => 'forum/forum/view',
     'forum/topic' => 'forum/topic/view',

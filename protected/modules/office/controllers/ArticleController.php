@@ -14,17 +14,23 @@ use Yii;
 class ArticleController extends Controller
 {
     /**
-     * Создание статьи (из списка статей)
-     * @todo actionSend
+     * Создание статьи
+     * @param $id
+     * @throws CHttpException
      */
-    public function actionCreate()
+    public function actionSend($id)
     {
-        $model = new Article();
+        if ($id == 0) {
+            $model = new Article();
+            $model->id_author = Yii::app()->user->id;
+            $model->type = 'psychological';
+        } else {
+            $model = $this->loadModel($id);
+        }
+
         if (isset($_POST['application_modules_office_models_Article'])) {
             $model->attributes = $_POST['application_modules_office_models_Article'];
-            $model->id_author = Yii::app()->user->id;
             $model->id_status = Article::VERIFICATION_STATUS;
-            $model->type = 'psychological';
             if ($model->validate() && $model->save()) {
                 $this->redirect('/office');
             } else {
@@ -36,7 +42,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * Редактирование созданной статьи
+     * Редактирование статьи
      * @param integer $id
      * @throws CHttpException
      */
@@ -47,7 +53,7 @@ class ArticleController extends Controller
         if (isset($_POST['application_modules_office_models_Article'])) {
             $model->attributes = $_POST['application_modules_office_models_Article'];
             if ($model->validate() && $model->save()) {
-                $this->redirect($this->createUrl('/article/view', array('id' => $model->id)));
+                $this->redirect('/office');
             } else {
                 Yii::app()->user->setFlash('error', 'Размер статьи слишком большой');
                 Yii::log('Неудачное сохранение статьи: ' . var_export($model->getErrors(), true), CLogger::LEVEL_WARNING);
@@ -58,7 +64,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * Сохранение статьи в список черновиков
+     * Сохранение статьи как черновик
      * @param integer $id
      * @throws CHttpException
      */
@@ -76,7 +82,7 @@ class ArticleController extends Controller
             $model->attributes = $_POST['application_modules_office_models_Article'];
             $model->id_status = Article::DRAFT_STATUS;
             if ($model->validate() && $model->save()) {
-                $this->redirect($this->createUrl('/article/view', array('id' => $model->id)));
+                $this->redirect('/office');
             } else {
                 Yii::app()->user->setFlash('error', 'Размер статьи слишком большой');
                 Yii::log('Неудачное сохранение черновой статьи: ' . var_export($model->getErrors(), true), CLogger::LEVEL_WARNING);

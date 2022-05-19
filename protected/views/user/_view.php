@@ -40,12 +40,7 @@
                 return $model->phone ?: null;
             }
         ),
-        array(
-            'name' => 'mail',
-            'value' => function ($model) {
-                return $model->mail ?: null;
-            }
-        ),
+        'mail:email',
         array(
             'name' => 'old',
             'value' => function ($model) {

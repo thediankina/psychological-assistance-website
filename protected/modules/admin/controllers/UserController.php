@@ -33,6 +33,7 @@ class UserController extends Controller
 	public function actionIndex()
 	{
         $model = new User();
+        $model->isActive = User::STATUS_DISABLED;
         $dataProvider = $model->search();
 
         $this->render('index', array(
