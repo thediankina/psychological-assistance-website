@@ -39,10 +39,11 @@ $this->pageTitle = 'Запросы на регистрацию';
                 } elseif (isset($model->mail)) {
                     return $model->mail;
                 }
-                return 'Не задано';
+                return null;
             },
         ),
         'position.namePosition',
+        'isActive',
         array(
             'class' => 'CButtonColumn',
             'template' => '{view}',

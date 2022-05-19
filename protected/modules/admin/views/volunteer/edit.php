@@ -1,6 +1,6 @@
 <?php
 /**
- * Редактирование профиля текущего пользователя
+ * Редактирование профиля волонтера
  * @var $model User
  */
 
@@ -11,9 +11,9 @@ $form = $this->beginWidget('CActiveForm', array(
 
 <menu>
     <?= CHtml::htmlButton('Вернуться',
-        array('submit' => array('/admin/users'), 'class' => 'back-button')); ?>
+        array('submit' => array('/admin/volunteers'), 'class' => 'back-button')); ?>
     <?= CHtml::htmlButton('Сохранить',
-        array('submit' => array('user/save', 'id' => $model->id), 'class' => 'primary-button')); ?>
+        array('submit' => array('volunteer/save', 'id' => $model->id), 'class' => 'primary-button')); ?>
 </menu>
 
 <table class="detail-view">

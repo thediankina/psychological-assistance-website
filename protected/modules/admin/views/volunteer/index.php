@@ -52,14 +52,7 @@ $this->pageTitle = 'Список волонтеров';
             'class' => 'CButtonColumn',
             'template' => '{view}',
             'viewButtonUrl' => function($model) {
-                return $this->createUrl('/user/profile', array('id' => $model->id));
-            }
-        ),
-        array(
-            'class' => 'CButtonColumn',
-            'template' => '{delete}',
-            'viewButtonUrl' => function($model) {
-                return $this->createUrl('/user/delete', array('id' => $model->id));
+                return $this->createUrl('/admin/volunteer', array('id' => $model->id));
             }
         ),
     ),

@@ -25,6 +25,7 @@ return array(
     'forum/edit' => 'admin/forum/edit',
     'admin' => 'admin/moderation/index',
     'admin/users' => 'admin/user/index',
+    'admin/volunteer' => 'admin/volunteer/edit',
     'admin/articles' => 'admin/article/index',
     'admin/volunteers' => 'admin/volunteer/index',
     'admin/forums' => 'admin/forum/index',

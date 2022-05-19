@@ -50,7 +50,11 @@
         array(
             'name' => 'site',
             'value' => function ($model) {
-                return $model->isVolunteer() ? Volunteer::model()->findByPk($model->id)->site : null;
+                 if ($model->isVolunteer() && Volunteer::model()->findByPk($model->id)->site) {
+                     return Volunteer::model()->findByPk($model->id)->site;
+                 } else {
+                     return null;
+                 }
             }
         ),
         array(
