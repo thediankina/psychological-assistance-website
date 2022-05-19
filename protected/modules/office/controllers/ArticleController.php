@@ -14,7 +14,7 @@ use Yii;
 class ArticleController extends Controller
 {
     /**
-     * Создание статьи
+     * Отправка статьи на модерацию
      * @param $id
      * @throws CHttpException
      */

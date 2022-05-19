@@ -34,7 +34,7 @@ class TopicController extends Controller
      */
     protected function commentTopic($topic)
     {
-        $comment = new Comment;
+        $comment = new Comment();
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'comment-form') {
             echo CActiveForm::validate($comment);
             Yii::app()->end();
