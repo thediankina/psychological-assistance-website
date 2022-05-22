@@ -5,6 +5,8 @@ namespace application\modules\admin\controllers;
 use CActiveDataProvider;
 use CDbCriteria;
 use CDbException;
+use CHtml;
+use CHttpException;
 use CLogger;
 use Controller;
 use User;
@@ -37,7 +39,25 @@ class UserController extends Controller
 	}
 
     /**
-     * Удаление запроса на регистрацию (AJAX)
+     * Просмотр запроса
+     */
+    public function actionView($id)
+    {
+        $model = $this->loadModel($id);
+        $this->render('request', array('model' => $model));
+    }
+
+    public function actionApprove($id)
+    {
+        $model = $this->loadModel($id);
+        User::model()->updateByPk($id, array('isActive' => User::STATUS_ENABLED));
+
+        Yii::app()->user->setFlash('activateUser', 'Пользователь успешно зарегистрирован: ' . CHtml::mailto($model->mail));
+        $this->redirect('/admin/users');
+    }
+
+    /**
+     * Удаление запросов на регистрацию из списка (AJAX)
      * @throws CDbException
      */
     public function actionRemove()
@@ -48,15 +68,26 @@ class UserController extends Controller
             $criteria->addInCondition('id', $ids);
             $models = User::model()->findAll($criteria);
             foreach ($models as $model) {
-                if (!$model->delete()) {
-                    Yii::log('Неудачное удаление запроса на регистрацию: ' . var_export($model->getErrors(), true),
-                        CLogger::LEVEL_WARNING);
-                }
+                $model->delete();
             }
         } else {
             Yii::log('Неудачное удаление запроса на регистрацию', CLogger::LEVEL_WARNING);
         }
 
         $this->redirect('/admin/users');
+    }
+
+    /**
+     * @param integer $id
+     * @return User
+     * @throws CHttpException
+     */
+    public function loadModel($id)
+    {
+        $model = User::model()->findByPk($id);
+        if ($model === null) {
+            throw new CHttpException(404, 'Запрашиваемая страница не существует');
+        }
+        return $model;
     }
 }

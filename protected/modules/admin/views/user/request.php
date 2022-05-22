@@ -1,140 +1,80 @@
 <?php
 /**
  * Просмотр запроса на регистрацию
+ * @var $this UserController
  * @var $model User
  */
 
-$form = $this->beginWidget('CActiveForm', array(
-    'id' => 'profile-form',
-    'enableAjaxValidation' => false,
-)); ?>
+$this->pageTitle = 'Просмотр запроса на регистрацию #' . $model->id;
+?>
+
+<h1><?= $this->pageTitle; ?></h1>
 
 <menu>
     <?= CHtml::htmlButton('Вернуться',
         array('submit' => array('/admin/users'), 'class' => 'back-button')); ?>
-    <?= CHtml::htmlButton('Сохранить',
-        array('submit' => array('user/save', 'id' => $model->id), 'class' => 'primary-button')); ?>
+    <?= CHtml::ajaxSubmitButton('Удалить', $this->createUrl('remove'),
+        array(
+            'data' => 'js:{ids:'. $model->id .'}',
+            'success' => 'js:window.location.href = "/admin/users"'
+        ),
+        array('class' => 'ajax-submit-button')); ?>
+    <?= CHtml::htmlButton('Принять',
+        array('submit' => array('approve', 'id' => $model->id), 'class' => 'primary-button')); ?>
 </menu>
 
-<table class="detail-view">
-    <tbody>
-    <tr>
-        <th>
-            <?= $form->label($model, 'isActive'); ?>
-        </th>
-        <td>
-            <?= $form->dropDownList($model, 'isActive', array(1 => 'Активен', 0 => 'Отключен'), array('class' => 'profile-form-field')); ?>
-        </td>
-    </tr>
-    <tr>
-        <th>
-            <?= $form->label($model, 'lastName'); ?>
-        </th>
-        <td>
-            <?= $form->textField($model, 'lastName', array('class' => 'profile-form-field', 'disabled' => 'disabled')); ?>
-        </td>
-    </tr>
-    <tr>
-        <th>
-            <?= $form->label($model, 'firstName'); ?>
-        </th>
-        <td>
-            <?= $form->textField($model, 'firstName', array('class' => 'profile-form-field', 'disabled' => 'disabled')); ?>
-        </td>
-    </tr>
-    <tr>
-        <th>
-            <?= $form->label($model, 'middleName'); ?>
-        </th>
-        <td>
-            <?= $form->textField($model, 'middleName', array('class' => 'profile-form-field', 'disabled' => 'disabled')); ?>
-        </td>
-    </tr>
-    <tr>
-        <th>
-            <?= $form->label($model, 'id_position'); ?>
-        </th>
-        <td>
-            <?= $form->dropDownList($model, 'id_position',
-                CHtml::listData(Position::model()->findAll(), 'id', 'namePosition'),
-                array('class' => 'profile-form-field', 'disabled' => 'disabled')); ?>
-        </td>
-    </tr>
-    <tr>
-        <th>
-            <?= $form->label($model, 'id_city'); ?>
-        </th>
-        <td>
-            <?= $form->dropDownList($model, 'id_city', CHtml::listData(City::model()->findAll(), 'id', 'name'), array('class' => 'profile-form-field')); ?>
-        </td>
-    </tr>
-    <tr>
-        <th>
-            <?= $form->label($model, 'phone'); ?>
-        </th>
-        <td>
-            <?= $form->textField($model, 'phone', array('class' => 'profile-form-field')); ?>
-        </td>
-    </tr>
-    <tr>
-        <th>
-            <?= $form->label($model, 'mail'); ?>
-        </th>
-        <td>
-            <?= $form->textField($model, 'mail', array('class' => 'profile-form-field')); ?>
-        </td>
-    </tr>
-    <tr>
-        <th>
-            <?= $form->label($model, 'site'); ?>
-        </th>
-        <td>
-            <?= $form->textField($model, 'site', array(
-                'value' => Volunteer::model()->findByPk($model->id) ? (Volunteer::model()->findByPk($model->id))->site : '',
-                'disabled' => !(($model->id_position == User::VOLUNTEER_POSITION)),
-                'class' => 'profile-form-field',
-            )); ?>
-        </td>
-    </tr>
-    <tr>
-        <th>
-            <?= $form->label($model, 'old'); ?>
-        </th>
-        <td>
-            <?= $form->numberField($model, 'old', array(
-                'value' => Volunteer::model()->findByPk($model->id) ? (Volunteer::model()->findByPk($model->id))->old : '',
-                'disabled' => !(($model->id_position == User::VOLUNTEER_POSITION)),
-                'class' => 'profile-form-field',
-            )); ?>
-        </td>
-    </tr>
-    <tr>
-        <th>
-            <?= $form->label($model, 'id_group'); ?>
-        </th>
-        <td>
-            <?= $form->dropDownList($model, 'id_group',
-                CHtml::listData(VolunteerGroup::model()->findAll(), 'id', 'group_name'), array(
-                    'options' => ($model->id_position == User::VOLUNTEER_POSITION) ? array($model->volunteer->id_group => array('selected' => true)) : '',
-                    'disabled' => !(($model->id_position == User::VOLUNTEER_POSITION)),
-                    'class' => 'profile-form-field',
-                    'empty' => '',
-                )); ?>
-        </td>
-    </tr>
-    <tr>
-        <th>
-            <?= $form->label($model, 'utility'); ?>
-        </th>
-        <td>
-            <?= $form->textArea($model, 'utility', array(
-                'value' => Volunteer::model()->findByPk($model->id) ? (Volunteer::model()->findByPk($model->id))->utility : '',
-                'disabled' => !(($model->id_position == User::VOLUNTEER_POSITION)),
-                'class' => 'profile-form-field',
-            )); ?>
-        </td>
-    </tr>
-    </tbody>
-</table>
-
-<?php $this->endWidget(); ?>
+<?php $this->widget('zii.widgets.CDetailView', array(
+    'data' => $model,
+    'attributes' => array(
+        'lastName',
+        'firstName',
+        'middleName',
+        array(
+            'name' => 'id_position',
+            'value' => function ($model) {
+                return Position::model()->findByPk($model->id_position)->namePosition;
+            }
+        ),
+        array(
+            'name' => 'id_city',
+            'value' => function ($model) {
+                return City::model()->findByPk($model->id_city)->name;
+            }
+        ),
+        array(
+            'name' => 'phone',
+            'value' => function ($model) {
+                return $model->phone ?: null;
+            }
+        ),
+        'mail:email',
+        array(
+            'name' => 'old',
+            'value' => function ($model) {
+                return $model->isVolunteer() ? Volunteer::model()->findByPk($model->id)->old : null;
+            }
+        ),
+        array(
+            'name' => 'site',
+            'value' => function ($model) {
+                if ($model->isVolunteer() && Volunteer::model()->findByPk($model->id)->site) {
+                    return Volunteer::model()->findByPk($model->id)->site;
+                } else {
+                    return null;
+                }
+            }
+        ),
+        array(
+            'name' => 'id_group',
+            'value' => function ($model) {
+                return $model->isVolunteer() ? VolunteerGroup::model()->findByPk($model->volunteer->id_group)->group_name : null;
+            }
+        ),
+        array(
+            'name' => 'utility',
+            'value' => function ($model) {
+                return $model->isVolunteer() ? Volunteer::model()->findByPk($model->id)->utility : null;
+            }
+        ),
+    ),
+));

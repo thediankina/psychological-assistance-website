@@ -10,7 +10,7 @@ use application\modules\office\models\Article;
 $this->pageTitle = 'Просмотр статьи #' . $model->id;
 ?>
 
-<h1><?php echo $this->pageTitle; ?></h1>
+<h1><?= $this->pageTitle; ?></h1>
 
 <div id="article-title"><?= $model->title; ?></div>
 <div id="article-content"><?= $model->content; ?></div>

@@ -14,6 +14,12 @@ $this->pageTitle = 'Запросы на регистрацию';
 
 <h1><?php echo $this->pageTitle; ?></h1>
 
+<?php if (Yii::app()->user->hasFlash('activateUser')): ?>
+    <div class="flash-success">
+        <?= Yii::app()->user->getFlash('activateUser'); ?>
+    </div>
+<?php endif; ?>
+
 <menu>
     <?= CHtml::htmlButton('Вернуться', array('submit' => array('/admin'), 'class' => 'back-button')); ?>
     <?= CHtml::ajaxSubmitButton('Удалить выбранные', $this->createUrl('user/remove'),
