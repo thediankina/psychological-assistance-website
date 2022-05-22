@@ -19,9 +19,6 @@ class UserController extends Controller
      */
 	public function actionIndex()
 	{
-        $model = new User();
-        $model->isActive = User::STATUS_DISABLED;
-        //$dataProvider = $model->search();
         $dataProvider = new CActiveDataProvider(User::model(), array(
             'criteria' => array(
                 'condition' =>
@@ -33,7 +30,6 @@ class UserController extends Controller
         ));
 
         $this->render('index', array(
-            'model' => $model,
             'dataProvider' => $dataProvider,
         ));
 	}

@@ -6,6 +6,7 @@ use CActiveDataProvider;
 use CActiveRecord;
 use CDbCriteria;
 use User;
+use Yii;
 
 /**
  * Модель обсуждения
@@ -26,6 +27,12 @@ use User;
  */
 class Topic extends CActiveRecord
 {
+    /**
+     * Счетчик сообщений в обсуждении
+     * @var integer
+     */
+    public $countComments;
+
     /**
      * @return string
      */
@@ -78,6 +85,7 @@ class Topic extends CActiveRecord
             'id_category' => 'ID категории',
             'id_author' => 'ID автора',
             'public_date' => 'Дата',
+            'countComments' => 'Сообщения',
         );
     }
 
@@ -99,6 +107,12 @@ class Topic extends CActiveRecord
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
+    }
+
+    public static function countComments($id)
+    {
+        $sql = 'SELECT COUNT(*) FROM db_comment WHERE id_topic = ' . $id;
+        return Yii::app()->db->createCommand($sql)->queryScalar();
     }
 
     /**

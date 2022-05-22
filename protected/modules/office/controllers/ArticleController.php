@@ -44,7 +44,7 @@ class ArticleController extends Controller
             if ($model->validate() && $model->save()) {
                 $this->redirect('/office');
             } else {
-                Yii::app()->user->setFlash('error', 'Размер статьи слишком большой');
+                Yii::app()->user->setFlash('error', 'При ' . ($id == 0 ? 'создании' : 'редактировании') .' статьи возникла ошибка');
                 Yii::log('Неудачная попытка отправить статью на модерацию: ' . var_export($model->getErrors(), true),
                     CLogger::LEVEL_WARNING);
             }

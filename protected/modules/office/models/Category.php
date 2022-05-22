@@ -22,6 +22,7 @@ use User;
  * @property Article[] $articles
  * @property User $author
  * @property Request[] $requests
+ * @property Category $parent
  */
 class Category extends CActiveRecord
 {
@@ -54,6 +55,7 @@ class Category extends CActiveRecord
             'articles' => array(self::HAS_MANY, Article::class, array('id' => 'id_category_article')),
             'author' => array(self::BELONGS_TO, User::class, array('id_author' => 'id')),
             'requests' => array(self::HAS_MANY, Request::class, array('id' => 'id_category')),
+            'parent' => array(self::BELONGS_TO, Category::class, 'id_parent'),
         );
     }
 
@@ -89,6 +91,37 @@ class Category extends CActiveRecord
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
+    }
+
+    /**
+     * @return array
+     */
+    public function getCategories()
+    {
+        return Category::model()->findAll();
+    }
+
+    /**
+     * Получение родительской категории
+     * @return string
+     */
+    public function getParent()
+    {
+        return ($this->parent !== null ? $this->parent->category_name . ' - ' : '') . $this->category_name;
+    }
+
+    /**
+     * Получение опций для всех родительских категорий
+     * @return array
+     */
+    public static function getAllParentsOptions()
+    {
+        $options = array();
+        $models = Category::model()->findAllByAttributes(array('id_parent' => 0));
+        foreach ($models as $model) {
+            $options[$model->id] = array('disabled' => true);
+        }
+        return $options;
     }
 
     /**

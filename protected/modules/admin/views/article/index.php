@@ -32,7 +32,6 @@ $this->pageTitle = 'Модерация статей';
             }
         ),
         'category.category_name',
-        'status.status',
         array(
             'name' => 'dates_temp',
         ),

@@ -1,7 +1,6 @@
 <?php
 /**
  * @var $this UserController
- * @var $model User
  * @var $dataProvider CActiveDataProvider
  */
 

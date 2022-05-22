@@ -574,6 +574,11 @@ table.detail-view .null {
 	border: 1px #D1D1D1 solid;
 }
 
+option:disabled {
+	font-weight: bolder;
+	color: #52A4BE;
+}
+
 /** forum */
 .forums
 {

@@ -52,6 +52,12 @@ $form = $this->beginWidget('CActiveForm', array(
         ),
         'category.name',
         array(
+            'name' => 'countComments',
+            'value' => function ($model) {
+                return Topic::countComments($model->id);
+            }
+        ),
+        array(
             'header' => 'Автор',
             'type' => 'html',
             'name' => 'id_author',
