@@ -14,6 +14,16 @@ use Yii;
 class ArticleController extends Controller
 {
     /**
+     * Создание статьи (только для кнопки "Добавить" в Личном кабинете)
+     */
+    public function actionCreate()
+    {
+        $model = new Article();
+
+        $this->render('edit', array('model' => $model));
+    }
+
+    /**
      * Отправка статьи на модерацию
      * @param $id
      * @throws CHttpException
@@ -35,7 +45,8 @@ class ArticleController extends Controller
                 $this->redirect('/office');
             } else {
                 Yii::app()->user->setFlash('error', 'Размер статьи слишком большой');
-                Yii::log('Неудачное создание статьи: ' . var_export($model->getErrors(), true), CLogger::LEVEL_WARNING);
+                Yii::log('Неудачная попытка отправить статью на модерацию: ' . var_export($model->getErrors(), true),
+                    CLogger::LEVEL_WARNING);
             }
         }
         $this->render('edit', array('model' => $model));
@@ -56,7 +67,8 @@ class ArticleController extends Controller
                 $this->redirect('/office');
             } else {
                 Yii::app()->user->setFlash('error', 'Размер статьи слишком большой');
-                Yii::log('Неудачное сохранение статьи: ' . var_export($model->getErrors(), true), CLogger::LEVEL_WARNING);
+                Yii::log('Неудачное редактирование статьи: ' . var_export($model->getErrors(), true),
+                    CLogger::LEVEL_WARNING);
             }
         }
 
@@ -85,7 +97,8 @@ class ArticleController extends Controller
                 $this->redirect('/office');
             } else {
                 Yii::app()->user->setFlash('error', 'Размер статьи слишком большой');
-                Yii::log('Неудачное сохранение черновой статьи: ' . var_export($model->getErrors(), true), CLogger::LEVEL_WARNING);
+                Yii::log('Неудачное сохранение статьи в черновик: ' . var_export($model->getErrors(), true),
+                    CLogger::LEVEL_WARNING);
             }
         }
 

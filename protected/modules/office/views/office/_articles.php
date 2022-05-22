@@ -1,7 +1,7 @@
 <?php
 /**
  * @var $this OfficeController
- * @var $data Article
+ * @var $model Article
  */
 
 use application\modules\office\controllers\OfficeController;
@@ -10,7 +10,7 @@ use application\modules\office\models\Article;
 
 <?= CHtml::htmlButton('Добавить', array('submit' => array('article/create'), 'class' => 'primary-button')); ?>
 
-<?php $dataProvider = $data->search();
+<?php $dataProvider = $model->search();
 $this->widget('zii.widgets.grid.CGridView', array(
     'dataProvider' => $dataProvider,
     'enablePagination' => true,

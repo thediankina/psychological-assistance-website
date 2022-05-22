@@ -67,6 +67,23 @@ button
 	width: 100px;
 }
 
+.ajax-submit-button
+{
+	color: #FFFFFF;
+	font-size: 1.1em;
+	font-weight: bold;
+	padding: 6px 15px;
+	background-color: #52A4BE;
+	border: 1px #000000 solid;
+	display: inline-block;
+}
+
+.ajax-submit-button:hover
+{
+	cursor: pointer;
+	background-color: #438397;
+}
+
 /** main menu */
 header
 {
@@ -652,7 +669,7 @@ a.forum
 
 .comment-author
 {
-	font-size: 1.25em;
+	font-size: 1.15em;
 	font-weight: bold;
 	color: #438397;
 	margin-right: 15px;
@@ -660,6 +677,7 @@ a.forum
 
 .comment-time
 {
+	font-size: 0.9em;
 	float: right;
 }
 
@@ -669,7 +687,7 @@ a.forum
 	margin-bottom: 10px;
 }
 
-.comment-content, .comment-position, .comment-time
+.comment-content, .comment-position
 {
 	font-size: 1.05em;
 }

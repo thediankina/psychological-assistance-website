@@ -11,3 +11,12 @@ function openMenu() {
     sidebar.style.display = show;
     overlay.style.display = show;
 }
+
+function getSelectedIds($grid_name) {
+
+    return $.fn.yiiGridView.getChecked($grid_name, "selectedIds").toString();
+}
+
+function updateGrid($grid_name) {
+    $.fn.yiiGridView.update($grid_name);
+}

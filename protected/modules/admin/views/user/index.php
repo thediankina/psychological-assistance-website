@@ -7,6 +7,8 @@
 
 use application\modules\admin\controllers\UserController;
 
+Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/main.js');
+
 $this->pageTitle = 'Запросы на регистрацию';
 ?>
 
@@ -14,9 +16,16 @@ $this->pageTitle = 'Запросы на регистрацию';
 
 <menu>
     <?= CHtml::htmlButton('Вернуться', array('submit' => array('/admin'), 'class' => 'back-button')); ?>
+    <?= CHtml::ajaxSubmitButton('Удалить выбранные', $this->createUrl('user/remove'),
+        array(
+            'data' => 'js:{ids:getSelectedIds("users-grid")}',
+            'success' => 'js:updateGrid("users-grid")'
+        ),
+        array('class' => 'ajax-submit-button')); ?>
 </menu>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
+    'id' => 'users-grid',
     'dataProvider' => $dataProvider,
     'enablePagination' => true,
     'summaryText' => 'Всего найдено: ' . $dataProvider->itemCount,
@@ -43,20 +52,17 @@ $this->pageTitle = 'Запросы на регистрацию';
             },
         ),
         'position.namePosition',
-        'isActive',
         array(
             'class' => 'CButtonColumn',
             'template' => '{view}',
             'viewButtonUrl' => function($model) {
-                return $this->createUrl('/user/profile', array('id' => $model->id));
+                return $this->createUrl('user/request', array('id' => $model->id));
             }
         ),
         array(
-            'class' => 'CButtonColumn',
-            'template' => '{delete}',
-            'viewButtonUrl' => function($model) {
-                return $this->createUrl('/user/delete', array('id' => $model->id));
-            }
+            'class' => 'CCheckBoxColumn',
+            'id' => 'selectedIds',
+            'selectableRows' => '20',
         ),
     ),
 )); ?>

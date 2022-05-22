@@ -1,13 +1,13 @@
 <?php
 /**
  * @var $this OfficeController
- * @var $data Request
+ * @var $model Request
  */
 
 use application\modules\office\controllers\OfficeController;
 use application\modules\office\models\Request;
 
-$dataProvider = $data->search();
+$dataProvider = $model->search();
 $this->widget('zii.widgets.grid.CGridView', array(
     'dataProvider' => $dataProvider,
     'enablePagination' => true,

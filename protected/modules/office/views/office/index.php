@@ -19,12 +19,12 @@ $this->pageTitle = 'Личный кабинет';
         'requests' => array(
             'title' => 'Заявки',
             'view' => '_requests',
-            'data' => $request,
+            'data' => array('model' => $request),
         ),
         'articles' => array(
             'title' => 'Статьи',
             'view' => '_articles',
-            'data' => $article,
+            'data' => array('model' => $article),
         ),
     ),
 )); ?>
