@@ -31,12 +31,13 @@ class ArticleController extends Controller
     public function actionView($id)
     {
         $model = $this->loadModel($id);
-        $this->render('view', array('model' => $model));
+        $tags = $model->getTags();
+        $this->render('view', array('model' => $model, 'tags' => $tags));
     }
 
     /**
      * @param integer $id
-     * @return Request
+     * @return Article
      * @throws CHttpException
      */
     public function loadModel($id)

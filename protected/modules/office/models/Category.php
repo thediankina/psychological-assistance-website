@@ -96,7 +96,7 @@ class Category extends CActiveRecord
     /**
      * @return array
      */
-    public function getCategories()
+    public static function getCategories()
     {
         return Category::model()->findAll();
     }
@@ -119,7 +119,7 @@ class Category extends CActiveRecord
         $options = array();
         $models = Category::model()->findAllByAttributes(array('id_parent' => 0));
         foreach ($models as $model) {
-            $options[$model->id] = array('disabled' => true);
+            $options[$model->id] = array('class' => 'category-header-list');
         }
         return $options;
     }

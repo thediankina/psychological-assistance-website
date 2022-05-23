@@ -3,6 +3,7 @@
 namespace application\modules\office\controllers;
 
 use application\modules\office\models\Article;
+use application\modules\office\models\ArticleTag;
 use CHttpException;
 use CLogger;
 use Controller;
@@ -33,7 +34,6 @@ class ArticleController extends Controller
         if ($id == 0) {
             $model = new Article();
             $model->id_author = Yii::app()->user->id;
-            $model->type = 'psychological';
         } else {
             $model = $this->loadModel($id);
         }
@@ -41,7 +41,31 @@ class ArticleController extends Controller
         if (isset($_POST['application_modules_office_models_Article'])) {
             $model->attributes = $_POST['application_modules_office_models_Article'];
             $model->id_status = Article::VERIFICATION_STATUS;
+            $newChosenTags = isset($_POST['application_modules_office_models_Article']['chosenTags']) ?
+                $_POST['application_modules_office_models_Article']['chosenTags'] :array();
+            $model->chosenTags = $model->getTags();
+            $tags = array();
+            if ($model->chosenTags && $newChosenTags) {
+                foreach ($newChosenTags as $newTag) {
+                    if (!in_array($newTag, $model->chosenTags)) {
+                        $tags[] = $newTag;
+                    }
+                }
+            } else {
+                $tags = $newChosenTags;
+            }
             if ($model->validate() && $model->save()) {
+                if (!empty($tags)) {
+                    foreach ($tags as $tag) {
+                        $record = new ArticleTag();
+                        $record->id_article = $id;
+                        $record->id_tag = $tag;
+                        $record->save();
+                    }
+                }
+                if (empty($newChosenTags)) {
+                    ArticleTag::model()->deleteAllByAttributes(array('id_article' => $id));
+                }
                 $this->redirect('/office');
             } else {
                 Yii::app()->user->setFlash('error', 'При ' . ($id == 0 ? 'создании' : 'редактировании') .' статьи возникла ошибка');
@@ -60,13 +84,38 @@ class ArticleController extends Controller
     public function actionEdit($id)
     {
         $model = $this->loadModel($id);
+        $model->chosenTags = $model->getTags();
 
         if (isset($_POST['application_modules_office_models_Article'])) {
             $model->attributes = $_POST['application_modules_office_models_Article'];
+            $newChosenTags = isset($_POST['application_modules_office_models_Article']['chosenTags']) ?
+                $_POST['application_modules_office_models_Article']['chosenTags'] :array();
+            $model->chosenTags = $model->getTags();
+            $tags = array();
+            if ($model->chosenTags && $newChosenTags) {
+                foreach ($newChosenTags as $newTag) {
+                    if (!in_array($newTag, $model->chosenTags)) {
+                        $tags[] = $newTag;
+                    }
+                }
+            } else {
+                $tags = $newChosenTags;
+            }
             if ($model->validate() && $model->save()) {
+                if (!empty($tags)) {
+                    foreach ($tags as $tag) {
+                        $record = new ArticleTag();
+                        $record->id_article = $id;
+                        $record->id_tag = $tag;
+                        $record->save();
+                    }
+                }
+                if (empty($newChosenTags)) {
+                    ArticleTag::model()->deleteAllByAttributes(array('id_article' => $id));
+                }
                 $this->redirect('/office');
             } else {
-                Yii::app()->user->setFlash('error', 'Размер статьи слишком большой');
+                Yii::app()->user->setFlash('error', 'При ' . ($id == 0 ? 'создании' : 'редактировании') .' статьи возникла ошибка');
                 Yii::log('Неудачное редактирование статьи: ' . var_export($model->getErrors(), true),
                     CLogger::LEVEL_WARNING);
             }
@@ -85,7 +134,6 @@ class ArticleController extends Controller
         if ($id == 0) {
             $model = new Article();
             $model->id_author = Yii::app()->user->id;
-            $model->type = 'psychological';
         } else {
             $model = $this->loadModel($id);
         }
@@ -93,10 +141,34 @@ class ArticleController extends Controller
         if (isset($_POST['application_modules_office_models_Article'])) {
             $model->attributes = $_POST['application_modules_office_models_Article'];
             $model->id_status = Article::DRAFT_STATUS;
+            $newChosenTags = isset($_POST['application_modules_office_models_Article']['chosenTags']) ?
+                $_POST['application_modules_office_models_Article']['chosenTags'] :array();
+            $model->chosenTags = $model->getTags();
+            $tags = array();
+            if ($model->chosenTags && $newChosenTags) {
+                foreach ($newChosenTags as $newTag) {
+                    if (!in_array($newTag, $model->chosenTags)) {
+                        $tags[] = $newTag;
+                    }
+                }
+            } else {
+                $tags = $newChosenTags;
+            }
             if ($model->validate() && $model->save()) {
+                if (!empty($tags)) {
+                    foreach ($tags as $tag) {
+                        $record = new ArticleTag();
+                        $record->id_article = $id;
+                        $record->id_tag = $tag;
+                        $record->save();
+                    }
+                }
+                if (empty($newChosenTags)) {
+                    ArticleTag::model()->deleteAllByAttributes(array('id_article' => $id));
+                }
                 $this->redirect('/office');
             } else {
-                Yii::app()->user->setFlash('error', 'Размер статьи слишком большой');
+                Yii::app()->user->setFlash('error', 'При ' . ($id == 0 ? 'создании' : 'редактировании') .' статьи возникла ошибка');
                 Yii::log('Неудачное сохранение статьи в черновик: ' . var_export($model->getErrors(), true),
                     CLogger::LEVEL_WARNING);
             }

@@ -4,6 +4,7 @@
  * @var $model Article
  */
 
+use application\modules\office\models\ArticleTag;
 use application\modules\office\models\Category;
 use application\modules\office\controllers\ArticleController;
 use application\modules\office\models\Article;
@@ -29,8 +30,14 @@ $this->pageTitle = ($model->id) ? 'Редактирование статьи #' 
     <?= CHtml::htmlButton('Отправить', array('submit' => array('article/send', 'id' => $model->id ?: 0), 'class' => 'primary-button')); ?>
 </menu>
 
+<div class="article-tags">
+    <?= CHtml::activeCheckBoxList($model, 'chosenTags', ArticleTag::getAllTags()); ?>
+</div>
+
+<?= CHtml::activeDropDownList($model, 'type', $model->types, array('class' => 'article-field')); ?>
+
 <?= CHtml::activedropDownList($model, 'id_category_article',
-    CHtml::listData(Category::model()->getCategories(), 'id', 'Parent'),
+    CHtml::listData(Category::getCategories(), 'id', 'Parent'),
     array(
         'class' => 'article-field',
         'options' => Category::getAllParentsOptions(),

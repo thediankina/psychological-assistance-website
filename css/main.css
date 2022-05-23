@@ -565,6 +565,14 @@ table.detail-view .null {
 	font: normal 1.2em 'Roboto', sans-serif;
 }
 
+.article-tags {
+	margin-bottom: 10px;
+}
+
+.article-tag {
+	color: #52A4BE;
+}
+
 /** article editor */
 .article-field
 {
@@ -574,7 +582,7 @@ table.detail-view .null {
 	border: 1px #D1D1D1 solid;
 }
 
-option:disabled {
+.category-header-list {
 	font-weight: bolder;
 	color: #52A4BE;
 }
