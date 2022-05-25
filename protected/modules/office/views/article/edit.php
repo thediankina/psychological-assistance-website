@@ -43,8 +43,7 @@ $this->pageTitle = ($model->id) ? 'Редактирование статьи #' 
         'options' => Category::getAllParentsOptions(),
     )); ?>
 
-<?= CHtml::activeTelField($model, 'title',
-    array('class' => 'article-field')); ?>
+<?= CHtml::activeTextField($model, 'title', array('class' => 'article-field')); ?>
 
 <?php $this->widget('CKEditorWidget', array(
     'model' => $model,

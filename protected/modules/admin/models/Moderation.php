@@ -112,6 +112,21 @@ class Moderation extends CActiveRecord
     }
 
     /**
+     * @param $article
+     * @param $comment
+     * @return Moderation
+     */
+    public static function createRecord($article, $comment)
+    {
+        $record = new Moderation();
+        $record->comment = $comment;
+        $record->date = date('Y-m-d');
+        $record->id_article = $article->id;
+
+        return $record;
+    }
+
+    /**
      * @param string $className
      * @return Moderation
      */

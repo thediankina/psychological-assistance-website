@@ -20,7 +20,7 @@ $this->pageTitle = 'Обзор статьи #' . $model->id;
 
 <menu>
     <?= CHtml::htmlButton('Вернуться', array('submit' => array('/admin/articles'), 'class' => 'back-button')); ?>
-    <?= CHtml::htmlButton('Вернуть автору', array('submit' => array('article/reject', 'id' => $model->id), 'class' => 'primary-button')); ?>
+    <?= CHtml::htmlButton('Вернуть автору', array('submit' => array('article/return', 'id' => $model->id), 'class' => 'primary-button')); ?>
     <?= CHtml::htmlButton('Опубликовать', array('submit' => array('article/accept', 'id' => $model->id), 'class' => 'primary-button')); ?>
 </menu>
 

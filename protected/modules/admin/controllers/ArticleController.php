@@ -2,6 +2,7 @@
 
 namespace application\modules\admin\controllers;
 
+use application\modules\admin\models\Moderation;
 use application\modules\office\models\Article;
 use CHttpException;
 use CLogger;
@@ -33,6 +34,7 @@ class ArticleController extends Controller
     }
 
     /**
+     * Публикация статьи
      * @param integer $id
      * @throws CHttpException
      */
@@ -48,18 +50,33 @@ class ArticleController extends Controller
     }
 
     /**
+     * Возвращение статьи автору
      * @param integer $id
      * @throws CHttpException
      */
-    public function actionReject($id)
+    public function actionReturn($id)
     {
-        $model = $this->loadModel($id);
-        $model->id_status = Article::MODIFY_STATUS;
-        if ($model->validate() && $model->save()) {
-            $this->redirect('/admin/articles');
-        } else {
-            throw new CHttpException(404, 'Возникла проблема при обработке статьи');
+        $article = $this->loadModel($id);
+
+        $record = new Moderation();
+
+        if (isset($_POST['application_modules_admin_models_Moderation'])) {
+            $record->attributes = $_POST['application_modules_admin_models_Moderation'];
+            $record = Moderation::createRecord($article, $record->comment);
+
+            if ($record->save()) {
+                Article::model()->updateByPk($id, array('id_status' => Article::MODIFY_STATUS));
+                $this->redirect('/admin/articles');
+            } else {
+                Yii::app()->user->setFlash('error', 'Введите причину');
+                Yii::log('Неудачный возврат статьи: ' . var_export($article->getErrors(), true), CLogger::LEVEL_WARNING);
+            }
         }
+
+        $this->render('return', array(
+            'article' => $article,
+            'history' => $record,
+        ));
     }
 
     /**

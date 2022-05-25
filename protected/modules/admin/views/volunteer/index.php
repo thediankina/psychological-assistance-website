@@ -39,7 +39,7 @@ $this->pageTitle = 'Список волонтеров';
         array(
             'header' => 'Волонтерская группа',
             'name' => function ($model) {
-                return VolunteerGroup::model()->findByPk($model->volunteer->id_group)->group_name;
+                return isset($model->volunteer) ? VolunteerGroup::model()->findByPk($model->volunteer->id_group)->group_name : null;
             }
         ),
         array(

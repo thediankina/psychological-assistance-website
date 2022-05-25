@@ -4,6 +4,7 @@ namespace application\modules\office\controllers;
 
 use application\modules\office\models\Request;
 use application\modules\office\models\RequestHistory;
+use CDbException;
 use CHttpException;
 use CLogger;
 use Controller;
@@ -34,6 +35,7 @@ class RequestController extends Controller
     }
 
     /**
+     * Просмотр заявки
      * @param integer $id
      * @throws CHttpException
      */
@@ -66,6 +68,7 @@ class RequestController extends Controller
     }
 
     /**
+     * Принятие заявки
      * @param $id
      * @throws CHttpException
      */
@@ -85,6 +88,7 @@ class RequestController extends Controller
     }
 
     /**
+     * Отклонение заявки
      * @param $id
      * @throws CHttpException
      */
@@ -120,11 +124,22 @@ class RequestController extends Controller
     }
 
     /**
-     * @todo Реализовать завершение заявки
+     * Завершение заявки
      * @param $id
+     * @throws CHttpException
+     * @throws CDbException
      */
     public function actionFinish($id)
     {
+        $request = $this->loadModel($id);
+
+        if ($request->delete()) {
+            Yii::app()->user->setFlash('success', 'Заявка успешно закрыта');
+            $this->redirect('/office');
+        } else {
+            Yii::log('Неудачное завершение заявки: ' . var_export($request->getErrors(), true), CLogger::LEVEL_WARNING);
+            throw new CHttpException(404, 'Возникла проблема при обработке заявки');
+        }
     }
 
     /**
