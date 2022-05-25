@@ -89,7 +89,12 @@ class Article extends CActiveRecord
             'category' => array(self::BELONGS_TO, Category::class, array('id_category_article' => 'id')),
             'status' => array(self::BELONGS_TO, ArticleStatus::class, array('id_status' => 'id')),
             'author' => array(self::BELONGS_TO, User::class, array('id_author' => 'id')),
-            'moderations' => array(self::HAS_MANY, Moderation::class, 'id_article'),
+            'moderations' => array(
+                self::HAS_ONE,
+                Moderation::class,
+                array('id_article' => 'id'),
+                'order' => 'moderations.id DESC',
+            ),
         );
     }
 

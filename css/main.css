@@ -565,6 +565,15 @@ table.detail-view .null {
 	font: normal 1.2em 'Roboto', sans-serif;
 }
 
+#article-admin-comment {
+	color: #438397;
+	font-size: 1.1em;
+	padding: .8em;
+	margin-bottom: 1em;
+	border: 1px solid #52A4BE;
+	background-color: #E7F8FD;
+}
+
 .article-tags {
 	margin-bottom: 10px;
 }

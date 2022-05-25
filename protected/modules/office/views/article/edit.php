@@ -30,6 +30,13 @@ $this->pageTitle = ($model->id) ? 'Редактирование статьи #' 
     <?= CHtml::htmlButton('Отправить', array('submit' => array('article/send', 'id' => $model->id ?: 0), 'class' => 'primary-button')); ?>
 </menu>
 
+<?php if (isset($model->moderations)): ?>
+<div id="article-admin-comment">
+    <?= $model->moderations->date; ?><br>
+    Комментарий от администратора:<br><?= $model->moderations->comment; ?>
+</div>
+<?php endif; ?>
+
 <div class="article-tags">
     <?= CHtml::activeCheckBoxList($model, 'chosenTags', ArticleTag::getAllTags()); ?>
 </div>
