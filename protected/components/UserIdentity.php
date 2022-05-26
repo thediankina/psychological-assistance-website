@@ -1,7 +1,6 @@
 <?php
 
 /**
- * Будущий класс для проверки доступа
  * @package components
  */
 class UserIdentity extends CUserIdentity

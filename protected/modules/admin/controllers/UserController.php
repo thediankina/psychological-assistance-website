@@ -14,6 +14,28 @@ use Yii;
 
 class UserController extends Controller
 {
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array(
+                'allow',
+                'actions' => array('index', 'view', 'approve', 'remove'),
+                'roles' => array(User::ROLE_ADMINISTRATOR),
+            ),
+            array(
+                'deny',
+                'roles' => User::ROLES_ANYBODY,
+            ),
+        );
+    }
+
     /**
      * Отображение запросов
      */
@@ -43,6 +65,11 @@ class UserController extends Controller
         $this->render('request', array('model' => $model));
     }
 
+    /**
+     * Принятие запроса
+     * @param $id
+     * @throws CHttpException
+     */
     public function actionApprove($id)
     {
         $model = $this->loadModel($id);
@@ -53,7 +80,7 @@ class UserController extends Controller
     }
 
     /**
-     * Удаление запросов на регистрацию из списка (AJAX)
+     * Удаление запросов из списка (AJAX)
      * @throws CDbException
      */
     public function actionRemove()

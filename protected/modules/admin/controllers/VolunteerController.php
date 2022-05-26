@@ -11,6 +11,28 @@ use Yii;
 
 class VolunteerController extends Controller
 {
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array(
+                'allow',
+                'actions' => array('index', 'edit', 'save'),
+                'roles' => array(User::ROLE_ADMINISTRATOR),
+            ),
+            array(
+                'deny',
+                'roles' => User::ROLES_ANYBODY,
+            ),
+        );
+    }
+
     public function actionIndex()
     {
         $model = new User();

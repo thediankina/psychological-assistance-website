@@ -36,7 +36,7 @@ return array(
     'components' => array(
 
         'user' => array(
-            'class' => CWebUser::class,
+            'class' => WebUser::class,
             'loginUrl' => '/login',
         ),
 
@@ -45,6 +45,11 @@ return array(
             'showScriptName' => false,
             'appendParams' => false,
             'rules' => require(dirname(__FILE__) . '/rules.php'),
+        ),
+
+        'authManager' => array(
+            'class' => PhpAuthManager::class,
+            'defaultRoles' => array('guest'),
         ),
 
         'debug' => array('class' => 'ext.yii2-debug.Yii2Debug'),

@@ -43,6 +43,23 @@ class User extends CActiveRecord
     const STATUS_ENABLED = 1;
     const STATUS_DISABLED = 0;
 
+    const ROLE_GUEST = 'guest';
+    const ROLE_PSYCHOLOGIST = 1;
+    const ROLE_LAWYER = 2;
+    const ROLE_ADMINISTRATOR = 5;
+    const ROLE_VOLUNTEER = 6;
+
+    const ROLES_SPECIALIST = array(
+        self::ROLE_PSYCHOLOGIST,
+        self::ROLE_LAWYER,
+    );
+
+    const ROLES_ANYBODY = array(
+        self::ROLE_GUEST,
+        self::ROLES_SPECIALIST,
+        self::ROLE_VOLUNTEER,
+        );
+
     const VOLUNTEER_POSITION = 6;
 
     // @todo Перенести в форму UserForm

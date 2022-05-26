@@ -6,10 +6,33 @@ use application\modules\forum\models\Forum;
 use CHttpException;
 use CLogger;
 use Controller;
+use User;
 use Yii;
 
 class ForumController extends Controller
 {
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array(
+                'allow',
+                'actions' => array('index', 'create', 'edit'),
+                'roles' => array(User::ROLE_ADMINISTRATOR),
+            ),
+            array(
+                'deny',
+                'roles' => User::ROLES_ANYBODY,
+            ),
+        );
+    }
+
     public function actionIndex()
     {
         $model = new Forum();

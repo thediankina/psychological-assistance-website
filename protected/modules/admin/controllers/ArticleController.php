@@ -7,10 +7,33 @@ use application\modules\office\models\Article;
 use CHttpException;
 use CLogger;
 use Controller;
+use User;
 use Yii;
 
 class ArticleController extends Controller
 {
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array(
+                'allow',
+                'actions' => array('index', 'verify', 'accept', 'return'),
+                'roles' => array(User::ROLE_ADMINISTRATOR),
+            ),
+            array(
+                'deny',
+                'roles' => User::ROLES_ANYBODY,
+            ),
+        );
+    }
+
 	public function actionIndex()
 	{
         $model = new Article();
