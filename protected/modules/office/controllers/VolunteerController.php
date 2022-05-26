@@ -7,6 +7,32 @@ use User;
 
 class VolunteerController extends Controller
 {
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array(
+                'allow',
+                'actions' => array('index'),
+                'roles' => User::ROLES_SPECIALIST,
+            ),
+            array(
+                'deny',
+                'roles' => array(
+                    User::ROLE_GUEST,
+                    User::ROLE_ADMINISTRATOR,
+                    User::ROLE_VOLUNTEER,
+                ),
+            ),
+        );
+    }
+
     public function actionIndex()
     {
         $model = new User();

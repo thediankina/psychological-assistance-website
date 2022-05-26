@@ -7,6 +7,7 @@ use application\modules\office\models\ArticleTag;
 use CHttpException;
 use CLogger;
 use Controller;
+use User;
 use Yii;
 
 /**
@@ -14,6 +15,32 @@ use Yii;
  */
 class ArticleController extends Controller
 {
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array(
+                'allow',
+                'actions' => array('create', 'send', 'edit', 'draft'),
+                'roles' => User::ROLES_SPECIALIST,
+            ),
+            array(
+                'deny',
+                'roles' => array(
+                    User::ROLE_GUEST,
+                    User::ROLE_ADMINISTRATOR,
+                    User::ROLE_VOLUNTEER,
+                ),
+            ),
+        );
+    }
+
     /**
      * Создание статьи (только для кнопки "Добавить" в Личном кабинете)
      */

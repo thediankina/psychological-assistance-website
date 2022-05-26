@@ -11,6 +11,24 @@ use Yii;
  */
 class AuthController extends Controller
 {
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array(
+                'allow',
+                'actions' => array('logout'),
+                'roles' => array('@'),
+            ),
+        );
+    }
+
     /**
      * Условная авторизация для проверки доступа
      */

@@ -15,14 +15,15 @@ $this->pageTitle = 'Просмотр заявки #' . $model->id;
 
 <h1><?php echo $this->pageTitle; ?></h1>
 
-<?php $back_url = parse_url(Yii::app()->request->urlReferrer, PHP_URL_PATH); ?>
+<?php ($history && $model->status == Request::STATUS_IN_WORK) ? $back_url = '/office' : $back_url = '/requests'; ?>
+
 <menu>
     <?= CHtml::htmlButton('Вернуться', array('submit' => array($back_url), 'class' => 'back-button')); ?>
     <?php if ($model->status == Request::STATUS_PLANNED): ?>
         <?= CHtml::htmlButton('Принять',
             array('submit' => array('request/accept', 'id' => $model->id), 'class' => 'primary-button')); ?>
     <?php else: ?>
-        <?php if ($history && $history->comment == RequestHistory::ACTION_ACCEPTED): ?>
+        <?php if ($history && $model->status == Request::STATUS_IN_WORK): ?>
             <?= CHtml::htmlButton('Отклонить',
                 array('submit' => array('request/reject', 'id' => $model->id), 'class' => 'primary-button')); ?>
             <?= CHtml::htmlButton('Завершить',

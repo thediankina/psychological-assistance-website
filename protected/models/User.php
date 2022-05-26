@@ -60,6 +60,14 @@ class User extends CActiveRecord
         self::ROLE_VOLUNTEER,
         );
 
+    const ROLES_ALL = array(
+        self::ROLE_GUEST,
+        self::ROLE_PSYCHOLOGIST,
+        self::ROLE_LAWYER,
+        self::ROLE_ADMINISTRATOR,
+        self::ROLE_VOLUNTEER,
+    );
+
     const VOLUNTEER_POSITION = 6;
 
     // @todo Перенести в форму UserForm

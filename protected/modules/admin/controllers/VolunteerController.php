@@ -71,7 +71,7 @@ class VolunteerController extends Controller
                 $volunteer->attributes = $_POST['User'];
             }
 
-            if ($model->validate() & $model->save())
+            if ($model->validate() && $model->save())
             {
                 if ($volunteer) {
                     if ($volunteer->validate()) {

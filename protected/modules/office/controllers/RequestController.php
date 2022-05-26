@@ -8,6 +8,7 @@ use CDbException;
 use CHttpException;
 use CLogger;
 use Controller;
+use User;
 use Yii;
 
 /**
@@ -19,6 +20,32 @@ class RequestController extends Controller
      * @var string домашний URL
      */
     public $homeUrl = '/requests';
+
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array(
+                'allow',
+                'actions' => array('index', 'view', 'accept', 'reject', 'finish'),
+                'roles' => User::ROLES_SPECIALIST,
+            ),
+            array(
+                'deny',
+                'roles' => array(
+                    User::ROLE_GUEST,
+                    User::ROLE_ADMINISTRATOR,
+                    User::ROLE_VOLUNTEER,
+                ),
+            ),
+        );
+    }
 
     /**
      * Список заявок
@@ -44,7 +71,8 @@ class RequestController extends Controller
         $model = $this->loadModel($id);
         $history = RequestHistory::model()->findByAttributes(array(
             'IDuser' => Yii::app()->user->id,
-            'IDrequest' => $model->id),
+            'IDrequest' => $model->id,
+            'comment' => RequestHistory::ACTION_ACCEPTED),
             array('order' => 'id DESC', 'limit' => 1));
 
         $comment = new RequestHistory();
@@ -132,6 +160,16 @@ class RequestController extends Controller
     public function actionFinish($id)
     {
         $request = $this->loadModel($id);
+
+        $history = RequestHistory::model()->findAllByAttributes(array('IDrequest' => $id));
+
+        foreach ($history as $record) {
+            try {
+                $record->delete();
+            } catch (CDbException $e) {
+                throw new CHttpException(404, 'Возникла проблема при обработке заявки');
+            }
+        }
 
         if ($request->delete()) {
             Yii::app()->user->setFlash('success', 'Заявка успешно закрыта');
