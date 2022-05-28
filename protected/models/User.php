@@ -98,7 +98,7 @@ class User extends CActiveRecord
 
     /**
      * Другое
-     * @var integer
+     * @var string
      */
     public $other;
 
@@ -128,7 +128,7 @@ class User extends CActiveRecord
             array('phone', 'length', 'max' => 11),
             array('password, salt', 'length', 'max' => 32),
             array('utility', 'length', 'max' => 200),
-            array('other', 'length', 'max' => 50),
+            array('other', 'length', 'max' => 200),
             array(
                 'id, isActive, firstName, middleName, lastName, phone, mail, id_city, id_position, password, salt, other, utility, activity',
                 'safe',

@@ -37,8 +37,16 @@ class ArticleController extends Controller
                     User::ROLE_ADMINISTRATOR,
                     User::ROLE_VOLUNTEER,
                 ),
+                'deniedCallback' => array($this, 'deny'),
             ),
         );
+    }
+
+    public function deny()
+    {
+        $message = "Вы не зарегистрированы в качестве специалиста";
+        Yii::app()->user->setFlash('deniedCallback', $message);
+        $this->redirect('/login');
     }
 
     /**

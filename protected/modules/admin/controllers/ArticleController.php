@@ -30,8 +30,16 @@ class ArticleController extends Controller
             array(
                 'deny',
                 'roles' => User::ROLES_ANYBODY,
+                'deniedCallback' => array($this, 'deny'),
             ),
         );
+    }
+
+    public function deny()
+    {
+        $message = "Вы не зарегистрированы в качестве администратора";
+        Yii::app()->user->setFlash('deniedCallback', $message);
+        $this->redirect('/login');
     }
 
 	public function actionIndex()

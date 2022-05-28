@@ -64,7 +64,7 @@ class UserController extends Controller
                         }
                     }
                 }
-                if ($model->validate() && $model->save()) {
+                if ($volunteer->validate() && $volunteer->save()) {
                     if (!empty($newGroups)) {
                         foreach ($newGroups as $groupId) {
                             $record = new VolunteerGroupUser();

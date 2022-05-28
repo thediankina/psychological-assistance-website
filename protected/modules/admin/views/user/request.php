@@ -65,7 +65,7 @@ $this->pageTitle = 'Просмотр запроса на регистрацию 
             }
         ),
         array(
-            'name' => 'id_group',
+            'name' => 'groupIds',
             'type' => 'raw',
             'value' => function ($model) {
                 return $model->getVolunteerGroups() ? nl2br($model->getVolunteerGroups()) : null;

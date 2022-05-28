@@ -12,6 +12,13 @@ $this->pageTitle = 'Вход';
 
 <h1><?php echo $this->pageTitle; ?></h1>
 
+
+<?php if (Yii::app()->user->hasFlash('deniedCallback')): ?>
+    <div class="flash-error">
+        <?= Yii::app()->user->getFlash('deniedCallback'); ?>
+    </div>
+<?php endif; ?>
+
 <div class="form">
     <?php $form = $this->beginWidget('CActiveForm', array(
         'id' => 'login-form',

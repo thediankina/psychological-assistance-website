@@ -40,9 +40,16 @@ class OfficeController extends Controller
                     User::ROLE_ADMINISTRATOR,
                     User::ROLE_VOLUNTEER,
                 ),
-                'message' => 'Вы не зарегистрированы',
+                'deniedCallback' => array($this, 'deny'),
             ),
         );
+    }
+
+    public function deny()
+    {
+        $message = "Вы не зарегистрированы в качестве специалиста";
+        Yii::app()->user->setFlash('deniedCallback', $message);
+        $this->redirect('/login');
     }
 
     public function actionIndex()
