@@ -40,6 +40,7 @@ class OfficeController extends Controller
                     User::ROLE_ADMINISTRATOR,
                     User::ROLE_VOLUNTEER,
                 ),
+                'message' => 'Вы не зарегистрированы',
             ),
         );
     }

@@ -85,6 +85,17 @@ class ArticleController extends Controller
                     }
                 }
             }
+            if (empty($newChosenTags) && $model->chosenTags) {
+                ArticleTag::model()->deleteAllByAttributes(array('id_article' => $id));
+            }
+            if (empty($model->chosenTags) && $newChosenTags) {
+                foreach ($newChosenTags as $tag) {
+                    $record = new ArticleTag();
+                    $record->id_article = $id;
+                    $record->id_tag = $tag;
+                    $record->save();
+                }
+            }
             if ($model->validate() && $model->save()) {
                 if (!empty($newTags)) {
                     foreach ($newTags as $tag) {
@@ -99,9 +110,6 @@ class ArticleController extends Controller
                         $sql = 'DELETE FROM db_article_tags WHERE id_article = ' . $id . ' AND id_tag = ' . $tag;
                         Yii::app()->db->createCommand($sql)->query();
                     }
-                }
-                if (empty($newChosenTags)) {
-                    ArticleTag::model()->deleteAllByAttributes(array('id_article' => $id));
                 }
                 $this->redirect('/office');
             } else {
@@ -144,6 +152,17 @@ class ArticleController extends Controller
                     }
                 }
             }
+            if (empty($newChosenTags) && $model->chosenTags) {
+                ArticleTag::model()->deleteAllByAttributes(array('id_article' => $id));
+            }
+            if (empty($model->chosenTags) && $newChosenTags) {
+                foreach ($newChosenTags as $tag) {
+                    $record = new ArticleTag();
+                    $record->id_article = $id;
+                    $record->id_tag = $tag;
+                    $record->save();
+                }
+            }
             if ($model->validate() && $model->save()) {
                 if (!empty($newTags)) {
                     foreach ($newTags as $tag) {
@@ -158,9 +177,6 @@ class ArticleController extends Controller
                         $sql = 'DELETE FROM db_article_tags WHERE id_article = ' . $id . ' AND id_tag = ' . $tag;
                         Yii::app()->db->createCommand($sql)->query();
                     }
-                }
-                if (empty($newChosenTags)) {
-                    ArticleTag::model()->deleteAllByAttributes(array('id_article' => $id));
                 }
                 $this->redirect('/office');
             } else {
@@ -206,6 +222,17 @@ class ArticleController extends Controller
                     if (!in_array($oldTag, $newChosenTags)) {
                         $removeTags[] = $oldTag;
                     }
+                }
+            }
+            if (empty($newChosenTags) && $model->chosenTags) {
+                ArticleTag::model()->deleteAllByAttributes(array('id_article' => $id));
+            }
+            if (empty($model->chosenTags) && $newChosenTags) {
+                foreach ($newChosenTags as $tag) {
+                    $record = new ArticleTag();
+                    $record->id_article = $id;
+                    $record->id_tag = $tag;
+                    $record->save();
                 }
             }
             if ($model->validate() && $model->save()) {
