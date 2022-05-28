@@ -130,7 +130,7 @@ $form = $this->beginWidget(CActiveForm::class, array(
         <td>
             <?= $form->textField($model, 'other', array(
                 'value' => Volunteer::model()->findByPk($model->id) ? (Volunteer::model()->findByPk($model->id))->other : '',
-                'disabled' => !(in_array(6, $model->groupIds)),
+                'disabled' => !(in_array(6, $model->groupIds ?: array())),
                 'class' => 'profile-form-field',
             )); ?>
         </td>

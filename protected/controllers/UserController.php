@@ -64,6 +64,18 @@ class UserController extends Controller
                         }
                     }
                 }
+                if (empty($newGroupIds) && $model->groupIds) {
+                    VolunteerGroupUser::model()->deleteAllByAttributes(array('volunteer_id' => $id));
+                }
+                if (empty($model->groupIds) && $newGroupIds) {
+                    foreach ($newGroupIds as $groupId) {
+                        $record = new VolunteerGroupUser();
+                        $record->volunteer_id = $id;
+                        $record->group_id = $groupId;
+                        $record->param_value = 1;
+                        $record->save();
+                    }
+                }
                 if ($volunteer->validate() && $volunteer->save()) {
                     if (!empty($newGroups)) {
                         foreach ($newGroups as $groupId) {

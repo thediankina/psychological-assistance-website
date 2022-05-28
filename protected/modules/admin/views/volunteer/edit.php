@@ -23,17 +23,17 @@ if ($model->id == Yii::app()->user->id) {
     </div>
 <?php endif; ?>
 
+<?php $form = $this->beginWidget(CActiveForm::class, array(
+    'id' => 'profile-form',
+    'enableAjaxValidation' => false,
+)); ?>
+
 <menu>
     <?= CHtml::htmlButton('Вернуться',
         array('submit' => array('/admin/volunteers'), 'class' => 'back-button')); ?>
     <?= CHtml::htmlButton('Сохранить',
         array('submit' => array('volunteer/save', 'id' => $model->id), 'class' => 'primary-button')); ?>
 </menu>
-
-<?php $form = $this->beginWidget(CActiveForm::class, array(
-    'id' => 'profile-form',
-    'enableAjaxValidation' => false,
-)); ?>
 
 <table class="detail-view">
     <tbody>
@@ -52,7 +52,7 @@ if ($model->id == Yii::app()->user->id) {
         </th>
         <td>
             <?= $form->textField($model, 'lastName',
-                array('class' => 'profile-form-field', 'disabled' => 'disabled')); ?>
+                array('class' => 'profile-form-field', 'disabled' => !(Yii::app()->user->role == User::ROLE_ADMINISTRATOR))); ?>
         </td>
     </tr>
     <tr>
@@ -61,7 +61,7 @@ if ($model->id == Yii::app()->user->id) {
         </th>
         <td>
             <?= $form->textField($model, 'firstName',
-                array('class' => 'profile-form-field', 'disabled' => 'disabled')); ?>
+                array('class' => 'profile-form-field', 'disabled' => !(Yii::app()->user->role == User::ROLE_ADMINISTRATOR))); ?>
         </td>
     </tr>
     <tr>
@@ -70,7 +70,7 @@ if ($model->id == Yii::app()->user->id) {
         </th>
         <td>
             <?= $form->textField($model, 'middleName',
-                array('class' => 'profile-form-field', 'disabled' => 'disabled')); ?>
+                array('class' => 'profile-form-field', 'disabled' => !(Yii::app()->user->role == User::ROLE_ADMINISTRATOR))); ?>
         </td>
     </tr>
     <tr>
@@ -80,7 +80,7 @@ if ($model->id == Yii::app()->user->id) {
         <td>
             <?= $form->dropDownList($model, 'id_position',
                 CHtml::listData(Position::model()->findAll(), 'id', 'namePosition'),
-                array('class' => 'profile-form-field', 'disabled' => 'disabled')); ?>
+                array('class' => 'profile-form-field', 'disabled' => !(Yii::app()->user->role == User::ROLE_ADMINISTRATOR))); ?>
         </td>
     </tr>
     <tr>
