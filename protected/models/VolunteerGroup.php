@@ -5,10 +5,12 @@
  *
  * Атрибуты
  * @property integer $id
+ * @property string $short_name
  * @property string $group_name
  *
  * Связи
  * @property Volunteer[] $volunteers
+ * @property VolunteerGroupUser[] $groups
  */
 class VolunteerGroup extends CActiveRecord
 {
@@ -26,9 +28,10 @@ class VolunteerGroup extends CActiveRecord
     public function rules()
     {
         return array(
-            array('group_name', 'required'),
+            array('short_name, group_name', 'required'),
+            array('short_name', 'length', 'max' => 30),
             array('group_name', 'length', 'max' => 70),
-            array('id, group_name', 'safe', 'on' => 'search'),
+            array('id, short_name, group_name', 'safe', 'on' => 'search'),
         );
     }
 
@@ -39,6 +42,7 @@ class VolunteerGroup extends CActiveRecord
     {
         return array(
             'volunteers' => array(self::HAS_MANY, Volunteer::class, array('id_group' => 'id')),
+            'groups' => array(self::HAS_MANY, VolunteerGroupUser::class, 'group_id'),
         );
     }
 
@@ -49,6 +53,7 @@ class VolunteerGroup extends CActiveRecord
     {
         return array(
             'id' => 'ID',
+            'short_name' => 'Краткое название',
             'group_name' => 'Название',
         );
     }
@@ -61,6 +66,7 @@ class VolunteerGroup extends CActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
+        $criteria->compare('short_name', $this->short_name, true);
         $criteria->compare('group_name', $this->group_name, true);
 
         return new CActiveDataProvider($this, array(

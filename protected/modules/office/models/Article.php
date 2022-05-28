@@ -41,8 +41,10 @@ class Article extends CActiveRecord
      * @var array
      */
     public $types = array(
-        'psychological' => 'Психологическая помощь',
-        'law' => 'Юридическая помощь'
+        0 => '',
+        1 => 'Юридическая помощь',
+        2 => 'Психологическая помощь',
+        3 => 'Техники самопомощи'
     );
 
     /**

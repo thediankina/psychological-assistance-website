@@ -2,10 +2,12 @@
 /**
  * @var $this ArticleController
  * @var $model Article
+ * @var $tags array
  */
 
 use application\modules\admin\controllers\ArticleController;
 use application\modules\office\models\Article;
+use application\modules\office\models\ArticleTag;
 
 $this->pageTitle = 'Обзор статьи #' . $model->id;
 ?>
@@ -23,6 +25,12 @@ $this->pageTitle = 'Обзор статьи #' . $model->id;
     <?= CHtml::htmlButton('Вернуть автору', array('submit' => array('article/return', 'id' => $model->id), 'class' => 'primary-button')); ?>
     <?= CHtml::htmlButton('Опубликовать', array('submit' => array('article/accept', 'id' => $model->id), 'class' => 'primary-button')); ?>
 </menu>
+
+<div class="article-tags">
+    <?php foreach ($tags as $tag): ?>
+        <div class="article-tag"><?= ArticleTag::getTagName($tag); ?></div>
+    <?php endforeach; ?>
+</div>
 
 <div id="article-title"><?= $model->title; ?></div>
 <div id="article-content"><?= $model->content; ?></div>

@@ -53,7 +53,8 @@ class ArticleController extends Controller
     public function actionVerify($id)
     {
         $model = $this->loadModel($id);
-        $this->render('verify', array('model' => $model));
+        $tags = $model->getTags();
+        $this->render('verify', array('model' => $model, 'tags' => $tags));
     }
 
     /**

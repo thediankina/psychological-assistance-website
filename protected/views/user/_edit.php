@@ -4,7 +4,9 @@
  * @var $model User
  */
 
-$form = $this->beginWidget('CActiveForm', array(
+Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/main.js');
+
+$form = $this->beginWidget(CActiveForm::class, array(
     'id' => 'profile-form',
     'enableAjaxValidation' => false,
 )); ?>
@@ -110,16 +112,27 @@ $form = $this->beginWidget('CActiveForm', array(
     </tr>
     <tr>
         <th>
-            <?= $form->label($model, 'id_group'); ?>
+            <?= $form->label($model, 'groupIds'); ?>
         </th>
         <td>
-            <?= $form->dropDownList($model, 'id_group',
-                CHtml::listData(VolunteerGroup::model()->findAll(), 'id', 'group_name'), array(
-                    'options' => ($model->id_position == User::VOLUNTEER_POSITION) ? array($model->volunteer->id_group => array('selected' => true)) : '',
+            <?= $form->checkBoxList($model, 'groupIds',
+                CHtml::listData(VolunteerGroup::model()->findAll(), 'id', 'group_name'),
+                array(
                     'disabled' => !(($model->id_position == User::VOLUNTEER_POSITION)),
-                    'class' => 'profile-form-field',
-                    'empty' => '',
+                    'class' => 'profile-form-checkbox',
                 )); ?>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <?= $form->label($model, 'other'); ?>
+        </th>
+        <td>
+            <?= $form->textField($model, 'other', array(
+                'value' => Volunteer::model()->findByPk($model->id) ? (Volunteer::model()->findByPk($model->id))->other : '',
+                'disabled' => true,
+                'class' => 'profile-form-field',
+            )); ?>
         </td>
     </tr>
     <tr>

@@ -89,7 +89,7 @@ class ArticleTag extends CActiveRecord
 
     /**
      * Получение всех тегов
-     * @return mixed
+     * @return array
      */
     public static function getAllTags()
     {

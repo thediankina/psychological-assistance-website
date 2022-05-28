@@ -735,3 +735,7 @@ div.comment-row.comment-buttons
 	width: -moz-available;			/* Firefox Mozilla */
 	width: -webkit-fill-available;	/* Google Chrome */
 }
+
+.profile-form-checkbox {
+	font-size: 1.15em;
+}

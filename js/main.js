@@ -20,3 +20,13 @@ function getSelectedIds($grid_name) {
 function updateGrid($grid_name) {
     $.fn.yiiGridView.update($grid_name);
 }
+
+$(function() {
+    $('#User_groupIds_5').on('click', function() {
+        if($(this).is(':checked')){
+            $('#User_other').attr('disabled', false);
+        } else {
+            $('#User_other').attr('disabled', true);
+        }
+    });
+});

@@ -37,12 +37,6 @@ $this->pageTitle = 'Список волонтеров';
         ),
         'mail:email',
         array(
-            'header' => 'Волонтерская группа',
-            'name' => function ($model) {
-                return VolunteerGroup::model()->findByPk($model->volunteer->id_group)->group_name;
-            }
-        ),
-        array(
             'class' => 'CButtonColumn',
             'template' => '{view}',
             'viewButtonUrl' => function($model) {

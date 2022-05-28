@@ -91,10 +91,16 @@ class User extends CActiveRecord
     public $site;
 
     /**
-     * Группа, к которой относится волонтер
+     * Группы волонтера
+     * @var array
+     */
+    public $groupIds;
+
+    /**
+     * Другое
      * @var integer
      */
-    public $id_group;
+    public $other;
 
     /**
      * Дополнительные возможности волонтера
@@ -117,13 +123,14 @@ class User extends CActiveRecord
     {
         return array(
             array('firstName, middleName, lastName, phone, mail, id_city, id_position, password', 'required'),
-            array('isActive, id_city, id_position, id_group, activity', 'numerical', 'integerOnly' => true),
+            array('isActive, id_city, id_position, activity', 'numerical', 'integerOnly' => true),
             array('firstName, middleName, lastName, mail', 'length', 'max' => 45),
             array('phone', 'length', 'max' => 11),
             array('password, salt', 'length', 'max' => 32),
             array('utility', 'length', 'max' => 200),
+            array('other', 'length', 'max' => 50),
             array(
-                'id, isActive, firstName, middleName, lastName, phone, mail, id_city, id_position, password, salt, id_group, utility, activity',
+                'id, isActive, firstName, middleName, lastName, phone, mail, id_city, id_position, password, salt, other, utility, activity',
                 'safe',
                 'on' => 'search'
             ),
@@ -144,7 +151,7 @@ class User extends CActiveRecord
             'histories' => array(self::HAS_MANY, RequestHistory::class, 'IDuser'),
             'city' => array(self::BELONGS_TO, City::class, array('id_city' => 'id')),
             'position' => array(self::BELONGS_TO, Position::class, array('id_position' => 'id')),
-            'volunteer' => array(self::HAS_ONE, Volunteer::class, 'id', 'with' => array('group')),
+            'volunteer' => array(self::HAS_ONE, Volunteer::class, 'id', 'with' => array('groups')),
         );
     }
 
@@ -165,8 +172,9 @@ class User extends CActiveRecord
             'id_position' => 'Специализация',
             'password' => 'Пароль',
             'salt' => '',
-            'id_group' => 'Волонтерская группа',
-            'utility' => 'Другое',
+            'groupIds' => 'Волонтерские группы',
+            'other' => 'Другое',
+            'utility' => 'Дополнительно',
             'activity' => 'Статус',
             'site' => 'Социальная сеть',
             'old' => 'Возраст',
@@ -178,7 +186,7 @@ class User extends CActiveRecord
      */
     public function search()
     {
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
         $criteria->with = array('volunteer');
         $criteria->compare('id', $this->id);
@@ -191,7 +199,7 @@ class User extends CActiveRecord
         $criteria->compare('id_city', $this->id_city);
         $criteria->compare('id_position', $this->id_position);
         $criteria->compare('password', $this->password, true);
-        $criteria->compare('id_group', $this->id_group);
+        $criteria->compare('other', $this->other, true);
         $criteria->compare('utility', $this->utility, true);
         $criteria->compare('activity', $this->activity);
 
@@ -208,6 +216,40 @@ class User extends CActiveRecord
      */
     public function isVolunteer() {
         return $this->id_position == self::VOLUNTEER_POSITION;
+    }
+
+    /**
+     * Получение названий групп волонтера в виде строки
+     * @return string|null
+     */
+    public function getVolunteerGroups() {
+        $groups = array();
+        $links = VolunteerGroupUser::model()->findAllByAttributes(array('volunteer_id' => $this->id));
+        if (!empty($links)) {
+            foreach ($links as $link) {
+                $group = VolunteerGroup::model()->findByPk($link->group_id);
+                $groups[] = $group->group_name;
+            }
+        }
+
+        return $groups ? implode(PHP_EOL, $groups) : null;
+    }
+
+    /**
+     * Получение ИД групп волонтера
+     * @return array
+     */
+    public function getVolunteerGroupIds() {
+        $groupIds = array();
+        $links = VolunteerGroupUser::model()->findAllByAttributes(array('volunteer_id' => $this->id));
+        if (!empty($links)) {
+            foreach ($links as $link) {
+                $group = VolunteerGroup::model()->findByPk($link->group_id);
+                $groupIds[] = $group->id;
+            }
+        }
+
+        return $groupIds;
     }
 
     /**

@@ -16,7 +16,7 @@ $this->pageTitle = 'Просмотр статьи #' . $model->id;
 
 <div class="article-tags">
     <?php foreach ($tags as $tag): ?>
-        <div class="article-tag">#<?= ArticleTag::getTagName($tag); ?></div>
+        <div class="article-tag"><?= ArticleTag::getTagName($tag); ?></div>
     <?php endforeach; ?>
 </div>
 <div id="article-title"><?= $model->title; ?></div>

@@ -69,25 +69,35 @@ class ArticleController extends Controller
             $model->attributes = $_POST['application_modules_office_models_Article'];
             $model->id_status = Article::VERIFICATION_STATUS;
             $newChosenTags = isset($_POST['application_modules_office_models_Article']['chosenTags']) ?
-                $_POST['application_modules_office_models_Article']['chosenTags'] :array();
+                $_POST['application_modules_office_models_Article']['chosenTags'] : array();
             $model->chosenTags = $model->getTags();
-            $tags = array();
+            $removeTags = array();
+            $newTags = array();
             if ($model->chosenTags && $newChosenTags) {
                 foreach ($newChosenTags as $newTag) {
                     if (!in_array($newTag, $model->chosenTags)) {
-                        $tags[] = $newTag;
+                        $newTags[] = $newTag;
                     }
                 }
-            } else {
-                $tags = $newChosenTags;
+                foreach ($model->chosenTags as $oldTag) {
+                    if (!in_array($oldTag, $newChosenTags)) {
+                        $removeTags[] = $oldTag;
+                    }
+                }
             }
             if ($model->validate() && $model->save()) {
-                if (!empty($tags)) {
-                    foreach ($tags as $tag) {
+                if (!empty($newTags)) {
+                    foreach ($newTags as $tag) {
                         $record = new ArticleTag();
                         $record->id_article = $id;
                         $record->id_tag = $tag;
                         $record->save();
+                    }
+                }
+                if (!empty($removeTags)) {
+                    foreach ($removeTags as $tag) {
+                        $sql = 'DELETE FROM db_article_tags WHERE id_article = ' . $id . ' AND id_tag = ' . $tag;
+                        Yii::app()->db->createCommand($sql)->query();
                     }
                 }
                 if (empty($newChosenTags)) {
@@ -95,7 +105,8 @@ class ArticleController extends Controller
                 }
                 $this->redirect('/office');
             } else {
-                Yii::app()->user->setFlash('error', 'При ' . ($id == 0 ? 'создании' : 'редактировании') .' статьи возникла ошибка');
+                Yii::app()->user->setFlash('error',
+                    'При ' . ($id == 0 ? 'создании' : 'редактировании') . ' статьи возникла ошибка');
                 Yii::log('Неудачная попытка отправить статью на модерацию: ' . var_export($model->getErrors(), true),
                     CLogger::LEVEL_WARNING);
             }
@@ -112,29 +123,40 @@ class ArticleController extends Controller
     {
         $model = $this->loadModel($id);
         $model->chosenTags = $model->getTags();
+        $model->type = array_search($model->type, $model->types);
 
         if (isset($_POST['application_modules_office_models_Article'])) {
             $model->attributes = $_POST['application_modules_office_models_Article'];
             $newChosenTags = isset($_POST['application_modules_office_models_Article']['chosenTags']) ?
-                $_POST['application_modules_office_models_Article']['chosenTags'] :array();
+                $_POST['application_modules_office_models_Article']['chosenTags'] : array();
             $model->chosenTags = $model->getTags();
-            $tags = array();
+            $removeTags = array();
+            $newTags = array();
             if ($model->chosenTags && $newChosenTags) {
                 foreach ($newChosenTags as $newTag) {
                     if (!in_array($newTag, $model->chosenTags)) {
-                        $tags[] = $newTag;
+                        $newTags[] = $newTag;
                     }
                 }
-            } else {
-                $tags = $newChosenTags;
+                foreach ($model->chosenTags as $oldTag) {
+                    if (!in_array($oldTag, $newChosenTags)) {
+                        $removeTags[] = $oldTag;
+                    }
+                }
             }
             if ($model->validate() && $model->save()) {
-                if (!empty($tags)) {
-                    foreach ($tags as $tag) {
+                if (!empty($newTags)) {
+                    foreach ($newTags as $tag) {
                         $record = new ArticleTag();
                         $record->id_article = $id;
                         $record->id_tag = $tag;
                         $record->save();
+                    }
+                }
+                if (!empty($removeTags)) {
+                    foreach ($removeTags as $tag) {
+                        $sql = 'DELETE FROM db_article_tags WHERE id_article = ' . $id . ' AND id_tag = ' . $tag;
+                        Yii::app()->db->createCommand($sql)->query();
                     }
                 }
                 if (empty($newChosenTags)) {
@@ -142,7 +164,8 @@ class ArticleController extends Controller
                 }
                 $this->redirect('/office');
             } else {
-                Yii::app()->user->setFlash('error', 'При ' . ($id == 0 ? 'создании' : 'редактировании') .' статьи возникла ошибка');
+                Yii::app()->user->setFlash('error',
+                    'При ' . ($id == 0 ? 'создании' : 'редактировании') . ' статьи возникла ошибка');
                 Yii::log('Неудачное редактирование статьи: ' . var_export($model->getErrors(), true),
                     CLogger::LEVEL_WARNING);
             }
@@ -169,25 +192,35 @@ class ArticleController extends Controller
             $model->attributes = $_POST['application_modules_office_models_Article'];
             $model->id_status = Article::DRAFT_STATUS;
             $newChosenTags = isset($_POST['application_modules_office_models_Article']['chosenTags']) ?
-                $_POST['application_modules_office_models_Article']['chosenTags'] :array();
+                $_POST['application_modules_office_models_Article']['chosenTags'] : array();
             $model->chosenTags = $model->getTags();
-            $tags = array();
+            $removeTags = array();
+            $newTags = array();
             if ($model->chosenTags && $newChosenTags) {
                 foreach ($newChosenTags as $newTag) {
                     if (!in_array($newTag, $model->chosenTags)) {
-                        $tags[] = $newTag;
+                        $newTags[] = $newTag;
                     }
                 }
-            } else {
-                $tags = $newChosenTags;
+                foreach ($model->chosenTags as $oldTag) {
+                    if (!in_array($oldTag, $newChosenTags)) {
+                        $removeTags[] = $oldTag;
+                    }
+                }
             }
             if ($model->validate() && $model->save()) {
-                if (!empty($tags)) {
-                    foreach ($tags as $tag) {
+                if (!empty($newTags)) {
+                    foreach ($newTags as $tag) {
                         $record = new ArticleTag();
                         $record->id_article = $id;
                         $record->id_tag = $tag;
                         $record->save();
+                    }
+                }
+                if (!empty($removeTags)) {
+                    foreach ($removeTags as $tag) {
+                        $sql = 'DELETE FROM db_article_tags WHERE id_article = ' . $id . ' AND id_tag = ' . $tag;
+                        Yii::app()->db->createCommand($sql)->query();
                     }
                 }
                 if (empty($newChosenTags)) {
@@ -195,7 +228,8 @@ class ArticleController extends Controller
                 }
                 $this->redirect('/office');
             } else {
-                Yii::app()->user->setFlash('error', 'При ' . ($id == 0 ? 'создании' : 'редактировании') .' статьи возникла ошибка');
+                Yii::app()->user->setFlash('error',
+                    'При ' . ($id == 0 ? 'создании' : 'редактировании') . ' статьи возникла ошибка');
                 Yii::log('Неудачное сохранение статьи в черновик: ' . var_export($model->getErrors(), true),
                     CLogger::LEVEL_WARNING);
             }

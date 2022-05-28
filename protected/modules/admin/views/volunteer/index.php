@@ -1,7 +1,6 @@
 <?php
 /**
  * @var $this VolunteerController
- * @var $model User
  * @var $dataProvider CActiveDataProvider
  */
 
@@ -11,6 +10,12 @@ $this->pageTitle = 'Список волонтеров';
 ?>
 
 <h1><?php echo $this->pageTitle; ?></h1>
+
+<?php if (Yii::app()->user->hasFlash('changeProfile')): ?>
+    <div class="flash-success">
+        <?= Yii::app()->user->getFlash('changeProfile'); ?>
+    </div>
+<?php endif; ?>
 
 <menu>
     <?= CHtml::htmlButton('Вернуться', array('submit' => array('/admin'), 'class' => 'back-button')); ?>
@@ -23,9 +28,9 @@ $this->pageTitle = 'Список волонтеров';
     'columns' => array(
         'id',
         array(
-            'header' => 'Имя',
+            'header' => 'ФИО',
             'name' => function ($model) {
-                return  $model->firstName;
+                return  $model->lastName . ' ' . $model->firstName . ' ' . $model->middleName;
             },
         ),
         'city.name',
@@ -36,12 +41,6 @@ $this->pageTitle = 'Список волонтеров';
             }
         ),
         'mail:email',
-        array(
-            'header' => 'Волонтерская группа',
-            'name' => function ($model) {
-                return isset($model->volunteer) ? VolunteerGroup::model()->findByPk($model->volunteer->id_group)->group_name : null;
-            }
-        ),
         array(
             'header' => 'Статус',
             'name' => function ($model) {

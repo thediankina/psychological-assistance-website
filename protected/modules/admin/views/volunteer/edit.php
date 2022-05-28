@@ -1,13 +1,27 @@
 <?php
 /**
  * Редактирование профиля волонтера
+ * @var $this VolunteerController
  * @var $model User
  */
 
-$form = $this->beginWidget('CActiveForm', array(
-    'id' => 'profile-form',
-    'enableAjaxValidation' => false,
-)); ?>
+use application\modules\admin\controllers\VolunteerController;
+
+Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/main.js');
+
+if ($model->id == Yii::app()->user->id) {
+    $this->pageTitle = 'Редактирование профиля волонтера';
+} else {
+    $this->pageTitle = 'Просмотр профиля волонтера #' . $model->id;
+} ?>
+
+<h1><?php echo $this->pageTitle; ?></h1>
+
+<?php if (Yii::app()->user->hasFlash('changeProfile')): ?>
+    <div class="flash-success">
+        <?= Yii::app()->user->getFlash('changeProfile'); ?>
+    </div>
+<?php endif; ?>
 
 <menu>
     <?= CHtml::htmlButton('Вернуться',
@@ -16,6 +30,11 @@ $form = $this->beginWidget('CActiveForm', array(
         array('submit' => array('volunteer/save', 'id' => $model->id), 'class' => 'primary-button')); ?>
 </menu>
 
+<?php $form = $this->beginWidget(CActiveForm::class, array(
+    'id' => 'profile-form',
+    'enableAjaxValidation' => false,
+)); ?>
+
 <table class="detail-view">
     <tbody>
     <tr>
@@ -23,7 +42,8 @@ $form = $this->beginWidget('CActiveForm', array(
             <?= $form->label($model, 'isActive'); ?>
         </th>
         <td>
-            <?= $form->dropDownList($model, 'isActive', array(1 => 'Активен', 0 => 'Отключен'), array('class' => 'profile-form-field')); ?>
+            <?= $form->dropDownList($model, 'isActive', array(1 => 'Активен', 0 => 'Отключен'),
+                array('class' => 'profile-form-field')); ?>
         </td>
     </tr>
     <tr>
@@ -31,7 +51,8 @@ $form = $this->beginWidget('CActiveForm', array(
             <?= $form->label($model, 'lastName'); ?>
         </th>
         <td>
-            <?= $form->textField($model, 'lastName', array('class' => 'profile-form-field', 'disabled' => 'disabled')); ?>
+            <?= $form->textField($model, 'lastName',
+                array('class' => 'profile-form-field', 'disabled' => 'disabled')); ?>
         </td>
     </tr>
     <tr>
@@ -39,7 +60,8 @@ $form = $this->beginWidget('CActiveForm', array(
             <?= $form->label($model, 'firstName'); ?>
         </th>
         <td>
-            <?= $form->textField($model, 'firstName', array('class' => 'profile-form-field', 'disabled' => 'disabled')); ?>
+            <?= $form->textField($model, 'firstName',
+                array('class' => 'profile-form-field', 'disabled' => 'disabled')); ?>
         </td>
     </tr>
     <tr>
@@ -47,7 +69,8 @@ $form = $this->beginWidget('CActiveForm', array(
             <?= $form->label($model, 'middleName'); ?>
         </th>
         <td>
-            <?= $form->textField($model, 'middleName', array('class' => 'profile-form-field', 'disabled' => 'disabled')); ?>
+            <?= $form->textField($model, 'middleName',
+                array('class' => 'profile-form-field', 'disabled' => 'disabled')); ?>
         </td>
     </tr>
     <tr>
@@ -65,7 +88,8 @@ $form = $this->beginWidget('CActiveForm', array(
             <?= $form->label($model, 'id_city'); ?>
         </th>
         <td>
-            <?= $form->dropDownList($model, 'id_city', CHtml::listData(City::model()->findAll(), 'id', 'name'), array('class' => 'profile-form-field')); ?>
+            <?= $form->dropDownList($model, 'id_city', CHtml::listData(City::model()->findAll(), 'id', 'name'),
+                array('class' => 'profile-form-field')); ?>
         </td>
     </tr>
     <tr>
@@ -110,16 +134,27 @@ $form = $this->beginWidget('CActiveForm', array(
     </tr>
     <tr>
         <th>
-            <?= $form->label($model, 'id_group'); ?>
+            <?= $form->label($model, 'groupIds'); ?>
         </th>
         <td>
-            <?= $form->dropDownList($model, 'id_group',
-                CHtml::listData(VolunteerGroup::model()->findAll(), 'id', 'group_name'), array(
-                    'options' => ($model->id_position == User::VOLUNTEER_POSITION) ? array($model->volunteer->id_group => array('selected' => true)) : '',
+            <?= $form->checkBoxList($model, 'groupIds',
+                CHtml::listData(VolunteerGroup::model()->findAll(), 'id', 'group_name'),
+                array(
                     'disabled' => !(($model->id_position == User::VOLUNTEER_POSITION)),
-                    'class' => 'profile-form-field',
-                    'empty' => '',
+                    'class' => 'profile-form-checkbox',
                 )); ?>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <?= $form->label($model, 'other'); ?>
+        </th>
+        <td>
+            <?= $form->textField($model, 'other', array(
+                'value' => Volunteer::model()->findByPk($model->id) ? (Volunteer::model()->findByPk($model->id))->other : '',
+                'disabled' => !(in_array(6, $model->groupIds)),
+                'class' => 'profile-form-field',
+            )); ?>
         </td>
     </tr>
     <tr>

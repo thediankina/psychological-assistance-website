@@ -31,6 +31,7 @@ class UserController extends Controller
     public function actionProfile($id)
     {
         $model = $this->loadModel($id);
+        $model->groupIds = $model->getVolunteerGroupIds();
         $this->render('profile', array('model' => $model));
     }
 
@@ -47,24 +48,54 @@ class UserController extends Controller
 
             if ($volunteer = Volunteer::model()->findByPk($model->id)) {
                 $volunteer->attributes = $_POST['User'];
-            }
-
-            if ($model->validate() && $model->save())
-            {
-                if ($volunteer) {
-                    if ($volunteer->validate()) {
-                        $volunteer->save();
+                $newGroupIds = $_POST['User']['groupIds'];
+                $model->groupIds = $model->getVolunteerGroupIds();
+                $newGroups = array();
+                $removeGroups = array();
+                if ($model->groupIds && $newGroupIds) {
+                    foreach ($newGroupIds as $newGroup) {
+                        if (!in_array($newGroup, $model->groupIds)) {
+                            $newGroups[] = $newGroup;
+                        }
+                    }
+                    foreach ($model->groupIds as $oldGroup) {
+                        if (!in_array($oldGroup, $newGroupIds)) {
+                            $removeGroups[] = $oldGroup;
+                        }
+                    }
+                }
+                if ($model->validate() && $model->save()) {
+                    if (!empty($newGroups)) {
+                        foreach ($newGroups as $groupId) {
+                            $record = new VolunteerGroupUser();
+                            $record->volunteer_id = $id;
+                            $record->group_id = $groupId;
+                            $record->param_value = 1;
+                            $record->save();
+                        }
+                    }
+                    if (!empty($removeGroups)) {
+                        foreach ($removeGroups as $groupId) {
+                            $sql = 'DELETE FROM db_users_group_volunteer WHERE volunteer_id = ' . $id . ' AND group_id = ' . $groupId;
+                            Yii::app()->db->createCommand($sql)->query();
+                        }
+                    }
+                    if (empty($newGroupIds)) {
+                        VolunteerGroupUser::model()->deleteAllByAttributes(array('volunteer_id' => $id));
                     }
                 }
 
-                Yii::app()->user->setFlash('changeProfile', 'Изменения сохранены');
-                $this->redirect('/user/profile?id=' . $model->id);
-            } else {
-                Yii::app()->user->setFlash('changeProfile', 'При выполнении этого действия произошла ошибка');
-                Yii::log('Неудачное сохранение пользователя: ' . var_export($model->getErrors(), true), CLogger::LEVEL_WARNING);
+                if ($model->validate() && $model->save()) {
+                    Yii::app()->user->setFlash('changeProfile', 'Изменения сохранены');
+                    $this->redirect('/user/profile?id=' . $model->id);
+                } else {
+                    Yii::app()->user->setFlash('changeProfile', 'При выполнении этого действия произошла ошибка');
+                    Yii::log('Неудачное сохранение пользователя: ' . var_export($model->getErrors(), true),
+                        CLogger::LEVEL_WARNING);
+                }
             }
+            $this->render('profile', array('model' => $model));
         }
-        $this->render('profile', array('model' => $model));
     }
 
     /**

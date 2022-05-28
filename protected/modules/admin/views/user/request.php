@@ -66,8 +66,15 @@ $this->pageTitle = 'Просмотр запроса на регистрацию 
         ),
         array(
             'name' => 'id_group',
+            'type' => 'raw',
             'value' => function ($model) {
-                return $model->isVolunteer() ? VolunteerGroup::model()->findByPk($model->volunteer->id_group)->group_name : null;
+                return $model->getVolunteerGroups() ? nl2br($model->getVolunteerGroups()) : null;
+            }
+        ),
+        array(
+            'name' => 'other',
+            'value' => function ($model) {
+                return $model->isVolunteer() ? Volunteer::model()->findByPk($model->id)->other : null;
             }
         ),
         array(

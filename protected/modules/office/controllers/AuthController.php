@@ -4,6 +4,7 @@ namespace application\modules\office\controllers;
 
 use Controller;
 use LoginForm;
+use User;
 use Yii;
 
 /**
@@ -40,6 +41,12 @@ class AuthController extends Controller
             $model->attributes = $_POST['LoginForm'];
 
             if ($model->validate() && $model->login()) {
+                if (Yii::app()->user->role == User::ROLE_ADMINISTRATOR) {
+                    $this->redirect('/admin');
+                }
+                if (Yii::app()->user->role == User::ROLE_VOLUNTEER) {
+                    $this->redirect($this->createUrl('/user/profile', array('id' => Yii::app()->user->id)));
+                }
                 $this->redirect('/office');
             }
         }

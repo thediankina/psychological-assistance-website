@@ -7,7 +7,7 @@
 ?>
 
 <menu>
-    <?= CHtml::htmlButton('Вернуться', array('submit' => array('/forum'), 'class' => 'back-button')); ?>
+    <?= CHtml::htmlButton('Вернуться', array('submit' => array('/volunteers'), 'class' => 'back-button')); ?>
 </menu>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
@@ -19,9 +19,24 @@
                 return $model->isActive == User::STATUS_ENABLED ? 'Активен' : 'Отключен';
             }
         ),
-        'lastName',
-        'firstName',
-        'middleName',
+        array(
+            'name' => 'lastName',
+            'value' => function ($model) {
+                return $model->lastName ?: null;
+            }
+        ),
+        array(
+            'name' => 'firstName',
+            'value' => function ($model) {
+                return $model->firstName ?: null;
+            }
+        ),
+        array(
+            'name' => 'middleName',
+            'value' => function ($model) {
+                return $model->middleName ?: null;
+            }
+        ),
         array(
             'name' => 'id_position',
             'value' => function ($model) {
@@ -58,15 +73,30 @@
             }
         ),
         array(
-            'name' => 'id_group',
+            'name' => 'groupIds',
+            'type' => 'raw',
             'value' => function ($model) {
-                return $model->isVolunteer() ? VolunteerGroup::model()->findByPk($model->volunteer->id_group)->group_name : null;
+                return $model->getVolunteerGroups() ? nl2br($model->getVolunteerGroups()) : null;
+            }
+        ),
+        array(
+            'name' => 'other',
+            'value' => function ($model) {
+                if ($model->isVolunteer() && Volunteer::model()->findByPk($model->id)->other) {
+                    return Volunteer::model()->findByPk($model->id)->other;
+                } else {
+                    return null;
+                }
             }
         ),
         array(
             'name' => 'utility',
             'value' => function ($model) {
-                return $model->isVolunteer() ? Volunteer::model()->findByPk($model->id)->utility : null;
+                if ($model->isVolunteer() && Volunteer::model()->findByPk($model->id)->utility) {
+                    return Volunteer::model()->findByPk($model->id)->utility;
+                } else {
+                    return null;
+                }
             }
         ),
     ),

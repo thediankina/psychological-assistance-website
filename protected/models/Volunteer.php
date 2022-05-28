@@ -5,14 +5,14 @@
  *
  * Атрибуты
  * @property integer $id
- * @property integer $id_group
+ * @property string $other
  * @property integer $old
  * @property string $utility
- * @property integer $isActive      // ignore
  * @property string $site
  * @property integer $id_city
+ *
  * Связи
- * @property VolunteerGroup $group
+ * @property VolunteerGroupUser[] $groups
  * @property City $city
  * @property User $user
  */
@@ -32,11 +32,12 @@ class Volunteer extends CActiveRecord
     public function rules()
     {
         return array(
-            array('id, id_group, old, site, id_city', 'required'),
-            array('id, id_group, old, id_city', 'numerical', 'integerOnly' => true),
+            array('id, other, old, site, id_city', 'required'),
+            array('id, old, id_city', 'numerical', 'integerOnly' => true),
+            array('other', 'length', 'max' => 50),
             array('utility', 'length', 'max' => 200),
             array('site', 'length', 'max' => 20),
-            array('id, id_group, old, utility, site, id_city', 'safe', 'on' => 'search'),
+            array('id, other, old, utility, site, id_city', 'safe', 'on' => 'search'),
         );
     }
 
@@ -46,7 +47,7 @@ class Volunteer extends CActiveRecord
     public function relations()
     {
         return array(
-            'group' => array(self::BELONGS_TO, VolunteerGroup::class, array('id_group' => 'id')),
+            'groups' => array(self::HAS_MANY, VolunteerGroupUser::class, array('volunteer_id' => 'id')),
             'city' => array(self::BELONGS_TO, City::class, array('id_city' => 'id')),
             'user' => array(self::BELONGS_TO, User::class, 'id'),
         );
@@ -59,9 +60,9 @@ class Volunteer extends CActiveRecord
     {
         return array(
             'id' => 'ID',
-            'id_group' => 'Группа',
+            'other' => 'Другое',
             'old' => 'Возраст',
-            'utility' => 'Другое',
+            'utility' => 'utility',
             'site' => 'Социальная сеть',
             'id_city' => 'Город',
         );
@@ -72,15 +73,14 @@ class Volunteer extends CActiveRecord
      */
     public function search()
     {
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria();
 
-        $criteria->with = array('group');
+        $criteria->with = array('groups');
         $criteria->compare('id', $this->id);
-        $criteria->compare('id_group', $this->id_group);
-        $criteria->compare('old',$this->old);
+        $criteria->compare('other', $this->other, true);
+        $criteria->compare('old', $this->old);
         $criteria->compare('utility', $this->utility, true);
-        //$criteria->compare('isActive',$this->isActive);
-        $criteria->compare('site',$this->site,true);
+        $criteria->compare('site', $this->site, true);
         $criteria->compare('id_city', $this->id_city);
 
         return new CActiveDataProvider($this, array(
