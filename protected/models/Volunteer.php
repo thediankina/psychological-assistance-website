@@ -32,9 +32,9 @@ class Volunteer extends CActiveRecord
     public function rules()
     {
         return array(
-            array('id, other, old, site, id_city', 'required'),
+            array('id, id_city', 'required'),
             array('id, old, id_city', 'numerical', 'integerOnly' => true),
-            array('other', 'length', 'max' => 200),
+            array('other', 'length', 'max' => 50),
             array('utility', 'length', 'max' => 200),
             array('site', 'length', 'max' => 20),
             array('id, other, old, utility, site, id_city', 'safe', 'on' => 'search'),
