@@ -46,12 +46,15 @@ class User extends CActiveRecord
     const ROLE_GUEST = 'guest';
     const ROLE_PSYCHOLOGIST = 1;
     const ROLE_LAWYER = 2;
+    const ROLE_SOCIAL_WORKER = 3;
+    const ROLE_MODERATOR = 4;
     const ROLE_ADMINISTRATOR = 5;
     const ROLE_VOLUNTEER = 6;
 
     const ROLES_SPECIALIST = array(
         self::ROLE_PSYCHOLOGIST,
         self::ROLE_LAWYER,
+        self::ROLE_SOCIAL_WORKER,
     );
 
     const ROLES_ANYBODY = array(
@@ -64,6 +67,8 @@ class User extends CActiveRecord
         self::ROLE_GUEST,
         self::ROLE_PSYCHOLOGIST,
         self::ROLE_LAWYER,
+        self::ROLE_SOCIAL_WORKER,
+        self::ROLE_MODERATOR,
         self::ROLE_ADMINISTRATOR,
         self::ROLE_VOLUNTEER,
     );

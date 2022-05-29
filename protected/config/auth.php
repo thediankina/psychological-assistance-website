@@ -22,9 +22,27 @@ return array(
         'bizRule' => null,
         'data' => null
     ),
+    3 => array(
+        'type' => CAuthItem::TYPE_ROLE,
+        'description' => 'Social Worker',
+        'children' => array(
+            1,
+        ),
+        'bizRule' => null,
+        'data' => null
+    ),
+    4 => array(
+        'type' => CAuthItem::TYPE_ROLE,
+        'description' => 'Moderator',
+        'bizRule' => null,
+        'data' => null
+    ),
     5 => array(
         'type' => CAuthItem::TYPE_ROLE,
         'description' => 'Administrator',
+        'children' => array(
+            4,
+        ),
         'bizRule' => null,
         'data' => null
     ),
