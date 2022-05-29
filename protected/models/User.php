@@ -59,7 +59,9 @@ class User extends CActiveRecord
 
     const ROLES_ANYBODY = array(
         self::ROLE_GUEST,
-        self::ROLES_SPECIALIST,
+        self::ROLE_PSYCHOLOGIST,
+        self::ROLE_LAWYER,
+        self::ROLE_SOCIAL_WORKER,
         self::ROLE_VOLUNTEER,
         );
 

@@ -52,11 +52,11 @@ class UserController extends Controller
         $dataProvider = new CActiveDataProvider(User::model(), array(
             'criteria' => array(
                 'condition' =>
-                    'id_position != ' . User::VOLUNTEER_POSITION .
+                    'id_position NOT IN (' . User::ROLE_VOLUNTEER . ', ' . User::ROLE_MODERATOR . ', ' . User::ROLE_ADMINISTRATOR . ')' .
                     ' AND isActive = ' . User::STATUS_DISABLED,
                 'order' => 'id ASC',
             ),
-            'pagination' => array('pageSize' => 20),
+            'pagination' => array('pageSize' => 15),
         ));
 
         $this->render('index', array(

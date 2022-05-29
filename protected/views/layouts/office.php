@@ -19,22 +19,27 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/main.js'
                 array(
                     'label' => 'Панель администратора',
                     'url' => array('/admin'),
+                    'visible' => !(in_array(Yii::app()->user->role, User::ROLES_ANYBODY)),
                 ),
                 array(
                     'label' => 'Все заявки',
                     'url' => array('/requests'),
+                    'visible' => in_array(Yii::app()->user->role, User::ROLES_SPECIALIST)
                 ),
                 array(
                     'label' => 'Личный кабинет',
                     'url' => array('/office'),
+                    'visible' => in_array(Yii::app()->user->role, User::ROLES_SPECIALIST)
                 ),
                 array(
                     'label' => 'Волонтеры',
                     'url' => array('/volunteers'),
+                    'visible' => in_array(Yii::app()->user->role, User::ROLES_SPECIALIST)
                 ),
                 array(
                     'label' => 'Форум',
                     'url' => array('/forum'),
+                    'visible' => in_array(Yii::app()->user->role, User::ROLES_SPECIALIST)
                 ),
             ),
         )); ?>

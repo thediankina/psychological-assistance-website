@@ -38,7 +38,9 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/pager.css'
             <a href="#"><?= CHtml::link(CHtml::encode(Yii::app()->user->name),
                     $this->createUrl('/user/profile', array('id' => Yii::app()->user->id))); ?>
             </a>
-            <a onclick="openMenu()">Меню</a>
+            <?php if (!(Yii::app()->user->role == User::ROLE_VOLUNTEER)): ?>
+                <a onclick="openMenu()">Меню</a>
+            <?php endif; ?>
             <a href="<?= $this->createUrl('/logout'); ?>">Выйти</a>
         <?php endif; ?>
     </div>
