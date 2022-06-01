@@ -107,7 +107,7 @@ class Category extends CActiveRecord
      */
     public function getParent()
     {
-        return ($this->parent !== null ? $this->parent->category_name . ' - ' : '') . $this->category_name;
+        return $this->category_name;
     }
 
     /**

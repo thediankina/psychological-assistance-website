@@ -5,6 +5,31 @@
  */
 class SiteController extends Controller
 {
+    /**
+     * For redirect to custom login
+     */
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array(
+                'deny',
+                'deniedCallback' => array($this, 'deny'),
+            ),
+        );
+    }
+
+    public function deny()
+    {
+        $this->redirect('/login');
+    }
+
 	/**
 	 * Declares class-based actions.
 	 */

@@ -19,8 +19,8 @@ $this->pageTitle = ($model->id) ? 'Редактирование раздела #
     <?= CHtml::htmlButton('Сохранить', array('type' => 'submit', 'class' => 'primary-button')); ?>
 </menu>
 
-<?= CHtml::activeTextField($model, 'title', array('class' => 'article-field')); ?>
+<?= CHtml::activeTextField($model, 'title', array('class' => 'article-field', 'placeholder' => 'Введите название...')); ?>
 
-<?= CHtml::activeTextField($model, 'description', array('class' => 'article-field')); ?>
+<?= CHtml::activeTextField($model, 'description', array('class' => 'article-field', 'placeholder' => 'Введите описание...')); ?>
 
 <?= CHtml::endForm(); ?>

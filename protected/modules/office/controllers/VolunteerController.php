@@ -46,7 +46,7 @@ class VolunteerController extends Controller
     {
         $model = new User();
         $model->isActive = User::STATUS_ENABLED;
-        $model->id_position = User::VOLUNTEER_POSITION;
+        $model->id_position = User::ROLE_VOLUNTEER;
         $dataProvider = $model->search();
 
         $this->render('index', array(
